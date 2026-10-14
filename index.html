@@ -322,6 +322,7 @@ th:first-child, td:first-child { text-align: left; font-family: var(--f-sans); }
 .seo li { margin-bottom: 6px; }
 .seo-foot { margin-top: 32px !important; font-size: 12px; font-family: var(--f-mono, monospace); letter-spacing: 0.04em; }
 html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: none; }
+.decision.vsinvite { border-color: #25f4ee; } .decision.vsinvite .tag { color: #25f4ee; }
 
 </style>
 </head>
@@ -1000,6 +1001,11 @@ Object.assign(I18N.ko, {
   d_boss_win: '투자자 목표 달성: +£{x}.', d_boss_lose: '투자자 목표 실패: −£{x}.', mb_offer: '이벤트·제안 비용', mb_boss: '투자자 보상/페널티',
 });
 I18N.en.channels.event = 'Event'; I18N.ko.channels.event = '이벤트';
+
+Object.assign(I18N.en, { resume_h: 'Your campaign is still running' });
+Object.assign(I18N.ko, { resume_h: '진행 중인 캠페인이 있어요' });
+Object.assign(I18N.en, { vs_share_h: 'Think your friends can beat {x} (grade {g})?', vs_share_sub: 'Send them your exact market: same news, same trends, same offers. When they finish, their result lands right next to yours.', vs_share_btn: 'Challenge a friend' });
+Object.assign(I18N.ko, { vs_share_h: '친구는 {x}({g}등급)를 넘을 수 있을까?', vs_share_sub: '나와 똑같은 시장을 보내세요. 같은 뉴스, 같은 트렌드, 같은 제안. 친구가 끝내면 결과가 내 결과 바로 옆에 비교돼요.', vs_share_btn: '친구에게 도전장 보내기' });
 
 // ===== Viral or Bust — simulation engine (all figures fictional) =====
 const AGES = ['a16', 'a25', 'a35', 'a45'];
@@ -2156,7 +2162,8 @@ const SFX = (() => {
 const HOSTED_URL = '';
 const STANDALONE = !(window.__host && window.__host.use);
 const SUPA = STANDALONE && !!SUPA_URL && !!SUPA_KEY;
-const siteUrl = () => (STANDALONE ? location.href.split('#')[0] : HOSTED_URL);
+const siteUrl = () => (STANDALONE ? location.origin + location.pathname : HOSTED_URL);
+const refUrl = (src) => (STANDALONE ? siteUrl() + '?utm_source=' + src + '&utm_medium=referral&utm_campaign=player_share' : siteUrl());
 Object.assign(I18N.en.achievements, { followers1k: ['First thousand', 'Reach 1,000 Instagram followers.'], collab: ['Collab king', 'Land a successful creator collab.'] });
 Object.assign(I18N.ko.achievements, { followers1k: ['첫 천 명', '인스타그램 팔로워 1,000명 달성.'], collab: ['콜라보 장인', '크리에이터 협업 성공.'] });
 Object.assign(I18N.en, {
@@ -2457,7 +2464,11 @@ function parseToken(h) {
     return { product, final: d36(p[2]), months: parseInt(p[3], 36), grade: (p[4] || 'C').slice(0, 1), nick: ub64(p[5]).slice(0, 18) || 'Player', seed: parseInt(p[6], 36) || 1, path, token: p.join('.') };
   } catch { return null; }
 }
-const challengeLink = (token) => siteUrl() + '#' + token;
+const challengeLink = (token) => refUrl('challenge') + '#' + token;
+async function shareNative(text, url, boxId) {
+  if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent || '')) { try { await navigator.share({ title: 'Viral or Bust', text, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+  shareCopy(text + ' ' + url, boxId);
+}
 function shareCopy(text, boxId) {
   const box = document.getElementById(boxId);
   const show = (msg) => { if (box) { box.hidden = false; box.innerHTML = `<p class="note" style="margin:0 0 6px">${esc(msg)}</p><input class="input" readonly value="${esc(text)}" onclick="this.select()">`; } };
@@ -2615,20 +2626,21 @@ function homeScreen() {
         <p class="note"><b style="color:var(--ink)">${esc(brandName(UI.product))}</b> · ${esc(t('products.' + UI.product + '.hint'))} <span class="mono">${esc(t('price'))} ${gbp(PRODUCTS[UI.product].price)} · ${esc(t('margin'))} ${Math.round(PRODUCTS[UI.product].margin * 100)}%${PRODUCTS[UI.product].fixed ? ' · ' + esc(t('fixed_cost')) + ' ' + gbp(PRODUCTS[UI.product].fixed) + '/' + (LANG === 'ko' ? '월' : 'mo') : ''}</span></p></div>
       <div><label class="label" for="nick" style="display:block">${esc(t('setup_name'))}</label><input class="input" id="nick" maxlength="18" placeholder="${esc(t('nick_ph'))}" value="${esc(UI.nick)}"></div>
       <div><button class="btn primary ig" data-act="start">${esc(t('start_cta'))}</button><p class="note">${esc(t('setup_hint'))}</p></div>
-      <div class="row"><button class="btn sm" data-act="sound">${esc(SFX.on ? t('sound_on') : t('sound_off'))}</button>
-        ${saved ? `<button class="btn sm" data-act="resume">${esc(t('continue_cta', { m: monName(saved.month), x: gbp(saved.cash) }))}</button>` : ''}</div>
+      <div class="row"><button class="btn sm" data-act="sound">${esc(SFX.on ? t('sound_on') : t('sound_off'))}</button></div>
     </section>
     <section class="block">${recordsBox()}</section>
     <section class="block stack"><h2>${esc(t('how_h'))}</h2>${t('how_p').map((p) => `<p class="note" style="font-size:16px;margin:0">${esc(p)}</p>`).join('')}</section>
     <section class="block stack"><div class="hrow"><h2>${esc(t('ach'))}</h2><span class="mono muted">${ACH.size}/${Object.keys(I18N.en.achievements).length}</span></div>${achGrid()}</section>
     <p class="sim">${esc(t('sim'))}</p>
   </div></main>
-  ${actionbar(saved ? `<button class="btn" data-act="resume">${esc(t('continue_cta', { m: monName(saved.month), x: gbp(saved.cash) }))}</button>` : '', `<button class="btn primary ig" data-act="${saved ? 'start' : 'tosetup'}">${esc(t('start_cta'))}</button>`)}`;
+  ${actionbar(saved ? `<button class="btn" data-act="resume">${esc(t('continue_cta', { m: monName(saved.month), x: gbp(saved.cash) }))}</button>` : '', `<button class="btn primary ig" data-act="tosetup">${esc(t('start_cta'))}</button>`)}`;
 }
+const SOCIAL_MIN = 10, LIVE_MIN = 5;
 function renderStats() {
   const el = document.getElementById('bigstats'); if (!el) return;
   el.hidden = NET.state === 'off';
   const posts = NET.posts;
+  if ((NET.supa && NET.counts ? NET.counts.plays : posts.length) < SOCIAL_MIN) { el.hidden = true; return; }
   if (NET.supa && NET.counts) { el.innerHTML = `<div><b>${int(NET.counts.plays)}</b><span>${esc(t('stat_started'))}</span></div><div><b>${int(NET.counts.fame)}</b><span>${esc(t('stat_fame'))}</span></div><div><b>${int(NET.counts.posts)}</b><span>${esc(t('stat_posts'))}</span></div>`; return; }
   el.innerHTML = `<div><b>${int(posts.length)}</b><span>${esc(t('stat_posts'))}</span></div><div><b>${int(posts.reduce((a, p) => a + (p.virals || 0), 0))}</b><span>${esc(t('stat_virals'))}</span></div><div><b>${int(posts.filter((p) => p.outcome === 'bust').length)}</b><span>${esc(t('stat_busts'))}</span></div>`;
 }
@@ -2638,6 +2650,9 @@ function renderLive() {
   const p = NET.posts[0];
   const tick = p ? (p.outcome === 'bust' ? t('tick_bust', { ago: agoText(p.createdAt), p: prodName(p.product) }) : t('tick_year', { ago: agoText(p.createdAt), p: prodName(p.product), x: gbp(p.final) })) : '';
   const main = NET.supa ? t('live_recent', { n: int(NET.recentPlays || 0) }) : NET.room ? (NET.peers > 1 ? t('live_n', { n: int(NET.peers) }) : t('live_one')) : t('live_off', { n: int(NET.posts.length) });
+  const enough = NET.supa ? (NET.recentPlays || 0) >= LIVE_MIN : NET.room ? true : NET.posts.length >= LIVE_MIN;
+  if (!enough && !tick) { el.innerHTML = ''; return; }
+  if (!enough) { el.innerHTML = `<div class="live"><i></i><div><span class="tick" style="margin:0">${esc(tick)}</span></div></div>`; return; }
   el.innerHTML = `<div class="live"><i></i><div>${esc(main)}${tick ? `<span class="tick">${esc(tick)}</span>` : ''}</div></div>`;
 }
 function hallEntries(kind) {
@@ -2951,7 +2966,8 @@ function endScreen(kind) {
     <div class="decision" style="border-color:#fe2c55"><span class="tag">${esc(kind === 'year' ? t('hall') : t('ch_banner_tag'))}</span>
       <h3>${esc(kind === 'year' ? (run.registered ? t('fame_done') : t('fame_h')) : t('send_ch'))}</h3><p>${esc(kind === 'year' ? (run.registered ? t('fame_done_sub') : t('fame_sub')) : t('send_ch_sub'))}</p>
       ${kind === 'year' && !run.registered && (!UI.nick || UI.nick === 'Player') ? `<input class="input" id="endnick" maxlength="18" placeholder="${esc(t('fame_nick'))}">` : ''}
-      <div class="row"><button class="btn primary ig" data-act="sendch">${esc(kind === 'year' ? t('fame_btn') : t('send_ch'))}</button>${kind === 'year' && run.registered ? `<button class="btn" data-act="home">${esc(t('fame_view'))}</button>` : ''}</div><div id="sharebox-end" hidden></div></div>
+      <div class="row"><button class="btn primary ig" data-act="${kind === 'year' ? 'sendch' : 'sharech'}">${esc(kind === 'year' ? t('fame_btn') : t('vs_share_btn'))}</button>${kind === 'year' && run.registered ? `<button class="btn" data-act="home">${esc(t('fame_view'))}</button>` : ''}</div><div id="sharebox-end" hidden></div></div>
+    ${kind === 'year' ? `<div class="decision vsinvite"><span class="tag">${esc(t('ch_banner_tag'))}</span><h3>${esc(t('vs_share_h', { x: gbp(run.final), g: run.grade }))}</h3><p>${esc(t('vs_share_sub'))}</p><div class="row"><button class="btn primary" data-act="sharech">${esc(t('vs_share_btn'))}</button></div><div id="sharebox-vs" hidden></div></div>` : ''}
     ${missionBox(true)}
     <div class="kpis">${k(t('final_cash'), gbp(run.final))}${k(t('growth'), (run.final >= START ? '+' : '') + pct(run.final / START - 1, 0))}${k(t('stat_followers'), int(run.followers || 0))}${k(t('best_month'), best ? esc(monName(best.month)) + ' ' + sgbp(Math.round(best.net)) : '–')}${k(t('virals'), run.virals)}${k(t('total_rev'), gbp(G.totalRevenue))}</div>
     <div><h2>${esc(kind === 'year' ? t('diary_title') : t('diary_title_bust'))}</h2>
@@ -2995,7 +3011,7 @@ async function saveCard(run, statusEl) {
   const { L } = diaryLabels(run);
   try { const blob = await PX.shareCard(run, L); await saveBlob('viral-or-bust-card.png', blob); } catch (e) { statusEl && (statusEl.textContent = e && e.code === 'declined' ? t('video_declined') : ''); }
 }
-function shareMessage(run) { return run.outcome === 'bust' ? t('share_msg_bust', { n: run.nick, m: run.months.length, p: prodName(run.product), u: siteUrl() }) : t('share_msg', { n: run.nick, x: gbp(run.final), p: prodName(run.product), g: run.grade, u: siteUrl() }); }
+function shareMessage(run) { return run.outcome === 'bust' ? t('share_msg_bust', { n: run.nick, m: run.months.length, p: prodName(run.product), u: refUrl('result') }) : t('share_msg', { n: run.nick, x: gbp(run.final), p: prodName(run.product), g: run.grade, u: refUrl('result') }); }
 function openReplay(id) {
   const run = RUNS.find((r) => r.id === id); if (!run) return;
   const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal';
@@ -3056,7 +3072,7 @@ document.addEventListener('click', (e) => {
   if (a === 'resume') { if (G) { UI.screen = UI.prevScreen || 'plan'; go(); } return; }
   if (a === 'home') { if (G && UI.screen !== 'home') UI.prevScreen = UI.screen; UI.screen = 'home'; save(); go(); return; }
   if (a === 'replay') { openReplay(v); return; }
-  if (a === 'sharegame') { shareCopy(t('share_game_msg', { u: siteUrl() }), 'sharebox-home'); return; }
+  if (a === 'sharegame') { shareCopy(t('share_game_msg', { u: refUrl('friend') }), 'sharebox-home'); return; }
   if (a === 'acceptch') { if (UI.challenge) { UI.product = UI.challenge.product; UI.pendingChallenge = UI.challenge; UI.challenge = null; startGame(); } return; }
   if (a === 'famech') { registerFame(UI.challenge).then((ok) => { if (ok) { UI.chRegistered = true; const y = scrollY; render(); scrollTo(0, y); } }); return; }
   if (a === 'hallch') { const d = (UI.hallList || [])[+v]; if (d && d.seed) { UI.product = d.product || 'serum'; UI.pendingChallenge = { product: UI.product, nick: d.nick, final: d.score, months: 12, grade: d.grade || gradeOf(d.score), seed: d.seed, path: [START, ...(d.path || [])] }; startGame(); } return; }
@@ -3090,6 +3106,7 @@ document.addEventListener('click', (e) => {
   if (a === 'savenote') { const n = document.getElementById('note'); if (n && G.last) { UI.notes[G.last.month] = n.value.trim().slice(0, 60); save(); toast('', t('diary_saved')); } return; }
   if (a === 'next') { const n = document.getElementById('note'); if (n && G.last && n.value.trim()) UI.notes[G.last.month] = n.value.trim().slice(0, 60); nextMonth(); return; }
   if (a === 'endless') { goEndless(); return; }
+  if (a === 'sharech') { const run = RUNS.find((r) => r.id === UI.lastRun); if (run) { const link = challengeLink(makeToken(run)); const msg = run.outcome === 'bust' ? t('ch_msg_bust', { n: run.nick, p: prodName(run.product), m: run.months.length }) : t('ch_msg', { n: run.nick, p: prodName(run.product), x: gbp(run.final) }); track('share', { method: 'challenge_invite', industry: run.product, outcome: run.outcome }); shareNative(msg, link, run.outcome === 'bust' ? 'sharebox-end' : 'sharebox-vs'); } return; }
   if (a === 'sendch') { const run = RUNS.find((r) => r.id === UI.lastRun); const wasReg = run && run.registered; registerRun(run); if (run) { const link = challengeLink(makeToken(run)); const msg = (run.outcome === 'bust' ? t('ch_msg_bust', { n: run.nick, p: prodName(run.product), m: run.months.length }) : t('ch_msg', { n: run.nick, p: prodName(run.product), x: gbp(run.final) })) + ' ' + link; shareCopy(msg, 'sharebox-end'); if (!wasReg && run.outcome === 'year') { const d = document.querySelector('#sharebox-end')?.closest('.decision'); if (d) { const h = d.querySelector('h3'), p = d.querySelector('p'); if (h) h.textContent = t('fame_done'); if (p) p.textContent = t('fame_done_sub'); d.querySelector('#endnick')?.remove(); } } } return; }
   if (a === 'retry') { UI.product = G ? G.product : UI.product; if (G && G.challenge) UI.pendingChallenge = { ...G.challenge, seed: G.seed }; startGame(); return; }
   if (a === 'newgame') { G = null; UI.screen = 'home'; store.del('vob2-save'); go(); setTimeout(() => document.getElementById('setup')?.scrollIntoView(), 50); return; }
