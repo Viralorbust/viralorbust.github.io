@@ -2,9 +2,17 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FWLJB31TVJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FWLJB31TVJ');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Viral or Bust</title>
-<meta name="description" content="£5,000. Twelve months. Grow it, or go bust. A marketing simulation game.">
+<title>Viral or Bust · Marketing Budget Simulation Game</title>
+<meta name="description" content="Free marketing budget simulation game. Split £5,000 across Instagram, TikTok, search ads and SEO for 12 months, pick your audience, and grow it or go bust.">
 <meta property="og:title" content="Viral or Bust">
 <meta property="og:description" content="£5,000. Twelve months. Grow it, or go bust. Challenge your friends.">
 <meta property="og:type" content="website">
@@ -12,6 +20,14 @@
 <meta property="og:image" content="https://viralorbust.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<link rel="canonical" href="https://viralorbust.github.io/">
+<meta name="robots" content="index, follow">
+<meta property="og:url" content="https://viralorbust.github.io/">
+<meta property="og:site_name" content="Viral or Bust">
+<meta name="twitter:title" content="Viral or Bust">
+<meta name="twitter:description" content="£5,000. Twelve months. Grow it, or go bust. A free marketing budget simulation game.">
+<meta name="twitter:image" content="https://viralorbust.github.io/og-image.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Viral or Bust","url":"https://viralorbust.github.io/","description":"A free browser game that simulates a 12-month digital marketing budget: split £5,000 across Instagram, TikTok, search ads and SEO, target audiences, and grow or go bust.","genre":["Simulation","Business"],"gamePlatform":"Web browser","applicationCategory":"Game","inLanguage":["en","ko"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}</script>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#050507">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,13 +38,6 @@
 body { margin: 0; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
-/* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
 /* Layout: a narrow reading column like a printed almanac. Floating language pill on top, live dot-field hero, segmented option grids, fixed two-button action bar at the bottom. */
 /* TikTok night: black stage, white type, two signal colours only (cyan = up, pink = action/down). */
 :root {
@@ -2296,6 +2305,9 @@ function compareChart(mine, theirs, nameA, nameB) {
     <text x="${L + 6}" y="${T + 12}" font-size="12" fill="#25f4ee" font-family="IBM Plex Mono, monospace">● ${esc(nameA)}</text><text x="${L + 6}" y="${T + 28}" font-size="12" fill="#fe2c55" font-family="IBM Plex Mono, monospace">● ${esc(nameB)}</text></svg>`;
 }
 
+// ---------- analytics (GA4 on the hosted site only) ----------
+function track(name, params) { try { if (typeof window.gtag !== 'function') return; const p = { lang: LANG, ...(params || {}) }; if (p.industry) p.industry = { sneakers: 'fashion', coffee: 'cafe', serum: 'beauty', app: 'tech' }[p.industry] || p.industry; window.gtag('event', name, p); } catch (e) {} }
+
 // ---------- flow ----------
 function startGame() {
   const nick = (document.getElementById('nick')?.value || UI.nick || '').trim().slice(0, 18) || 'Player';
@@ -2309,6 +2321,7 @@ function startGame() {
   UI.plan = { gender: 'all', age: 'a25', content: 'short', risk: 'normal' };
   UI.alloc = {};
   ATTEMPTS++; store.set('vob-attempts', ATTEMPTS);
+  track('game_start', { industry: UI.product, challenge: ch ? 'yes' : 'no', attempt: ATTEMPTS });
   if (NET.supa) sb('plays', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, product: UI.product }) }).catch(() => {});
   UI.touched = false; UI.offer = 'decline'; UI.collab = null; UI.choices = {}; UI.notes = {}; UI.posted = false; UI.screen = 'plan';
   SFX.click(); save(); go();
@@ -2317,20 +2330,25 @@ function launch(skip) {
   const alloc = {}; for (const c of CHANNEL_ORDER) alloc[c] = skip || !unlocked(c) ? 0 : Math.max(0, UI.alloc[c] || 0);
   const total = Object.values(alloc).reduce((a, b) => a + b, 0) + collabCost() + offerCostNow() + decisionCostNow();
   if (total > G.cash + 0.01) return;
+  const offerTaken = UI.offer === 'accept' && G.offer ? String(G.offer) : 'none';
   const r = simulate(G, { ...UI.plan }, alloc, UI.offer === 'accept' && !!G.offer, UI.collab, UI.choices || {});
   checkAch(r);
+  { const spend = Object.values(alloc).reduce((x, y) => x + y, 0), top = CHANNEL_ORDER.filter((c) => alloc[c] > 0).sort((x, y) => alloc[y] - alloc[x])[0] || 'none';
+    track('month_launch', { industry: G.product, month: G.month, spend: Math.round(spend), top_channel: top, intensity: UI.plan.risk, target_age: UI.plan.age, target_gender: UI.plan.gender, content: UI.plan.content, collab: UI.collab ? 'yes' : 'no', offer: offerTaken, net: Math.round(r.net), outcome: r.jackpot ? 'jackpot' : r.viral ? 'viral' : r.crash ? 'crash' : r.net >= 0 ? 'profit' : 'loss', endless: G.endless ? 'yes' : 'no' }); }
   if (G.endless) submitScore('endless', G.peakCash, G.month);
   if (r.viral || r.jackpot) SFX.viral(); else if (r.net >= 0 && !r.crash) SFX.win(); else SFX.lose();
   UI.screen = 'result'; save(); go();
 }
 function nextMonth() {
   if (isBankrupt(G)) {
+    track('game_bust', { industry: G.product, month: G.month, peak: Math.round(G.peakCash || 0), challenge: G.challenge ? 'yes' : 'no' });
     grant('bust'); BUSTS++; store.set('vob-busts', BUSTS); if (G.endless) submitScore('endless', G.peakCash, G.month);
     const run = buildRun('bust'); saveRun(run); UI.lastRun = run.id; UI.posted = false;
     UI.screen = 'over'; save(); go(); return;
   }
   if (G.month === 12 && !G.endless) {
-    G.campaignScore = G.cash; grant('year'); if (G.cash > (BEST.campaign || 0)) { BEST.campaign = G.cash; store.set('vob-best', BEST); }
+    G.campaignScore = G.cash; track('game_complete', { industry: G.product, final: Math.round(G.cash), grade: gradeOf(G.cash), value: Math.round(G.cash), challenge: G.challenge ? 'yes' : 'no' });
+    grant('year'); if (G.cash > (BEST.campaign || 0)) { BEST.campaign = G.cash; store.set('vob-best', BEST); }
     const run = buildRun('year'); saveRun(run); UI.lastRun = run.id; UI.posted = false;
     UI.screen = 'year'; save(); go(); return;
   }
@@ -2735,6 +2753,7 @@ function registerRun(run) {
   if (!run || run.outcome !== 'year' || run.registered) return;
   const n = document.getElementById('endnick'); if (n && n.value.trim()) { UI.nick = n.value.trim().slice(0, 18); store.set('vob-nick', UI.nick); run.nick = UI.nick; }
   run.registered = true; saveRun(run); save();
+  track('hall_of_fame_submit', { industry: run.product, grade: run.grade, final: Math.round(run.final) });
   if (!UI.posted && NET.supa) sharePost(run, '').then((ok) => { if (ok) { UI.posted = true; save(); } });
   submitScore('campaign', run.final, 12, run.product, { seed: run.seed, path: run.months.slice(0, 12).map((m) => Math.round(m.cash)), grade: run.grade });
   toast(t('hall'), t('fame_toast'));
@@ -2850,7 +2869,7 @@ function render() {
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
   const a = b.dataset.act, v = b.dataset.v;
-  if (a === 'lang') { LANG = v; store.set('vob-lang', v); render(); return; }
+  if (a === 'lang') { track('language_switch', { to: v }); LANG = v; store.set('vob-lang', v); render(); return; }
   if (a === 'theme') { THEME = THEME === 'light' ? 'dark' : 'light'; store.set('vob-theme', THEME); applyTheme(); render(); return; }
   if (a === 'sound') { SFX.set(!SFX.on); store.set('vob-sound', SFX.on); b.textContent = SFX.on ? t('sound_on') : t('sound_off'); SFX.click(); return; }
   if (a === 'lbtab') { UI.lbTab = v; renderHall(); return; }
@@ -2872,6 +2891,7 @@ document.addEventListener('click', (e) => {
   if (a === 'mclose') { PX.stopAll(); document.getElementById('modal')?.remove(); render(); return; }
   if (a === 'mplay' || a === 'dplay') { if (PLAYER) { PLAYER.play(); SFX.click(); } return; }
   if (a === 'msave') { saveVideo(document.getElementById('mstatus')); return; }
+  if (['dsave', 'cardsave', 'copylink', 'post', 'sendch', 'acceptch', 'research', 'retry'].includes(a)) track(a === 'acceptch' ? 'challenge_accept' : a === 'research' ? 'research_buy' : a === 'retry' ? 'retry' : 'share', a === 'acceptch' || a === 'research' || a === 'retry' ? { industry: (G && G.product) || UI.product } : { method: { dsave: 'diary_video', cardsave: 'share_card', copylink: 'copy_link', post: 'feed_post', sendch: 'challenge_link' }[a] });
   if (a === 'dsave') { registerRun(RUNS.find((r) => r.id === UI.lastRun)); saveVideo(document.getElementById('dstatus')); return; }
   if (a === 'cardsave') { const run = RUNS.find((r) => r.id === UI.lastRun); registerRun(run); if (run) saveCard(run, document.getElementById('dstatus')); return; }
   if (a === 'copylink') { const run = RUNS.find((r) => r.id === UI.lastRun); registerRun(run); const msg = run ? shareMessage(run) : siteUrl(); const st = document.getElementById('dstatus');
@@ -2922,7 +2942,7 @@ function boot(data) {
   }
   if (G && (!G.trends || G.v !== 2)) { G = null; UI.screen = 'home'; }
   const ch = parseToken(location.hash);
-  if (ch) { UI.challenge = ch; UI.chRegistered = false; if (G) { UI.prevScreen = UI.prevScreen || (UI.screen !== 'home' ? UI.screen : 'plan'); } UI.screen = 'home'; }
+  if (ch) { track('challenge_open', { industry: ch.product, grade: ch.grade }); UI.challenge = ch; UI.chRegistered = false; if (G) { UI.prevScreen = UI.prevScreen || (UI.screen !== 'home' ? UI.screen : 'plan'); } UI.screen = 'home'; }
   const go2 = () => render();
   if (document.fonts && document.fonts.load) Promise.all(['700 20px "Source Serif 4"', '800 20px "Noto Sans KR"', '500 20px "IBM Plex Mono"'].map((f) => document.fonts.load(f).catch(() => {}))).then(() => { if (UI.screen !== 'home') render(); });
   go2();
