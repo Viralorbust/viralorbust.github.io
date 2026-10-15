@@ -252,7 +252,7 @@ th:first-child, td:first-child { text-align: left; font-family: var(--f-sans); }
 .ach.got { border-style: solid; border-color: var(--teal); background: var(--teal-soft); color: var(--ink); }
 .ach.got b { color: var(--teal); }
 .sim { font-size: 13px; color: var(--muted); font-family: var(--f-mono); }
-.toasts { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(100px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; z-index: 60; width: min(360px, calc(100vw - 32px)); pointer-events: none; }
+.toasts { position: fixed; left: 50%; transform: translateX(-50%); top: calc(64px + env(safe-area-inset-top, 0px)); display: flex; flex-direction: column; gap: 8px; z-index: 60; width: min(360px, calc(100vw - 32px)); pointer-events: none; }
 .toast { background: var(--ink); color: var(--bg); padding: 12px 16px; border-radius: 8px; font-size: 14.5px; box-shadow: var(--shadow); animation: rise .35s both; }
 .toast small { display: block; color: var(--teal-soft); font-family: var(--f-mono); font-size: 11.5px; }
 .modal { position: fixed; inset: 0; z-index: 70; background: color-mix(in srgb, var(--ink) 55%, transparent); display: flex; align-items: center; justify-content: center; padding: 20px; padding-top: calc(20px + env(safe-area-inset-top, 0px)); padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
@@ -326,6 +326,10 @@ html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: no
 .decision.vsinvite { border-color: #25f4ee; } .decision.vsinvite .tag { color: #25f4ee; }
 #app:empty { min-height: 100vh; min-height: 100dvh; }
 .boot { min-height: 100vh; min-height: 100dvh; } html[lang="en"] .boot [lang="ko"], html[lang="ko"] .boot [lang="en"] { display: none; }
+
+.cause { margin-top: 14px; padding: 12px 14px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 9%, transparent); border-radius: 0 8px 8px 0; }
+.cause p { margin: 6px 0 0; font-size: 15px; line-height: 1.5; opacity: .85; }
+.cause p.main { margin: 0; font-weight: 600; opacity: 1; }
 
 </style>
 </head>
@@ -1034,8 +1038,15 @@ Object.assign(I18N.en, {
   rs1_desc: 'A market report on who buys in your industry: their ages and gender. Buyers get one chance in April and one in September to upgrade to a deeper report.',
   rs_lv: 'Level {n}', rs_gender_sub: 'Response to each gender setting. “Everyone” is its own option.',
   rs_next: 'An upgrade will be offered in {m} ({c}). Miss it and it is gone.', rs_missed: 'No more upgrades this year.',
+  under1: 'under 1%', pick_h: 'Pick your audience first', pick_b: 'Choose gender, age and content style before launching.', pick_cap: 'Pick your target audience', pick_note: 'Choose a gender, an age group and a content style to launch this month.',
+  cause_target: 'Why it failed: your audience and content did not match the buyers in this industry, so sales fell to {x} of what they could have been. Check the audience insights.',
+  cause_doom: 'Why it failed: a disaster in {m} wiped out {x} in one go.',
+  cause_allin: 'Why it failed: you spent {p}% of your cash in {m} and had nothing left to recover with.',
+  cause_bold: 'Why it failed: the all-in intensity made every bad month far worse.',
+  cause_roas: 'Why it failed: every £1 of ads brought back only {x} in sales, so each campaign lost money.',
+  cause_dead: 'The {x} left could not cover another month of running costs and ads, so the run ended here.',
   rs_pop_tag: 'Audience insights', rs_pop_h: 'Upgrade your report to level {n}?',
-  rs_pop_p2: 'Level 2 adds what this audience watches and where they spend their time.', rs_pop_p3: 'Level 3 adds the conversion rate you can reach on every channel and its cost per click.', rs_pop_p3b: 'Level 3 includes everything in level 2 (what this audience watches and where they spend their time), plus the conversion rate you can reach on every channel and its cost per click.',
+  rs_pop_p2: 'Level 2 adds what this audience watches and where they spend their time.', rs_pop_p3: 'Level 3 adds the conversion rate you can reach on every channel and its cost per click.',
   rs_pop_once: 'This offer appears once. Say no and this level will not come back.', rs_pop_cash: 'You need {c} in cash to buy it.',
   rs_pop_buy: 'Buy ({c})', rs_pop_skip: 'No thanks',
   hall_rank: 'rank {r} of {n}', hall_none: 'You are not on the hall of fame yet. Finish 12 months and share your result to get on it.', hall_none_best: '(Best on this device: {x})', hall_none_endless: 'Play endless mode to get on this board.',
@@ -1044,8 +1055,15 @@ Object.assign(I18N.ko, {
   rs1_desc: '내 업종 구매자의 연령과 성별을 알려주는 시장 리포트예요. 구매하면 4월과 9월에 한 번씩 더 깊은 리포트로 업그레이드할 기회가 와요.',
   rs_lv: '{n}단계', rs_gender_sub: '성별 설정별 반응. "전체"도 하나의 선택지예요.',
   rs_next: '{m}에 업그레이드 제안이 와요 ({c}). 놓치면 다시 오지 않아요.', rs_missed: '올해는 더 이상 업그레이드할 수 없어요.',
+  under1: '1% 미만', pick_h: '타겟부터 골라주세요', pick_b: '집행하기 전에 성별·연령·콘텐츠를 골라야 해요.', pick_cap: '타겟 고객을 골라주세요', pick_note: '성별·연령·콘텐츠 스타일을 골라야 이번 달 캠페인을 집행할 수 있어요.',
+  cause_target: '패인: 고른 타겟·콘텐츠가 이 업종 고객과 맞지 않아 매출이 원래의 {x} 수준으로 줄었어요. 고객 인사이트를 확인해보세요.',
+  cause_doom: '패인: {m}의 대형 사고로 한 번에 {x}를 잃었어요.',
+  cause_allin: '패인: {m}에 현금의 {p}%를 한 번에 써서 회복할 여유가 없었어요.',
+  cause_bold: '패인: 올인 강도 때문에 나쁜 달의 손실이 훨씬 커졌어요.',
+  cause_roas: '패인: 광고비 £1당 매출이 {x}뿐이라 캠페인을 할수록 손해였어요.',
+  cause_dead: '남은 {x}로는 다음 달 운영비와 광고비를 감당할 수 없어 여기서 끝났어요.',
   rs_pop_tag: '고객 인사이트', rs_pop_h: '리포트를 {n}단계로 업그레이드할까요?',
-  rs_pop_p2: '2단계는 이 고객층이 즐겨 보는 콘텐츠와 주로 머무는 채널을 알려줘요.', rs_pop_p3: '3단계는 채널별로 기대할 수 있는 전환율과 클릭당 비용을 알려줘요.', rs_pop_p3b: '3단계는 2단계 내용(이 고객층이 즐겨 보는 콘텐츠와 주로 머무는 채널)에 채널별 전환율과 클릭당 비용까지 모두 알려줘요.',
+  rs_pop_p2: '2단계는 이 고객층이 즐겨 보는 콘텐츠와 주로 머무는 채널을 알려줘요.', rs_pop_p3: '3단계는 채널별로 기대할 수 있는 전환율과 클릭당 비용을 알려줘요.',
   rs_pop_once: '이 제안은 한 번만 와요. 거절하면 이 단계는 다시 오지 않아요.', rs_pop_cash: '구매하려면 현금 {c}가 필요해요.',
   rs_pop_buy: '구매하기 ({c})', rs_pop_skip: '괜찮아요',
   hall_rank: '{n}명 중 {r}위', hall_none: '아직 명예의 전당에 없어요. 12개월을 마치고 결과를 공유하면 올라가요.', hall_none_best: '(이 기기 최고 기록: {x})', hall_none_endless: '무한 모드를 플레이하면 이 순위에 올라가요.',
@@ -1111,7 +1129,7 @@ const PRODUCTS = {
            content: { short: 1.1, creator: 1.35, edu: 1.15, promo: 1.0, story: 0.95, meme: 0.8 },
            ch: { instagram: 1.3, tiktok: 1.15, seo: 1.0, google: 0.9, influencer: 1.35, youtube: 1.0, email: 1.1 },
            season: [0, 0, 0, 0, 0.05, 0.05, 0.05, 0, 0, 0, 0.05, 0.1] },
-  sneakers: { price: 85, margin: 0.32, cvrMult: 0.6, model: 'oneoff', repeat: 0.08, difficulty: 2,
+  sneakers: { price: 85, margin: 0.32, cvrMult: 0.6, model: 'oneoff', repeat: 0.08, difficulty: 3,
            age: [1.4, 1.1, 0.75, 0.45], g: { f: 0.7, m: 1.25, all: 0.92 },
            content: { short: 1.25, creator: 1.3, edu: 0.7, promo: 1.1, story: 1.0, meme: 1.3 },
            ch: { instagram: 1.1, tiktok: 1.35, seo: 0.8, google: 0.95, influencer: 1.25, youtube: 1.15, email: 0.9 },
@@ -1701,7 +1719,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   };
   const paidRows = rows.filter((x) => x.spend > 0);
   const top = paidRows.length ? paidRows.reduce((a, b) => (b.conv > a.conv ? b : a)).c : null;
-  s.history.push({ month: s.month, cash: s.cash, net, revenue, spend: adCost, plan: { ...plan }, event: s.event,
+  s.history.push({ month: s.month, cash: s.cash, startCash, net, revenue, spend: adCost, align, alignF, doomLoss, plan: { ...plan }, event: s.event,
     viral: !!viral, backlash, offer: offer ? { id: offer.id, win: offer.win } : null, conv: newConv, lvl: lvlAfter, lvlUp: lvlAfter > lvlBefore, top, events: chosen, season, heat, trustM, riskFactor, sovF, noAdF, newConv, returning, revenue, bossRes, jackpot: jackpot ? jackpot.type : null, crash: crash ? crash.type : null, risk, roi: adCost > 0 ? (gp - adCost) / adCost : 0 });
   // ----- campaign log -----
   const W = (w, e) => log.push({ ...e, w });
@@ -1761,7 +1779,9 @@ function recurringGp(s) {
   if (P.model === 'sub') return s.subs * P.retention * P.price * P.margin;
   return (s.lastNew * P.repeat + Math.max(0, s.customers - s.lastNew) * P.repeat * 0.15) * P.price * P.margin;
 }
-function isBankrupt(s) { const fixed = OVERHEADS[levelOf(s.totalRevenue)] + (PRODUCTS[s.product].fixed || 0); return s.cash <= 0 || (s.cash < fixed && s.cash + recurringGp(s) - fixed < fixed * 0.5); }
+// DEAD_CASH: below this there is no money left to run a real campaign, so the run ends instead of idling
+const DEAD_CASH = 300;
+function isBankrupt(s) { const fixed = OVERHEADS[levelOf(s.totalRevenue)] + (PRODUCTS[s.product].fixed || 0); return s.cash <= 0 || (s.cash < fixed && s.cash + recurringGp(s) - fixed < fixed * 0.5) || (s.cash < DEAD_CASH && s.cash + recurringGp(s) - fixed < DEAD_CASH); }
 
 if (typeof module !== 'undefined') module.exports = { START, missionProgress, TIERS, CHANNELS, PRODUCTS, CHANNEL_ORDER, AGES, CONTENTS, newGame, simulate, rollMonth, levelOf, isBankrupt, fitQ, rawFit };
 
@@ -2378,6 +2398,8 @@ const monName = (m, long) => t(long ? 'months_long' : 'months_short')[(m - 1) % 
 const yearOf = (m) => Math.floor((m - 1) / 12) + 1;
 const RESEARCH_COST = 400, RS_COST = [0, 400, 2000, 8000];
 const rsLv = () => (G ? G.rsLv || (G.research ? 1 : 0) : 0);
+// which report parts were actually bought: skipping April means its part never shows, even after buying September
+const rsHas = (n) => (G ? (G.rsBought ? G.rsBought.includes(n) : rsLv() >= n) : false);
 const ORDER = ['sneakers', 'coffee', 'serum', 'app'];
 const agoText = (ts) => { const s = (Date.now() - ts) / 1000; return s < 60 ? t('ago_s') : s < 3600 ? t('ago_m', { n: Math.floor(s / 60) }) : s < 86400 ? t('ago_h', { n: Math.floor(s / 3600) }) : t('ago_d', { n: Math.floor(s / 86400) }); };
 const prodName = (p) => t('industry.' + p + '.0');
@@ -2537,7 +2559,7 @@ function buildRun(outcome) {
     channels: h.top ? [h.top] : [], bust: outcome === 'bust' && i === arr.length - 1,
   }));
   return { id: Date.now().toString(36), seed: G.seed, challenge: G.challenge || null, nick: UI.nick || 'Player', product: G.product, outcome, final: outcome === 'year' ? months[months.length - 1].cash : G.cash,
-    grade: outcome === 'bust' ? 'F' : gradeOf(months[months.length - 1].cash), months, virals: months.filter((m) => m.viral).length, followers: G.followers, endedAt: Date.now() };
+    grade: outcome === 'bust' ? 'F' : gradeOf(months[months.length - 1].cash), months, virals: months.filter((m) => m.viral).length, followers: G.followers, endedAt: Date.now(), cause: outcome === 'bust' ? bustCauseData(G.cash) : [] };
 }
 function saveRun(run) { RUNS = [run, ...RUNS.filter((r) => r.id !== run.id)].slice(0, 10); store.set('vob2-runs', RUNS); }
 function diaryText(m) {
@@ -2663,7 +2685,7 @@ function startGame() {
   G.challenge = ch ? { nick: ch.nick, final: ch.final, months: ch.months, grade: ch.grade, path: ch.path, product: ch.product } : null;
   rollM(G);
   UI.pendingChallenge = null;
-  UI.plan = { gender: 'all', age: 'a25', content: 'short', risk: 'normal' };
+  UI.plan = { gender: null, age: null, content: null, risk: 'normal' };
   UI.alloc = {};
   ATTEMPTS++; store.set('vob-attempts', ATTEMPTS);
   { const lastMega = store.get('vob-mega-at', 0); G.megaOK = ch ? (((G.seed >>> 3) % 50) === 0) : (ATTEMPTS - lastMega >= 50); }
@@ -2672,12 +2694,15 @@ function startGame() {
   UI.touched = false; UI.offer = 'decline'; UI.collab = null; UI.choices = {}; UI.notes = {}; UI.posted = false; UI.screen = 'plan';
   SFX.click(); save(); go();
 }
+const planReady = () => !!(UI.plan && UI.plan.gender && UI.plan.age && UI.plan.content);
+const planOrDefault = () => ({ ...UI.plan, gender: UI.plan.gender || 'all', age: UI.plan.age || 'a25', content: UI.plan.content || 'story' });
 function launch(skip) {
+  if (!skip && !planReady()) { toast(t('pick_h'), t('pick_b')); const a = document.getElementById('aud'); if (a) a.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
   const alloc = {}; for (const c of CHANNEL_ORDER) alloc[c] = skip || !unlocked(c) ? 0 : Math.max(0, UI.alloc[c] || 0);
   const total = Object.values(alloc).reduce((a, b) => a + b, 0) + collabCost() + offerCostNow() + decisionCostNow();
   if (total > G.cash + 0.01) return;
   const offerTaken = UI.offer === 'accept' && G.offer ? String(G.offer) : 'none';
-  const r = simulate(G, { ...UI.plan }, alloc, UI.offer === 'accept' && !!G.offer, UI.collab, UI.choices || {});
+  const r = simulate(G, planOrDefault(), alloc, UI.offer === 'accept' && !!G.offer, UI.collab, UI.choices || {});
   checkAch(r);
   if (r.megaGain) store.set('vob-mega-at', ATTEMPTS);
   { const spend = Object.values(alloc).reduce((x, y) => x + y, 0), top = CHANNEL_ORDER.filter((c) => alloc[c] > 0).sort((x, y) => alloc[y] - alloc[x])[0] || 'none';
@@ -2918,9 +2943,9 @@ function researchBox() {
   let h = `<p class="note" style="margin:6px 0 0">${esc(t('rs_intro', { p: prodName(G.product) }))} · <b>${esc(t('rs_lv', { n: lv }))}</b></p>`
     + pctBars(t('rs_age'), AGES.map((x, i) => [t('age_opts.' + x), P.age[i]]), t('rs_age_sub'))
     + pctBars(t('rs_gender'), [[t('gender_opts.f'), P.g.f], [t('gender_opts.m'), P.g.m], [t('gender_opts.all'), P.g.all]], t('rs_gender_sub'));
-  if (lv >= 2) h += pctBars(t('rs_watch'), CONTENTS.map((c) => [t('contents.' + c), P.content[c]]), t('rs_watch_sub'))
+  if (rsHas(2)) h += pctBars(t('rs_watch'), CONTENTS.map((c) => [t('contents.' + c), P.content[c]]), t('rs_watch_sub'))
     + pctBars(t('rs_where'), CHANNEL_ORDER.map((c) => [t('channels.' + c), P.ch[c]]), t('rs_where_sub'));
-  if (lv >= 3) { const bp = bestPlanFor(G.product); h += pctBars(t('rs_eng'), CHANNEL_ORDER.map((c) => { const cv = Math.min(0.25, CHANNELS[c].cvr * P.cvrMult * Math.sqrt(fitQ(G.product, c, bp))); return [t('channels.' + c), cv, (cv * 100).toFixed(1) + '% · ' + (CHANNELS[c].cpc ? gbp(CHANNELS[c].cpc, 2) : '–')]; }), t('rs_eng_sub')); }
+  if (rsHas(3)) { const bp = bestPlanFor(G.product); h += pctBars(t('rs_eng'), CHANNEL_ORDER.map((c) => { const cv = Math.min(0.25, CHANNELS[c].cvr * P.cvrMult * Math.sqrt(fitQ(G.product, c, bp))); return [t('channels.' + c), cv, (cv * 100).toFixed(1) + '% · ' + (CHANNELS[c].cpc ? gbp(CHANNELS[c].cpc, 2) : '–')]; }), t('rs_eng_sub')); }
   const m = ((G.month - 1) % 12) + 1;
   let nx = '';
   if (lv === 1 && !G.rsAsk4 && m < 4 && G.month <= 12) nx = t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
@@ -2932,7 +2957,7 @@ function rsPopup() {
   const cost = RS_COST[lv], can = G.cash >= cost;
   return `<div class="modal" id="rsmodal"><div class="inner" role="dialog" aria-modal="true">
     <span class="eyebrow">${esc(t('rs_pop_tag'))}</span><h3 style="margin:0;font-size:22px">${esc(t('rs_pop_h', { n: lv }))}</h3>
-    <p class="note" style="margin:0">${esc(t(lv === 3 && rsLv() === 1 ? 'rs_pop_p3b' : 'rs_pop_p' + lv))}</p><p class="note" style="margin:0">${esc(t('rs_pop_once'))}</p>
+    <p class="note" style="margin:0">${esc(t('rs_pop_p' + lv))}</p><p class="note" style="margin:0">${esc(t('rs_pop_once'))}</p>
     ${can ? '' : `<p class="note" style="margin:0;color:var(--accent)">${esc(t('rs_pop_cash', { c: gbp(cost) }))}</p>`}
     <div class="row"><button class="btn primary" data-act="rsbuy" ${can ? '' : 'disabled'}>${esc(t('rs_pop_buy', { c: gbp(cost) }))}</button><button class="btn" data-act="rsskip">${esc(t('rs_pop_skip'))}</button></div></div></div>`;
 }
@@ -2974,8 +2999,8 @@ function planScreen() {
       ${G.challenge ? `<p class="note" style="margin:0"><span style="color:#fe2c55">● ${esc(G.challenge.nick)}</span> ${esc(G.month === 1 ? t('vs_start') : t('vs_month', { m: monName(G.month - 1) }))} <span class="mono">${G.month > 1 && G.challenge.path[G.month - 1] != null ? gbp(G.challenge.path[G.month - 1]) : gbp(START)}</span> · <span style="color:#25f4ee">● ${esc(t('lb_you'))}</span> <span class="mono">${gbp(G.cash)}</span></p>` : ''}</div>
     ${statBars(null)}
     ${missionBox()}
-    <div class="stage"><canvas id="preview" aria-label="${esc(t('preview_cap', { g: t('gender_opts.' + UI.plan.gender), a: t('age_opts.' + UI.plan.age), c: t('contents.' + UI.plan.content) }))}"></canvas>
-      <div class="cap"><span id="pcap">${esc(t('preview_cap', { g: t('gender_opts.' + UI.plan.gender), a: t('age_opts.' + UI.plan.age), c: t('contents.' + UI.plan.content) }))}</span></div></div>
+    <div class="stage"><canvas id="preview" aria-label="${esc(planReady() ? t('preview_cap', { g: t('gender_opts.' + UI.plan.gender), a: t('age_opts.' + UI.plan.age), c: t('contents.' + UI.plan.content) }) : t('pick_cap'))}"></canvas>
+      <div class="cap"><span id="pcap">${esc(planReady() ? t('preview_cap', { g: t('gender_opts.' + UI.plan.gender), a: t('age_opts.' + UI.plan.age), c: t('contents.' + UI.plan.content) }) : t('pick_cap'))}</span></div></div>
     ${bossLive()}
     ${decisionCards()}
     ${ev ? `<div class="news"><span class="eyebrow">${esc(t('this_month'))}</span><b>${esc(ev[0])}</b><p>${esc(ev[1])}</p></div>` : ''}
@@ -2983,7 +3008,7 @@ function planScreen() {
       <div class="opts"><button class="opt" data-act="offer" data-v="accept" aria-pressed="${UI.offer === 'accept'}"><span class="n">1</span><span><b>${esc(t('accept'))}</b></span><span class="pr">${G.offerCost ? gbp(G.offerCost) : ''}</span></button>
       <button class="opt" data-act="offer" data-v="decline" aria-pressed="${UI.offer !== 'accept'}"><span class="n">2</span><span><b>${esc(t('decline'))}</b></span><span></span></button></div></div>` : ''}
     <div><h2>${esc(t('trends_h'))}</h2><p class="note" style="margin-bottom:8px">${esc(t('trends_sub'))}</p>${trendRows}</div>
-    <div class="stack"><h2>${esc(t('audience'))}</h2>
+    <div class="stack" id="aud" style="scroll-margin-top:84px"><h2>${esc(t('audience'))}</h2>${planReady() ? '' : `<p class="note" style="margin:-6px 0 0;color:var(--accent)">${esc(t('pick_note'))}</p>`}
       <div><p class="label">${esc(t('gender'))}</p>${seg('gender', 3, ['f', 'm', 'all'].map((g) => [g, esc(t('gender_opts.' + g))]), UI.plan.gender)}</div>
       <div><p class="label">${esc(t('age'))}</p>${seg('age', 4, AGES.map((a) => [a, esc(t('age_opts.' + a))]), UI.plan.age)}</div>
       <div><p class="label">${esc(t('risk_h'))}</p>${seg('risk', 3, ['safe', 'normal', 'bold'].map((k) => [k, esc(t('risk_opts.' + k))]), UI.plan.risk || 'normal')}<p class="note">${esc(t('risk_sub'))}</p></div>
@@ -3116,6 +3141,28 @@ function resultScreen() {
 }
 
 // ---------- YEAR / BUST ----------
+// why a run went bust: computed once when the run ends, stored as keys so it renders in either language
+function bustCauseData(final) {
+  const H = G && G.history ? G.history.slice(1) : [];
+  if (!H.length) return [];
+  const paid = H.filter((h) => (h.spend || 0) > 0 && h.alignF != null), out = [];
+  const avgA = paid.length ? paid.reduce((a, h) => a + h.alignF, 0) / paid.length : 1;
+  const doom = H.find((h) => h.doomLoss > 0);
+  const allin = H.filter((h) => h.net < 0 && h.startCash > 0).map((h) => ({ m: h.month, p: (h.spend || 0) / h.startCash })).sort((a, b) => b.p - a.p)[0];
+  const spend = H.reduce((a, h) => a + (h.spend || 0), 0), rev = H.reduce((a, h) => a + (h.revenue || 0), 0);
+  if (paid.length && avgA < 0.6) out.push({ k: 'cause_target', v: { x: avgA } });
+  else if (doom) out.push({ k: 'cause_doom', v: { m: doom.month, x: doom.doomLoss } });
+  else if (allin && allin.p >= 0.8) out.push({ k: 'cause_allin', v: { m: allin.m, p: Math.round(Math.min(1, allin.p) * 100) } });
+  else if (H.filter((h) => h.risk === 'bold' && h.net < 0).length >= 2) out.push({ k: 'cause_bold', v: {} });
+  else if (spend > 0) out.push({ k: 'cause_roas', v: { x: rev / spend } });
+  if (final > 0) out.push({ k: 'cause_dead', v: { x: final } });
+  return out;
+}
+function bustCause(run) {
+  const C = run.cause || []; if (!C.length) return '';
+  const txt = (c) => t(c.k, { ...c.v, x: c.k === 'cause_target' ? (c.v.x < 0.01 ? t('under1') : Math.round(c.v.x * 100) + '%') : c.k === 'cause_roas' ? '£' + c.v.x.toFixed(2) : c.v.x != null ? gbp(c.v.x) : '', m: c.v.m ? monName(c.v.m) : '' });
+  return `<div class="cause">${C.map((c, i) => `<p class="${i ? '' : 'main'}">${esc(txt(c))}</p>`).join('')}</div>`;
+}
 function nearMiss(run) {
   const lines = [];
   const peak = Math.max(START, ...run.months.map((m) => m.cash));
@@ -3150,7 +3197,7 @@ function endScreen(kind) {
   const k = (l, v) => `<div class="kpi"><small>${esc(l)}</small><b>${v}</b></div>`;
   return `${nav()}<main><div class="col stack" style="gap:28px">
     <div class="gh"><span class="eyebrow">${esc(kind === 'year' ? t('year_end') : t('bust'))} · ${esc(prodName(run.product))}</span>
-      ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>` : `<h1 class="h1" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${nearMiss(run)}`}</div>
+      ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>` : `<h1 class="h1" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${bustCause(run)}${nearMiss(run)}`}</div>
     ${run.challenge ? vsBlock(run) : ''}
     <div class="decision" style="border-color:#fe2c55"><span class="tag">${esc(kind === 'year' ? t('hall') : t('ch_banner_tag'))}</span>
       <h3>${esc(kind === 'year' ? (run.registered ? t('fame_done') : t('fame_h')) : t('send_ch'))}</h3><p>${esc(kind === 'year' ? (run.registered ? t('fame_done_sub') : t('fame_sub')) : t('send_ch_sub'))}</p>
@@ -3232,7 +3279,7 @@ function render() {
     refreshShared();
   }
   const pv = document.getElementById('preview');
-  if (pv) PREVIEW = PX.preview(pv, () => ({ month: G.month, product: G.product, plan: UI.plan, channels: CHANNEL_ORDER.filter((c) => unlocked(c) && (UI.alloc[c] || 0) > 0) }));
+  if (pv) PREVIEW = PX.preview(pv, () => ({ month: G.month, product: G.product, plan: planOrDefault(), channels: CHANNEL_ORDER.filter((c) => unlocked(c) && (UI.alloc[c] || 0) > 0) }));
   const cl = document.getElementById('clip');
   if (cl && G.last) {
     const r = G.last;
@@ -3281,7 +3328,7 @@ document.addEventListener('click', (e) => {
   if (a === 'choose') { UI.choices = UI.choices || {}; UI.choices[b.dataset.d] = v; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'collab') { UI.collab = v || null; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'logmore') { UI.logOpen = true; const y = scrollY; render(); scrollTo(0, y); return; }
-  if (a === 'research' || a === 'rsbuy') { const target = a === 'research' ? 1 : UI.rsPopup; if (target && rsLv() < target && G.cash >= RS_COST[target]) { G.cash -= RS_COST[target]; G.rsLv = target; G.research = true; if (target === 2) G.rsAsk4 = true; if (target === 3) { G.rsAsk9 = true; G.rsAsk4 = true; } G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; if (target === 1) grant('data'); track('research_buy', { level: target, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
+  if (a === 'research' || a === 'rsbuy') { const target = a === 'research' ? 1 : UI.rsPopup; if (target && rsLv() < target && G.cash >= RS_COST[target]) { G.cash -= RS_COST[target]; G.rsBought = [...(G.rsBought || (rsLv() ? [1] : [])), target]; G.rsLv = target; G.research = true; if (target === 2) G.rsAsk4 = true; if (target === 3) { G.rsAsk9 = true; G.rsAsk4 = true; } G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; if (target === 1) grant('data'); track('research_buy', { level: target, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'rsskip') { if (UI.rsPopup === 2) G.rsAsk4 = true; if (UI.rsPopup === 3) G.rsAsk9 = true; track('research_skip', { level: UI.rsPopup }); UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   const avail = CHANNEL_ORDER.filter(unlocked);
   const budget = Math.max(0, G.cash - collabCost() - offerCostNow() - decisionCostNow());
