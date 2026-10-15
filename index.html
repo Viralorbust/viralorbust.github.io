@@ -3364,6 +3364,15 @@ function render() {
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
   const a = b.dataset.act, v = b.dataset.v;
+  // every button click goes to GA4 as button_click; option value only for choice buttons (never ids or names)
+  { const OPT = { gender: 1, age: 1, risk: 1, content: 1, product: 1, offer: 1, lang: 1, lbtab: 1, choose: 1, collab: 0 };
+    const p = { button: a, screen: (UI && UI.screen) || 'home' };
+    if (OPT[a] && v && v.length <= 12) p.option = v;
+    if (a === 'product') p.option = { sneakers: 'fashion', coffee: 'cafe', serum: 'beauty', app: 'tech' }[v] || v;
+    if (a === 'collab') p.option = v ? 'pick' : 'none';
+    if (a === 'theme') p.option = THEME === 'light' ? 'dark' : 'light';
+    if (G && G.product && UI.screen !== 'home') { p.industry = G.product; p.month = G.month; }
+    track('button_click', p); }
   if (a === 'lang') { track('language_switch', { to: v }); LANG = v; store.set('vob-lang', v); render(); return; }
   if (a === 'theme') { THEME = THEME === 'light' ? 'dark' : 'light'; store.set('vob-theme', THEME); applyTheme(); render(); return; }
   if (a === 'sound') { SFX.set(!SFX.on); store.set('vob-sound', SFX.on); b.textContent = SFX.on ? t('sound_on') : t('sound_off'); SFX.click(); return; }
