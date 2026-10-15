@@ -331,6 +331,12 @@ html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: no
 .cause p { margin: 6px 0 0; font-size: 15px; line-height: 1.5; opacity: .85; }
 .cause p.main { margin: 0; font-weight: 600; opacity: 1; }
 
+.bustst canvas { width: 100%; height: auto; display: block; image-rendering: pixelated; }
+.busth { font-size: clamp(48px, 13.5vw, 128px); white-space: nowrap; line-height: .95; animation: bustin .5s cubic-bezier(.2,1.6,.4,1) both, bustshake .45s .5s linear 1; }
+@keyframes bustin { from { transform: scale(1.8); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes bustshake { 0%,100% { transform: none; } 20% { transform: translateX(-8px) rotate(-1deg); } 40% { transform: translateX(7px) rotate(1deg); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+@media (prefers-reduced-motion: reduce) { .busth { animation: none; } }
+
 </style>
 </head>
 <body>
@@ -1038,7 +1044,7 @@ Object.assign(I18N.en, {
   rs1_desc: 'A market report on who buys in your industry: their ages and gender. Buyers get one chance in April and one in September to upgrade to a deeper report.',
   rs_lv: 'Level {n}', rs_gender_sub: 'Response to each gender setting. “Everyone” is its own option.',
   rs_next: 'An upgrade will be offered in {m} ({c}). Miss it and it is gone.', rs_missed: 'No more upgrades this year.',
-  under1: 'under 1%', under_x: 'under ×0.01', pick_h: 'Pick your audience first', pick_b: 'Choose gender, age and content style before launching.', pick_cap: 'Pick your target audience', pick_note: 'Choose a gender, an age group and a content style to launch this month.',
+  under1: 'under 1%', bust_word: 'BUST', under_x: 'under ×0.01', pick_h: 'Pick your audience first', pick_b: 'Choose gender, age and content style before launching.', pick_cap: 'Pick your target audience', pick_note: 'Choose a gender, an age group and a content style to launch this month.',
   cause_target: 'Why it failed: your audience and content did not match the buyers in this industry, so sales fell to {x} of what they could have been. Check the audience insights.',
   cause_doom: 'Why it failed: a disaster in {m} wiped out {x} in one go.',
   cause_allin: 'Why it failed: you spent {p}% of your cash in {m} and had nothing left to recover with.',
@@ -1055,7 +1061,7 @@ Object.assign(I18N.ko, {
   rs1_desc: '내 업종 구매자의 연령과 성별을 알려주는 시장 리포트예요. 구매하면 4월과 9월에 한 번씩 더 깊은 리포트로 업그레이드할 기회가 와요.',
   rs_lv: '{n}단계', rs_gender_sub: '성별 설정별 반응. "전체"도 하나의 선택지예요.',
   rs_next: '{m}에 업그레이드 제안이 와요 ({c}). 놓치면 다시 오지 않아요.', rs_missed: '올해는 더 이상 업그레이드할 수 없어요.',
-  under1: '1% 미만', under_x: '×0.01 미만', pick_h: '타겟부터 골라주세요', pick_b: '집행하기 전에 성별·연령·콘텐츠를 골라야 해요.', pick_cap: '타겟 고객을 골라주세요', pick_note: '성별·연령·콘텐츠 스타일을 골라야 이번 달 캠페인을 집행할 수 있어요.',
+  under1: '1% 미만', bust_word: '파산', under_x: '×0.01 미만', pick_h: '타겟부터 골라주세요', pick_b: '집행하기 전에 성별·연령·콘텐츠를 골라야 해요.', pick_cap: '타겟 고객을 골라주세요', pick_note: '성별·연령·콘텐츠 스타일을 골라야 이번 달 캠페인을 집행할 수 있어요.',
   cause_target: '패인: 고른 타겟·콘텐츠가 이 업종 고객과 맞지 않아 매출이 원래의 {x} 수준으로 줄었어요. 고객 인사이트를 확인해보세요.',
   cause_doom: '패인: {m}의 대형 사고로 한 번에 {x}를 잃었어요.',
   cause_allin: '패인: {m}에 현금의 {p}%를 한 번에 써서 회복할 여유가 없었어요.',
@@ -1882,6 +1888,26 @@ const PX = (() => {
     R(c, x + 4, y + 13 - (frame === 2 ? 1 : 0), 2, 1, C.ink);
   }
 
+  // crying person: sobbing shake, hands at the cheeks, tear streams and falling drops
+  const TEAR = '#6fd3ff', TEAR_D = '#3aa8e0';
+  function cry(c, x, y, L, t, k, ground) {
+    const bob = Math.floor(t * 7 + k) % 2;
+    person(c, x, y + bob, L, 0, null);
+    x = Math.round(x); y = Math.round(y) + bob;
+    R(c, x + 2, y + 3, 1, 1, C.ink); R(c, x + 4, y + 3, 1, 1, C.ink);
+    R(c, x + 3, y + 5, 1, 1, '#8a3030');
+    R(c, x - 1, y + 7, 1, 3, L.top); R(c, x + 7, y + 7, 1, 3, L.top);
+    R(c, x, y + 4, 1, 2, L.skin); R(c, x + 6, y + 4, 1, 2, L.skin);
+    R(c, x + 2, y + 4, 1, 2, TEAR); R(c, x + 4, y + 4, 1, 2, TEAR);
+    for (let i = 0; i < 6; i++) {
+      const ph = (t * 1.7 + i * 0.37 + k * 0.21) % 1, side = i % 2 ? 1 : -1;
+      const dx = x + 3 + side * (2 + ph * 5), dy = y + 4 + ph * ph * 14;
+      if (dy < ground) R(c, dx, dy, 1, i % 3 ? 1 : 2, i % 3 ? TEAR : TEAR_D);
+    }
+    R(c, x - 1, ground - 1, 9, 1, mix(TEAR, '#8b98a3', 0.5));
+  }
+  const BROKEN = ['.xx.xx.', 'xxx.xxx', 'xx.xxxx', '.xx.xx.', '..x.x..', '...x...'];
+
   // ---------- scene ----------
   // p: {w,h,month,mood,product,plan,customers,t,seed,channels,content,viral,coins,closed,passers}
   function scene(c, p) {
@@ -1942,9 +1968,17 @@ const PX = (() => {
     const mx = sx - 26, my = gy - 13;
     const ml = { skin: C.skinB, hair: C.hairBk, style: 'short', top: '#2d3440', bottom: '#2c3a55' };
     const flash = t < 1.2 && Math.floor(t * 6) % 2 === 0;
-    person(c, mx, my, ml, 0, flash ? '#ffffff' : C.cyan);
+    const crying = p.mood === 'closed';
+    if (crying) {
+      cry(c, mx, my, ml, t, 0, gy + 1);
+      // the shop owner cries in front of the shutter too
+      cry(c, sx + Math.round(sw / 2) - 3, gy - 13, { skin: C.skinC, hair: C.hairBr, style: 'bun', top: pc, bottom: '#3a3a3a' }, t, 3, gy + 1);
+      const bx2 = mx + 8, by2 = my - 14 - Math.round(Math.sin(t * 3) * 1);
+      R(c, bx2 - 1, by2 - 1, 11, 10, C.ink); R(c, bx2, by2, 9, 8, '#ffffff'); R(c, bx2 + 1, by2 + 8, 2, 2, C.ink);
+      bitmap(c, bx2 + 1, by2 + 1, BROKEN, { x: C.rose });
+    } else person(c, mx, my, ml, 0, flash ? '#ffffff' : C.cyan);
     // phone bubble with content icon
-    if (p.content) {
+    if (p.content && !crying) {
       const bx2 = mx + 8, by2 = my - 14 - Math.round(Math.sin(t * 3) * 1);
       R(c, bx2 - 1, by2 - 1, 11, 11, C.ink); R(c, bx2, by2, 9, 9, '#ffffff');
       R(c, bx2 + 1, by2 + 9, 2, 2, C.ink);
@@ -2109,8 +2143,32 @@ const PX = (() => {
         ctx.font = '900 76px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center';
         ctx.lineWidth = 12; ctx.strokeStyle = '#000000'; ctx.strokeText(labels.viral, 0, 0); const g = ctx.createLinearGradient(-200, 0, 200, 0); GRAD.forEach((c, i) => g.addColorStop(i / 3, c)); ctx.fillStyle = g; ctx.fillText(labels.viral, 0, 0); ctx.restore(); ctx.textAlign = 'left';
       }
+      if (o.dead) bustStamp(ctx, W / 2, canvas.height * 0.4, 120, t - 1.6, labels.bust);
       if (o.lvlUp && t > 4) { ctx.fillStyle = '#f6c945'; roundRect(ctx, W / 2 - 220, canvas.height - 80, 440, 56, 28); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.font = '800 26px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center'; ctx.fillText(labels.lvl, W / 2, canvas.height - 51); ctx.textAlign = 'left'; }
     }, D, false);
+  }
+  // big red "BUST" stamp that slams onto the picture, then shakes for a moment
+  function bustStamp(ctx, cx, cy, size, dt, label) {
+    if (dt < 0 || !label) return;
+    const k = Math.min(1, dt / 0.32), s = 2.4 - 1.4 * ease(k), shake = dt > 0.32 && dt < 0.8 ? Math.sin(dt * 70) * size * 0.03 : 0;
+    ctx.save(); ctx.translate(cx + shake, cy); ctx.rotate(-0.12); ctx.scale(s, s); ctx.globalAlpha = Math.min(1, k * 1.4);
+    ctx.font = '900 ' + size + 'px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const tw = ctx.measureText(label).width, pw = tw + size * 0.6, ph = size * 1.3;
+    ctx.fillStyle = 'rgba(0,0,0,.55)'; roundRect(ctx, -pw / 2, -ph / 2, pw, ph, size * 0.12); ctx.fill();
+    ctx.lineWidth = size * 0.09; ctx.strokeStyle = '#fe2c55'; roundRect(ctx, -pw / 2, -ph / 2, pw, ph, size * 0.12); ctx.stroke();
+    ctx.lineWidth = size * 0.12; ctx.strokeStyle = '#000000'; ctx.strokeText(label, 0, size * 0.04);
+    ctx.fillStyle = '#fe2c55'; ctx.fillText(label, 0, size * 0.04);
+    ctx.restore(); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.globalAlpha = 1;
+  }
+  // bust screen hero: the shop shuts, everyone cries, the stamp lands
+  function bustLoop(canvas, o, label) {
+    const BW = 132, BH = 72, S = 7; canvas.width = BW * S; canvas.height = BH * S;
+    const ctx = canvas.getContext('2d'), buf = makeBuffer(BW, BH), b = buf.getContext('2d');
+    return animate((t) => {
+      scene(b, { w: BW, h: BH, t: t + 2, month: o.month || 1, mood: 'closed', product: o.product, plan: o.plan, content: null, customers: 0, passers: 2, seed: (o.month || 1) * 11 + 5 });
+      blit(ctx, buf, 0, 0, canvas.width, canvas.height);
+      bustStamp(ctx, canvas.width * 0.5, canvas.height * 0.36, 100, t - 0.6, label);
+    }, 3600, false);
   }
   function roundRect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
 
@@ -2143,6 +2201,7 @@ const PX = (() => {
       scene(b, { w: 144, h: 108, t: lt, month: m.month, mood: lt < 0.6 ? 'neutral' : mood, product: run.product, plan: m.plan, content: m.plan.content, channels: m.channels, customers: custs, viral: m.viral || !!m.jackpot, coins: m.net > 0, coinStart: 2.0, passers: mood === 'bad' ? 3 : 0, seed: m.month * 11 + 5, span: 1.8, walkStart: 0.5 });
       const slide = ease(lt / 0.35);
       ctx.globalAlpha = slide; blit(ctx, buf, 0, 120, 720, 540); ctx.globalAlpha = 1;
+      if (m.bust) bustStamp(ctx, 360, 390, 110, lt - 1.0, L.bust);
       // month + cash
       ctx.fillStyle = '#ffffff'; ctx.font = '700 84px "Source Serif 4", Georgia, serif'; ctx.fillText(L.monthName(m.month), 40, 780);
       const cv = lerp(pts[i], pts[i + 1], ease((lt - 0.4) / 1.6));
@@ -2164,7 +2223,8 @@ const PX = (() => {
       ctx.globalAlpha = k;
       ctx.fillStyle = '#8b8c94'; ctx.font = '500 30px "Noto Sans KR", sans-serif'; ctx.fillText(L.endLabel, 40, 200);
       ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '700 132px "Source Serif 4", Georgia, serif'; ctx.fillText(fmtCash(run.final), 40, 340);
-      ctx.fillStyle = '#fe2c55'; ctx.font = '700 300px "Source Serif 4", Georgia, serif'; ctx.fillText(run.grade, 40, 680);
+      if (run.outcome === 'bust' && L.bust) bustStamp(ctx, 360, 540, 150, ot, L.bust);
+      else { ctx.fillStyle = '#fe2c55'; ctx.font = '700 300px "Source Serif 4", Georgia, serif'; ctx.fillText(run.grade, 40, 680); }
       ctx.fillStyle = '#ffffff'; ctx.font = '800 40px "Noto Sans KR", sans-serif'; wrap(ctx, L.gradeLine, W - 80).slice(0, 2).forEach((ln, j) => ctx.fillText(ln, 40, 760 + j * 54));
       ctx.fillStyle = '#8b8c94'; ctx.font = '500 28px "IBM Plex Mono", monospace'; ctx.fillText(L.stats, 40, 900);
       spark(ctx, pts, 40, 960, W - 80, 160, n, { lw: 6, base: true, dots: true, dotR: 6, dotCol: (j) => (run.months[j - 1].net >= 0 ? '#25f4ee' : '#fe2c55') });
@@ -2220,6 +2280,7 @@ const PX = (() => {
     const last = run.months[run.months.length - 1];
     scene(b, { w: 144, h: 72, t: 2.5, month: last ? last.month : 1, mood: run.outcome === 'bust' ? 'closed' : 'good', product: run.product, plan: last ? last.plan : null, content: last ? last.plan.content : null, customers: run.outcome === 'bust' ? 0 : 10, coins: run.outcome !== 'bust', coinStart: 1.5, seed: 9, walkStart: 0, span: 0.1 });
     blit(ctx, buf, 0, 14, W, 540);
+    if (run.outcome === 'bust' && L.bust) bustStamp(ctx, W / 2, 284, 170, 5, L.bust);
     ctx.fillStyle = '#8b8c94'; ctx.font = '500 30px "IBM Plex Mono", monospace'; ctx.fillText('VIRAL OR BUST', 60, 640);
     ctx.textAlign = 'right'; ctx.fillText(run.nick || '', W - 60, 640); ctx.textAlign = 'left';
     ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Noto Sans KR", sans-serif'; ctx.fillText(L.product, 60, 710);
@@ -2316,7 +2377,7 @@ const PX = (() => {
     }, CYCLE, true);
   }
 
-  return { scene, preview, clip, diaryPlayer, recordDiary, diaryDuration, shareCard, thumb, hero, stopAll, CH_ICON, GRAD };
+  return { scene, preview, clip, bustLoop, diaryPlayer, recordDiary, diaryDuration, shareCard, thumb, hero, stopAll, CH_ICON, GRAD };
 })();
 
 // ---------- tiny sound ----------
@@ -2594,7 +2655,7 @@ function diaryLabels(run) {
     L: {
       header: t('diary_header'), title: run.outcome === 'bust' ? t('diary_title_bust') : t('diary_title'), product: prodName(run.product),
       monthName: (m) => (LANG === 'ko' ? (G && G.endless && m > 12 ? `${yearOf(m)}년차 ` : '') + monName(m, true) : monName(m, true)),
-      viral: t('viral_word'), endLabel: t('diary_end_cash'),
+      viral: t('viral_word'), endLabel: t('diary_end_cash'), bust: t('bust_word'),
       gradeLine: g === 'F' ? t('bust') : t('grades.' + g),
       stats: t('stats_line', { m: run.months.length, v: run.virals, f: int(run.followers || 0) }),
       outro: t('diary_outro'), sim: t('sim').split('.')[0] + '.',
@@ -3204,7 +3265,7 @@ function endScreen(kind) {
   const k = (l, v) => `<div class="kpi"><small>${esc(l)}</small><b>${v}</b></div>`;
   return `${nav()}<main><div class="col stack" style="gap:28px">
     <div class="gh"><span class="eyebrow">${esc(kind === 'year' ? t('year_end') : t('bust'))} · ${esc(prodName(run.product))}</span>
-      ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>` : `<h1 class="h1" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${bustCause(run)}${nearMiss(run)}`}</div>
+      ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>` : `<div class="stage bustst"><canvas id="bustcv" aria-label="${esc(t('bust'))}"></canvas></div><h1 class="h1 busth" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${bustCause(run)}${nearMiss(run)}`}</div>
     ${run.challenge ? vsBlock(run) : ''}
     <div class="decision" style="border-color:#fe2c55"><span class="tag">${esc(kind === 'year' ? t('hall') : t('ch_banner_tag'))}</span>
       <h3>${esc(kind === 'year' ? (run.registered ? t('fame_done') : t('fame_h')) : t('send_ch'))}</h3><p>${esc(kind === 'year' ? (run.registered ? t('fame_done_sub') : t('fame_sub')) : t('send_ch_sub'))}</p>
@@ -3290,9 +3351,11 @@ function render() {
   const cl = document.getElementById('clip');
   if (cl && G.last) {
     const r = G.last;
-    CLIP = PX.clip(cl, { month: r.month, product: G.product, plan: r.plan, channels: CHANNEL_ORDER.filter((c) => (r.alloc[c] || 0) > 0), net: r.net, startCash: r.startCash, cash: r.cash, conv: r.newConv, viral: !!(r.viral || r.jackpot), bust: isBankrupt(G) || (r.crash && r.crash.type !== 'recall'), history: G.history.map((h) => h.cash), lvlUp: r.lvlAfter > r.lvlBefore },
-      { tag: `${monName(r.month).toUpperCase()} · CMP-${String(r.month).padStart(2, '0')}`, viral: t('viral_word'), lvl: t('levelup', { lvl: t('levels')[r.lvlAfter] }) });
+    CLIP = PX.clip(cl, { month: r.month, product: G.product, plan: r.plan, channels: CHANNEL_ORDER.filter((c) => (r.alloc[c] || 0) > 0), net: r.net, startCash: r.startCash, cash: r.cash, conv: r.newConv, viral: !!(r.viral || r.jackpot), bust: isBankrupt(G) || (r.crash && r.crash.type !== 'recall'), dead: isBankrupt(G), history: G.history.map((h) => h.cash), lvlUp: r.lvlAfter > r.lvlBefore },
+      { tag: `${monName(r.month).toUpperCase()} · CMP-${String(r.month).padStart(2, '0')}`, viral: t('viral_word'), bust: t('bust_word'), lvl: t('levelup', { lvl: t('levels')[r.lvlAfter] }) });
   }
+  const bc = document.getElementById('bustcv');
+  if (bc) { const run = RUNS.find((r) => r.id === UI.lastRun); const last = run && run.months[run.months.length - 1]; PX.bustLoop(bc, { product: (run && run.product) || (G && G.product), month: last ? last.month : 1, plan: last ? last.plan : null }, t('bust_word')); }
   const dc = document.getElementById('diary');
   if (dc) { const run = RUNS.find((r) => r.id === UI.lastRun); if (run) mountDiary(dc, run, document.getElementById('dprog'), document.getElementById('dplay')); }
 }
