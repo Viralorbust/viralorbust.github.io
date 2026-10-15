@@ -3186,7 +3186,7 @@ document.addEventListener('click', (e) => {
   if (a === 'cheer') { cheerPost(v); return; }
   if (a === 'delpost') { deletePost(v); return; }
   if (a === 'product') { const n = document.getElementById('nick'); if (n) UI.nick = n.value; UI.product = v; SFX.click(); const y = scrollY; render(); scrollTo(0, y); return; }
-  if (a === 'tosetup') { document.getElementById('setup')?.scrollIntoView({ behavior: 'smooth' }); return; }
+  if (a === 'tosetup') { const el = document.getElementById('setup'); if (!el) return; const r = el.getBoundingClientRect(), vh = window.innerHeight || 800; if (r.top < vh * 0.75 && r.bottom > vh * 0.2) { startGame(); return; } el.scrollIntoView({ behavior: 'smooth' }); return; }
   if (a === 'start') { startGame(); return; }
   if (a === 'resume') { if (G) { UI.screen = UI.prevScreen || 'plan'; go(); } return; }
   if (a === 'home') { if (G && UI.screen !== 'home') UI.prevScreen = UI.screen; UI.screen = 'home'; save(); go(); return; }
