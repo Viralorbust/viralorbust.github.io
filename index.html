@@ -1038,7 +1038,7 @@ Object.assign(I18N.en, {
   rs1_desc: 'A market report on who buys in your industry: their ages and gender. Buyers get one chance in April and one in September to upgrade to a deeper report.',
   rs_lv: 'Level {n}', rs_gender_sub: 'Response to each gender setting. “Everyone” is its own option.',
   rs_next: 'An upgrade will be offered in {m} ({c}). Miss it and it is gone.', rs_missed: 'No more upgrades this year.',
-  under1: 'under 1%', pick_h: 'Pick your audience first', pick_b: 'Choose gender, age and content style before launching.', pick_cap: 'Pick your target audience', pick_note: 'Choose a gender, an age group and a content style to launch this month.',
+  under1: 'under 1%', under_x: 'under ×0.01', pick_h: 'Pick your audience first', pick_b: 'Choose gender, age and content style before launching.', pick_cap: 'Pick your target audience', pick_note: 'Choose a gender, an age group and a content style to launch this month.',
   cause_target: 'Why it failed: your audience and content did not match the buyers in this industry, so sales fell to {x} of what they could have been. Check the audience insights.',
   cause_doom: 'Why it failed: a disaster in {m} wiped out {x} in one go.',
   cause_allin: 'Why it failed: you spent {p}% of your cash in {m} and had nothing left to recover with.',
@@ -1055,7 +1055,7 @@ Object.assign(I18N.ko, {
   rs1_desc: '내 업종 구매자의 연령과 성별을 알려주는 시장 리포트예요. 구매하면 4월과 9월에 한 번씩 더 깊은 리포트로 업그레이드할 기회가 와요.',
   rs_lv: '{n}단계', rs_gender_sub: '성별 설정별 반응. "전체"도 하나의 선택지예요.',
   rs_next: '{m}에 업그레이드 제안이 와요 ({c}). 놓치면 다시 오지 않아요.', rs_missed: '올해는 더 이상 업그레이드할 수 없어요.',
-  under1: '1% 미만', pick_h: '타겟부터 골라주세요', pick_b: '집행하기 전에 성별·연령·콘텐츠를 골라야 해요.', pick_cap: '타겟 고객을 골라주세요', pick_note: '성별·연령·콘텐츠 스타일을 골라야 이번 달 캠페인을 집행할 수 있어요.',
+  under1: '1% 미만', under_x: '×0.01 미만', pick_h: '타겟부터 골라주세요', pick_b: '집행하기 전에 성별·연령·콘텐츠를 골라야 해요.', pick_cap: '타겟 고객을 골라주세요', pick_note: '성별·연령·콘텐츠 스타일을 골라야 이번 달 캠페인을 집행할 수 있어요.',
   cause_target: '패인: 고른 타겟·콘텐츠가 이 업종 고객과 맞지 않아 매출이 원래의 {x} 수준으로 줄었어요. 고객 인사이트를 확인해보세요.',
   cause_doom: '패인: {m}의 대형 사고로 한 번에 {x}를 잃었어요.',
   cause_allin: '패인: {m}에 현금의 {p}%를 한 번에 써서 회복할 여유가 없었어요.',
@@ -3065,7 +3065,7 @@ function moneyBox(r) {
   const unit = r.newConv > 0 && cac > 0 ? t(P.model === 'sub' ? 'mb_unit_sub' : 'mb_unit', { price: gbp(r.unitPrice, 2), gp: gbp(r.unitGp, 2), cac: gbp(cac, 2), verdict: t(r.unitGp >= cac ? 'mb_unit_win' : 'mb_unit_lose') }) : '';
   // factors
   const f = [];
-  const mult = (x) => '×' + x.toFixed(2);
+  const mult = (x) => (x > 0 && x < 0.005 ? t('under_x') : '×' + x.toFixed(2));
   f.push([t('mf_season', { m: monName(r.month, true) }), mult(r.season), r.season >= 1 ? 'good' : 'bad']);
   f.push([t('mf_trend', { c: t('contents.' + r.plan.content) }), mult(r.heat), r.heat >= 1 ? 'good' : 'bad']);
   if (r.fatigue && r.fatigue.contentF < 1) f.push([t('mf_fatigue', { c: t('contents.' + r.plan.content) }), mult(r.fatigue.contentF), 'bad']);
