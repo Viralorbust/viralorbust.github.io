@@ -17,7 +17,7 @@
 <meta property="og:description" content="£5,000. Twelve months. Grow it, or go bust. Challenge your friends.">
 <meta property="og:type" content="website">
 <!-- SNS preview image: change this address if your site address is different -->
-<meta property="og:image" content="https://viralorbust.github.io/og-image.png?v=5">
+<meta property="og:image" content="https://viralorbust.github.io/og-v2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="canonical" href="https://viralorbust.github.io/">
@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="Viral or Bust">
 <meta name="twitter:title" content="Viral or Bust">
 <meta name="twitter:description" content="£5,000. Twelve months. Grow it, or go bust. A free marketing budget simulation game.">
-<meta name="twitter:image" content="https://viralorbust.github.io/og-image.png?v=5">
+<meta name="twitter:image" content="https://viralorbust.github.io/og-v2.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Viral or Bust","url":"https://viralorbust.github.io/","description":"A free browser game that simulates a 12-month digital marketing budget: split £5,000 across Instagram, TikTok, search ads and SEO, target audiences, and grow or go bust.","genre":["Simulation","Business"],"gamePlatform":"Web browser","applicationCategory":"Game","inLanguage":["en","ko"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}</script>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#050507">
@@ -1447,7 +1447,8 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     let conv = reached * 0.035 * fit * P.cvrMult * trustM * (scandal ? 0.3 : 1);
     const fol = reached * 0.22 * fit * (scandal ? 0.3 : 1);
     collab = { ...cOffer, fit, reached, conv, followers: fol, scandal, cost: cOffer.price };
-    rows.push({ c: 'collab', spend: cOffer.price, visits: reached * 0.08, conv, cvr: conv / Math.max(1, reached * 0.08), q: fit });
+    const cv = Math.max(1, reached * 0.08, conv / 0.12);
+    rows.push({ c: 'collab', spend: cOffer.price, visits: cv, conv, cvr: conv / cv, q: fit });
     brandGain += reached / 2000;
   }
   // organic / brand visits
@@ -2857,8 +2858,8 @@ function researchBox() {
   if (lv >= 3) h += pctBars(t('rs_eng'), CHANNEL_ORDER.map((c) => { const e = BASE_ENG[c] * P.ch[c]; return [t('channels.' + c), e, (e * 100).toFixed(1) + '% · ' + (CHANNELS[c].cpc ? gbp(CHANNELS[c].cpc, 2) : '–')]; }), t('rs_eng_sub'));
   const m = ((G.month - 1) % 12) + 1;
   let nx = '';
-  if (lv === 1) nx = G.rsAsk4 || m > 4 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
-  else if (lv === 2) nx = G.rsAsk9 || m > 9 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(9), c: gbp(RS_COST[3]) });
+  if (lv === 1) nx = G.rsAsk4 || m >= 4 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
+  else if (lv === 2) nx = G.rsAsk9 || m >= 9 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(9), c: gbp(RS_COST[3]) });
   return h + (nx ? `<p class="note" style="margin-top:12px">${esc(nx)}</p>` : '');
 }
 function rsPopup() {
