@@ -1260,6 +1260,8 @@ function newGame(productId, nick) {
   return s;
 }
 
+const coreGender = (p) => { const g = PRODUCTS[p].g; return GENDERS.slice().sort((x, y) => g[y] - g[x])[0]; };
+const coreAges = (p) => { const a = PRODUCTS[p].age; return AGES.slice().sort((x, y) => a[AGES.indexOf(y)] - a[AGES.indexOf(x)]).slice(0, 2); };
 function genCreators(s) {
   const out = [], used = new Set();
   const unlocked = TIERS.filter((t) => s.followers >= t.min);
@@ -1269,8 +1271,11 @@ function genCreators(s) {
     let niche = i === 0 ? pick(NICHES.filter((n) => NICHE_FIT[s.product][n] >= 1.1)) : pick(NICHES), handle, tries = 0;
     do { handle = '@' + pick(HANDLES[niche]); tries++; } while (used.has(handle) && tries < 10);
     used.add(handle);
+    // the first creator (and sometimes the second) speaks to this industry's core customers: its top gender and one of its top two age groups
+    const core = i === 0 || (i === 1 && Math.random() < 0.5);
+    const gender = core ? coreGender(s.product) : pick(['f', 'm', 'all']), age = core ? pick(coreAges(s.product)) : pick(AGES);
     out.push({ id: t.id + '_' + i + '_' + s.month, tier: t.id, handle, niche, aud: Math.round(rnd(t.aud[0], t.aud[1]) / 100) * 100,
-      eng: rnd(t.eng[0], t.eng[1]), price: Math.round(rnd(t.price[0], t.price[1]) / 10) * 10, gender: pick(['f', 'm', 'all']), age: pick(AGES) });
+      eng: rnd(t.eng[0], t.eng[1]), price: Math.round(rnd(t.price[0], t.price[1]) / 10) * 10, gender, age });
   }
   const next = TIERS.find((t) => s.followers < t.min);
   return { list: out, next: next ? { tier: next.id, need: next.min } : null };
@@ -2396,6 +2401,7 @@ const shortGbp = (n) => { const a = Math.abs(n), s = n < 0 ? '−£' : '£'; ret
 const shortN = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e4 ? Math.round(n / 1e3) + 'k' : n >= 1e3 ? (n / 1e3).toFixed(1) + 'k' : String(Math.round(n)));
 const monName = (m, long) => t(long ? 'months_long' : 'months_short')[(m - 1) % 12];
 const yearOf = (m) => Math.floor((m - 1) / 12) + 1;
+const JACKPOT_EVERY = 23;
 const RESEARCH_COST = 400, RS_COST = [0, 400, 2000, 8000];
 const rsLv = () => (G ? G.rsLv || (G.research ? 1 : 0) : 0);
 // which report parts were actually bought: skipping April means its part never shows, even after buying September
@@ -2615,7 +2621,7 @@ function heatClass(c) {
 function logText(e) {
   const v = { ...e.v };
   if (v.c && I18N.en.contents[v.c]) v.c = t('contents.' + v.c); else if (v.c) v.c = t('channels.' + v.c);
-  if (v.g) v.g = t('gender_word.' + v.g); if (v.a) v.a = t('age_opts.' + v.a);
+  if (typeof v.g === 'string' && GENDERS.includes(v.g)) v.g = t('gender_word.' + v.g); if (typeof v.a === 'string' && AGES.includes(v.a)) v.a = t('age_opts.' + v.a);
   if (v.e) v.e = t('events.' + v.e)[0]; if (v.o) v.o = t('offers.' + v.o)[0];
   if (e.k === 'L_lvl') v.l = t('levels')[v.l];
   if (e.k.startsWith('E_')) for (const q of ['a', 't', 'x', 'v', 'f']) if (typeof v[q] === 'number') v[q] = int(v[q]);
@@ -2688,9 +2694,11 @@ function startGame() {
   UI.plan = { gender: null, age: null, content: null, risk: 'normal' };
   UI.alloc = {};
   ATTEMPTS++; store.set('vob-attempts', ATTEMPTS);
-  { const lastMega = store.get('vob-mega-at', 0); G.megaOK = ch ? (((G.seed >>> 3) % 50) === 0) : (ATTEMPTS - lastMega >= 50); }
+  // jackpot games: every 23rd game started on the whole site (server play number), so it is shared by all players.
+  // challenge games use their seed instead, so both friends get the same answer.
+  G.megaOK = ch ? (((G.seed >>> 3) % JACKPOT_EVERY) === 0) : false;
   track('game_start', { industry: UI.product, challenge: ch ? 'yes' : 'no', attempt: ATTEMPTS });
-  if (NET.supa) sb('plays', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, product: UI.product }) }).catch(() => {});
+  if (NET.supa) { const g = G; sb('plays?select=id', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ player_id: PLAYER_ID, product: UI.product }) }).then((r) => (r.ok ? r.json() : [])).then((rows) => { const id = rows && rows[0] ? +rows[0].id : 0; if (!g.challenge && id > 0) { g.playNo = id; g.megaOK = id % JACKPOT_EVERY === 0; if (g === G) save(); } }).catch(() => {}); }
   UI.touched = false; UI.offer = 'decline'; UI.collab = null; UI.choices = {}; UI.notes = {}; UI.posted = false; UI.screen = 'plan';
   SFX.click(); save(); go();
 }
@@ -2704,7 +2712,6 @@ function launch(skip) {
   const offerTaken = UI.offer === 'accept' && G.offer ? String(G.offer) : 'none';
   const r = simulate(G, planOrDefault(), alloc, UI.offer === 'accept' && !!G.offer, UI.collab, UI.choices || {});
   checkAch(r);
-  if (r.megaGain) store.set('vob-mega-at', ATTEMPTS);
   { const spend = Object.values(alloc).reduce((x, y) => x + y, 0), top = CHANNEL_ORDER.filter((c) => alloc[c] > 0).sort((x, y) => alloc[y] - alloc[x])[0] || 'none';
     track('month_launch', { industry: G.product, month: G.month, spend: Math.round(spend), top_channel: top, intensity: UI.plan.risk, target_age: UI.plan.age, target_gender: UI.plan.gender, content: UI.plan.content, collab: UI.collab ? 'yes' : 'no', offer: offerTaken, net: Math.round(r.net), outcome: r.jackpot ? 'jackpot' : r.viral ? 'viral' : r.crash ? 'crash' : r.net >= 0 ? 'profit' : 'loss', endless: G.endless ? 'yes' : 'no' }); }
   if (G.endless) submitScore('endless', G.peakCash, G.month);
