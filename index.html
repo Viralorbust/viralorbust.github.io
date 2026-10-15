@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{var d=document.documentElement,t=JSON.parse(localStorage.getItem("vob-theme")),l=JSON.parse(localStorage.getItem("vob-lang"));if(t)d.setAttribute("data-theme",t);d.lang=l||((navigator.language||"").toLowerCase().indexOf("ko")===0?"ko":"en")}catch(e){}</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FWLJB31TVJ"></script>
 <script>
@@ -323,11 +324,13 @@ th:first-child, td:first-child { text-align: left; font-family: var(--f-sans); }
 .seo-foot { margin-top: 32px !important; font-size: 12px; font-family: var(--f-mono, monospace); letter-spacing: 0.04em; }
 html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: none; }
 .decision.vsinvite { border-color: #25f4ee; } .decision.vsinvite .tag { color: #25f4ee; }
+#app:empty { min-height: 100vh; min-height: 100dvh; }
+.boot { min-height: 100vh; min-height: 100dvh; } html[lang="en"] .boot [lang="ko"], html[lang="ko"] .boot [lang="en"] { display: none; }
 
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app"><main><div class="col boot" style="padding-top:96px"><div class="eyebrow"><span lang="ko">무료 마케팅 시뮬레이션 · 모든 수치는 가상</span><span lang="en">free marketing simulation · every number is fictional</span></div><h1 class="h1"><span lang="ko">바이럴 아니면 <em class="ig-text">파산</em></span><span lang="en">Viral or <em class="ig-text">Bust</em></span></h1></div></main></div>
 <!--SEO-START-->
 <section id="seo" class="seo col" aria-label="About Viral or Bust">
   <div lang="en">
@@ -1032,8 +1035,8 @@ Object.assign(I18N.en, {
   rs_lv: 'Level {n}', rs_gender_sub: 'Response to each gender setting. “Everyone” is its own option.',
   rs_next: 'An upgrade will be offered in {m} ({c}). Miss it and it is gone.', rs_missed: 'No more upgrades this year.',
   rs_pop_tag: 'Audience insights', rs_pop_h: 'Upgrade your report to level {n}?',
-  rs_pop_p2: 'Level 2 adds what this audience watches and where they spend their time.', rs_pop_p3: 'Level 3 adds engagement and cost per visit on every channel.',
-  rs_pop_once: 'This offer appears once. Say no and it will not come back this year.', rs_pop_cash: 'You need {c} in cash to buy it.',
+  rs_pop_p2: 'Level 2 adds what this audience watches and where they spend their time.', rs_pop_p3: 'Level 3 adds the conversion rate you can reach on every channel and its cost per click.', rs_pop_p3b: 'Level 3 includes everything in level 2 (what this audience watches and where they spend their time), plus the conversion rate you can reach on every channel and its cost per click.',
+  rs_pop_once: 'This offer appears once. Say no and this level will not come back.', rs_pop_cash: 'You need {c} in cash to buy it.',
   rs_pop_buy: 'Buy ({c})', rs_pop_skip: 'No thanks',
   hall_rank: 'rank {r} of {n}', hall_none: 'You are not on the hall of fame yet. Finish 12 months and share your result to get on it.', hall_none_best: '(Best on this device: {x})', hall_none_endless: 'Play endless mode to get on this board.',
 });
@@ -1042,8 +1045,8 @@ Object.assign(I18N.ko, {
   rs_lv: '{n}단계', rs_gender_sub: '성별 설정별 반응. "전체"도 하나의 선택지예요.',
   rs_next: '{m}에 업그레이드 제안이 와요 ({c}). 놓치면 다시 오지 않아요.', rs_missed: '올해는 더 이상 업그레이드할 수 없어요.',
   rs_pop_tag: '고객 인사이트', rs_pop_h: '리포트를 {n}단계로 업그레이드할까요?',
-  rs_pop_p2: '2단계는 이 고객층이 즐겨 보는 콘텐츠와 주로 머무는 채널을 알려줘요.', rs_pop_p3: '3단계는 채널별 참여율과 방문 1회당 비용을 알려줘요.',
-  rs_pop_once: '이 제안은 한 번만 와요. 거절하면 올해는 다시 오지 않아요.', rs_pop_cash: '구매하려면 현금 {c}가 필요해요.',
+  rs_pop_p2: '2단계는 이 고객층이 즐겨 보는 콘텐츠와 주로 머무는 채널을 알려줘요.', rs_pop_p3: '3단계는 채널별로 기대할 수 있는 전환율과 클릭당 비용을 알려줘요.', rs_pop_p3b: '3단계는 2단계 내용(이 고객층이 즐겨 보는 콘텐츠와 주로 머무는 채널)에 채널별 전환율과 클릭당 비용까지 모두 알려줘요.',
+  rs_pop_once: '이 제안은 한 번만 와요. 거절하면 이 단계는 다시 오지 않아요.', rs_pop_cash: '구매하려면 현금 {c}가 필요해요.',
   rs_pop_buy: '구매하기 ({c})', rs_pop_skip: '괜찮아요',
   hall_rank: '{n}명 중 {r}위', hall_none: '아직 명예의 전당에 없어요. 12개월을 마치고 결과를 공유하면 올라가요.', hall_none_best: '(이 기기 최고 기록: {x})', hall_none_endless: '무한 모드를 플레이하면 이 순위에 올라가요.',
 });
@@ -1057,6 +1060,20 @@ Object.assign(I18N.ko, {
   L_inbox_up: '운이 따랐다: 이메일이 기본 받은편지함에 들어갔다 (열람 ×{x}).', L_inbox_down: '운이 없었다: 이메일이 프로모션함으로 분류됐다 (열람 ×{x}).',
   L_algo_fav: '딱 맞췄다: 이번 달 {c} 알고리즘이 밀던 콘텐츠가 바로 이거였다.',
 });
+Object.assign(I18N.en, {
+  L_jack_mega_deal: 'MEGA JACKPOT. A global retailer signed an exclusive deal: +£{x} in one month.', L_jack_mega_unicorn: 'MEGA JACKPOT. You went viral worldwide and sold out everywhere: +£{x}.', L_jack_mega_line: 'MEGA JACKPOT. A superstar launched a co-branded line with you: +£{x}.',
+  L_crash_doom_lawsuit: 'COLLAPSE. A lawsuit froze your accounts: −£{x} gone overnight.', L_crash_doom_hack: 'COLLAPSE. Hackers emptied the store and customer data leaked: −£{x}.', L_crash_doom_scandal: 'COLLAPSE. A founder scandal blew up and partners walked away: −£{x}.',
+  mb_mega: 'Mega jackpot', mb_doom: 'Collapse',
+});
+Object.assign(I18N.ko, {
+  L_jack_mega_deal: '초대박 잭팟! 글로벌 유통사가 독점 계약을 맺었다: 한 달 만에 +£{x}.', L_jack_mega_unicorn: '초대박 잭팟! 전 세계에서 바이럴이 터져 전 매장 완판: +£{x}.', L_jack_mega_line: '초대박 잭팟! 슈퍼스타가 우리와 콜라보 라인을 출시했다: +£{x}.',
+  L_crash_doom_lawsuit: '폭망. 소송으로 계좌가 동결됐다: 하룻밤 새 −£{x}.', L_crash_doom_hack: '폭망. 해킹으로 스토어가 털리고 고객 정보가 유출됐다: −£{x}.', L_crash_doom_scandal: '폭망. 대표 논란이 터지고 파트너들이 모두 떠났다: −£{x}.',
+  mb_mega: '초대박 잭팟', mb_doom: '폭망',
+});
+Object.assign(I18N.en, { rs_eng: 'Conversion rate and cost per click', rs_eng_sub: 'Conversion rate when you target the core audience with its favourite content · base cost per click (market news can move it).' });
+Object.assign(I18N.ko, { rs_eng: '채널별 전환율과 클릭당 비용', rs_eng_sub: '핵심 타겟에게 가장 잘 맞는 콘텐츠를 보냈을 때의 전환율 · 기본 클릭당 비용 (시장 뉴스에 따라 달라져요).' });
+Object.assign(I18N.en, { mf_ramp: 'New brand: few people know you yet', mf_align: 'Target and content don’t fit this industry’s buyers' });
+Object.assign(I18N.ko, { mf_ramp: '신생 브랜드: 아직 아는 사람이 적음', mf_align: '타겟·콘텐츠가 이 업종 고객과 안 맞음' });
 
 // ===== Viral or Bust — simulation engine (all figures fictional) =====
 const AGES = ['a16', 'a25', 'a35', 'a45'];
@@ -1166,7 +1183,7 @@ const HANDLES = {
 };
 const FOLLOW_MILESTONES = [200, 1500, 8000, 40000, 100000];
 
-const RISK = { safe: { sd: 0.08, viral: 0.5, crash: 0.02, jack: 0.01 }, normal: { sd: 0.3, viral: 1, crash: 0.045, jack: 0.03 }, bold: { sd: 0.65, viral: 2, crash: 0.09, jack: 0.08 } };
+const RISK = { safe: { sd: 0.08, viral: 0.5, crash: 0.02, jack: 0 }, normal: { sd: 0.3, viral: 1, crash: 0.045, jack: 0 }, bold: { sd: 0.65, viral: 2, crash: 0.09, jack: 0 } };
 const gauss = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
 const rnd = (a, b) => a + Math.random() * (b - a);
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -1198,6 +1215,10 @@ function genMarket(s) {
 function algoRoll() { const r = Math.random(); if (r < 0.08) return rnd(1.5, 2.0); if (r < 0.16) return rnd(0.45, 0.65); return clamp(Math.exp(gauss() * 0.18), 0.7, 1.45); }
 function searchRoll() { const r = Math.random(); if (r < 0.07) return rnd(1.3, 1.6); if (r < 0.14) return rnd(0.55, 0.75); return clamp(Math.exp(gauss() * 0.1), 0.8, 1.25); }
 function inboxRoll() { const r = Math.random(); if (r < 0.1) return rnd(0.5, 0.7); if (r < 0.18) return rnd(1.2, 1.4); return 1; }
+// ===== mega jackpots & sudden collapses (rare, huge) =====
+const MEGA_KINDS = ['deal', 'unicorn', 'line'], DOOM_KINDS = ['lawsuit', 'hack', 'scandal'];
+let MEGA_P = { safe: 0.15, normal: 0.18, bold: 0.25 }, DOOM_P = { safe: 0.003, normal: 0.008, bold: 0.015 };
+let MEGA_MAG = [0.8, 2.5], DOOM_MAG = [0.3, 0.6], MEGA_CAP = 2500000, DOOM_FLOOR = 3000;
 function rollLuck() {
   if (Math.random() >= 0.22) return null;
   const good = Math.random() < 0.5, type = pick(good ? LUCK_GOOD : LUCK_BAD);
@@ -1265,6 +1286,8 @@ function rollMonth(s) {
   s.algo = { instagram: algoRoll(), tiktok: algoRoll(), youtube: algoRoll(), google: searchRoll(), email: inboxRoll() };
   s.algoFav = { instagram: pick(CONTENTS), tiktok: pick(CONTENTS), youtube: pick(CONTENTS) };
   s.luck = rollLuck();
+  s.mega = { r: Math.random(), kind: pick(MEGA_KINDS), mag: rnd(MEGA_MAG[0], MEGA_MAG[1]) };
+  s.doom = { r: Math.random(), kind: pick(DOOM_KINDS), mag: rnd(DOOM_MAG[0], DOOM_MAG[1]) };
   s.event = Math.random() < 0.5 ? pick(Object.keys(EVENTS)) : null;
   s.offer = null;
   if (s.month > 1 && Math.random() < 0.38) {
@@ -1342,6 +1365,18 @@ function rawFit(p, c, plan) {
   const content = P.content[plan.content] * C.content[plan.content];
   return { target, aud, prodCh: P.ch[c], content, total: target * aud * P.ch[c] * content };
 }
+// how well the plan matches the industry's audience data (what the insight report shows): 1 = best possible
+function alignScore(p, plan) {
+  const P = PRODUCTS[p], ai = AGES.indexOf(plan.age);
+  let bestT = 0; for (let i = 0; i < 4; i++) for (const g of GENDERS) bestT = Math.max(bestT, P.age[i] * P.g[g]);
+  // each pick is compared with the top answer in the insight report: age and gender weigh most, content next
+  const ageR = P.age[ai] / Math.max(...P.age), genR = P.g[plan.gender] / Math.max(...Object.values(P.g));
+  const cont = P.content[plan.content] / Math.max(...Object.values(P.content));
+  return clamp(Math.pow(ageR, 3) * Math.pow(genR, 3) * Math.pow(cont, 2), 0.003, 1);
+}
+// UPSIDE_OK: below this the plan ignores the data, so no lucky breaks, viral hits or upside swings
+const ALIGN_OK = 0.75, UPSIDE_OK = 0.6, RAMP = [0.65, 0.8, 0.92];
+const alignFactor = (a) => (a >= 0.97 ? 1 : a);
 function fitQ(p, c, plan) { return Math.pow(rawFit(p, c, plan).total, 1.3); }
 
 // fatigue preview, used by UI too
@@ -1362,7 +1397,11 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   const P = PRODUCTS[s.product];
   const lvl = levelOf(s.totalRevenue);
   const mIdx = (s.month - 1) % 12;
-  const mk = s.market || { demand: 1, comp: 1 }, algo = s.algo || {}, luck = s.luck || null;
+  const mk = s.market || { demand: 1, comp: 1 };
+  const align = alignScore(s.product, plan), alignF = alignFactor(align), onTarget = align >= UPSIDE_OK;
+  // off-target plans get the bad luck but none of the good luck
+  let algo = s.algo || {}, luck = s.luck || null;
+  if (!onTarget) { algo = Object.fromEntries(Object.entries(algo).map(([k, v]) => [k, Math.min(1, v)])); if (luck && luck.good) luck = null; }
   const season = (SEASON[mIdx] + P.season[mIdx]) * mk.demand;
   const ev = s.event ? EVENTS[s.event] : {};
   const fat = fatigue(s, plan, alloc);
@@ -1409,7 +1448,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     if (ev.contentBoost && ev.channels.includes(c) && ev.contentBoost[plan.content]) reach *= ev.contentBoost[plan.content];
     const cpc = C.cpc * ((ev.cpc && ev.cpc[c]) || 1) * (c === mk.cheap ? mk.cheapF : c === mk.pricey ? mk.priceyF : 1);
     if (algo[c]) reach *= algo[c];
-    if (s.algoFav && s.algoFav[c] === plan.content) reach *= 1.3;
+    if (onTarget && s.algoFav && s.algoFav[c] === plan.content) reach *= 1.3;
     if (luck && SOCIAL_CH.includes(c) && (luck.type === 'meme' || luck.type === 'news')) reach *= luck.mag;
     let visits = 0, cvr = C.cvr * P.cvrMult * mq;
     if (c === 'seo') {
@@ -1464,6 +1503,8 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   const avgQ = fitQ(s.product, 'tiktok', plan);
   const risk = RISK[plan.risk] ? plan.risk : 'normal', RK = RISK[risk];
   let viralP = totalSpend > 0 ? clamp((0.01 + 0.08 * socialShare * viralContent * youth * avgQ) * RK.viral, 0, 0.25) : 0;
+  if (s.month <= 3) viralP *= 0.5;
+  if (!onTarget) viralP = 0;
   let viral = null;
   if (Math.random() < viralP) {
     const vv = rnd(2000, 7000) * LEVEL_K[lvl];
@@ -1479,7 +1520,8 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     for (const r of rows) r.conv *= 0.75;
   }
   // campaign intensity: volatility on every result
-  const riskFactor = totalSpend > 0 ? Math.exp(gauss() * RK.sd - (RK.sd * RK.sd) / 2) : 1;
+  // a brand-new shop can't hit the big swings yet: months 1-3 cap the upside
+  const riskFactor0 = totalSpend > 0 ? Math.exp(gauss() * RK.sd - (RK.sd * RK.sd) / 2) : 1, riskFactor = !onTarget ? Math.min(1, riskFactor0) : s.month <= 3 ? Math.min(1.4, riskFactor0) : riskFactor0;
   for (const r of rows) r.conv *= riskFactor;
   // jackpots
   let jackpot = null;
@@ -1537,6 +1579,8 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
       offer = { id: s.offer, cost, win, conv: gp / unitGp, gp, fol: win ? rnd(3000, 9000) : 0, scandal: !win };
     }
   }
+  // a deal only pays off when the campaign behind it reaches the right customers
+  if (offer && offer.gp) { offer.gp *= alignF; offer.conv *= alignF; if (!onTarget) { offer.win = false; offer.fol = 0; } }
   // share of voice: cutting ads lets rivals take the market; long ad breaks fade word of mouth
   const prevSpends = s.history.slice(-3).filter((h) => h.month > 0).map((h) => h.spend || 0);
   const avgPrev = prevSpends.length ? prevSpends.reduce((a, b) => a + b, 0) / prevSpends.length : 0;
@@ -1548,11 +1592,14 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   for (const r of rows) { r.conv *= sovF; if (['organic', 'ig_organic', 'seo'].includes(r.c)) r.conv *= noAdF; }
   // decision effects on conversions
   for (const r of rows) r.conv *= ctx.convMult * modConv;
+  // wrong audience/content for this industry earns very little; a brand-new shop ramps up over its first 3 months
+  const rampF = s.month <= 3 ? RAMP[s.month - 1] : 1;
+  for (const r of rows) r.conv *= alignF * rampF;
   if (luck && ['celeb', 'weather_up', 'weather_down', 'supply', 'review'].includes(luck.type)) for (const r of rows) r.conv *= luck.mag;
-  if (luck && luck.type === 'press') { const vv = luck.mag * LEVEL_K[lvl], vc = vv * 0.015 * P.cvrMult * trustM; rows.push({ c: 'luck', spend: 0, visits: vv, conv: vc, cvr: vc / vv, q: 1 }); brandGain += 12; }
+  if (luck && luck.type === 'press') { const vv = luck.mag * LEVEL_K[lvl], vc = vv * 0.015 * P.cvrMult * trustM; rows.push({ c: 'luck', spend: 0, visits: vv, conv: vc * alignF, cvr: vc * alignF / vv, q: 1 }); brandGain += 12; }
   if (luck && luck.type === 'review') ctx.trustD -= 5;
   if (luck && luck.type === 'celeb') brandGain += 8;
-  if (ctx.extraVisits > 0) { const vc = ctx.extraVisits * 0.012 * P.cvrMult * Math.sqrt(avgQ) * trustM; rows.push({ c: 'event', spend: 0, visits: ctx.extraVisits, conv: vc, cvr: vc / ctx.extraVisits, q: 1 }); }
+  if (ctx.extraVisits > 0) { const vc = ctx.extraVisits * 0.012 * P.cvrMult * Math.sqrt(avgQ) * trustM * alignF; rows.push({ c: 'event', spend: 0, visits: ctx.extraVisits, conv: vc, cvr: vc / ctx.extraVisits, q: 1 }); }
   brandGain += ctx.brandD;
   // event brand effects
   if (ev.brand) brandGain += ev.brand;
@@ -1596,6 +1643,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     s.subs = units;
   }
   // offer gp already folded into conversions; separate attribution for display
+  if (ctx.extraGp > 0) ctx.extraGp *= alignF;
   if (ctx.extraGp) { gp += ctx.extraGp; revenue += ctx.extraGp / Math.max(0.1, P.margin); }
   // boss challenge
   let bossRes = null, bossDelta = 0;
@@ -1607,7 +1655,20 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   const overhead = OVERHEADS[lvl] + (P.fixed || 0);
   let refund = 0;
   if (crash && crash.type === 'recall') { refund = revenue * crash.refundPct; crash.refund = refund; }
-  const net = gp - totalSpend - offerCost - overhead - refund + bossDelta;
+  // mega jackpot / sudden collapse (pre-rolled per month so challenge links stay fair)
+  let megaGain = 0, doomLoss = 0;
+  const mg = s.mega, dm = s.doom;
+  // a mega jackpot only comes in some runs (s.megaOK), once per run, and only while the campaign is going well
+  if (mg && s.megaOK && !s.megaHit && totalSpend > 0 && s.month >= 4 && s.profitStreak >= 2 && s.trust >= 40 && s.cash >= START && align >= ALIGN_OK && mg.r < (MEGA_P[risk] || MEGA_P.normal)) {
+    megaGain = Math.min(MEGA_CAP, Math.max(12000 * LEVEL_K[lvl], Math.max(0, s.cash) * mg.mag)); s.megaHit = true;
+    jackpot = { ...(jackpot || {}), type: 'mega_' + mg.kind, gain: megaGain };
+    brandGain += 40;
+  } else if (dm && s.month >= 4) {
+    const p = (DOOM_P[risk] || DOOM_P.normal) * (s.trust < 35 ? 2 : 1) * (plan.content === 'promo' && s.lastContent === 'promo' ? 1.5 : 1);
+    const room = risk === 'bold' ? Math.max(0, s.cash) : Math.max(0, s.cash - DOOM_FLOOR);
+    if (dm.r < p && room > 0) { doomLoss = Math.min(room, Math.max(1500, Math.max(0, s.cash) * dm.mag)); crash = { ...(crash || {}), type: 'doom_' + dm.kind, loss: doomLoss }; brandGain -= 25; }
+  }
+  const net = gp - totalSpend - offerCost - overhead - refund + bossDelta + megaGain - doomLoss;
   const startCash = s.cash;
   s.profitStreak = net > 0 ? s.profitStreak + 1 : 0; s.bestStreak = Math.max(s.bestStreak || 0, s.profitStreak);
   s.cash = s.cash + net;
@@ -1633,7 +1694,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     cac: newConv > 0 ? adCost / newConv : 0,
     roas: adCost > 0 ? revenue / adCost : 0,
     roi: adCost > 0 ? (gp - adCost) / adCost : 0,
-    algo: { ...algo }, luck, market: mk, startCash, cash: s.cash, impressions: visits * rnd(28, 36),
+    algo: { ...algo }, luck, market: mk, megaGain, doomLoss, align, alignF, rampF, startCash, cash: s.cash, impressions: visits * rnd(28, 36),
     lvlBefore, lvlAfter, subs: s.subs, seoNote, fatigue: fat,
     targetFit: rawFit(s.product, 'instagram', plan).target, contentFit: PRODUCTS[s.product].content[plan.content],
     seoEquity: s.seo, brand: s.brand, sovF, noAdF, noAd: s.noAd, sovDrop: s.sovDrop, risk, riskFactor, jackpot, crash, refund, season, trustM, decisionCost: ctx.cost, bossRes, chosen, modConv, margin: P.margin * (flash ? 0.62 / 0.7 : 1), unitPrice: unitRev, unitGp,
@@ -1661,8 +1722,8 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   }
   if (luck) W(2, { k: 'L_luck_' + luck.type, v: { x: luck.type === 'press' ? Math.round(luck.mag * LEVEL_K[lvl]) : luck.mag.toFixed(2) }, tone: luck.good ? 'good' : 'bad' });
   if (risk !== 'normal' && totalSpend > 0) W(2, { k: riskFactor >= 1 ? 'L_risk_up' : 'L_risk_down', v: { r: risk, x: riskFactor.toFixed(2) }, tone: riskFactor >= 1.15 ? 'good' : riskFactor <= 0.85 ? 'bad' : 'info' });
-  if (jackpot) W(2, { k: 'L_jack_' + jackpot.type, v: { v: Math.round(jackpot.visits || 0), x: jackpot.mult ? jackpot.mult.toFixed(1) : '' }, tone: 'good' });
-  if (crash) W(2, { k: 'L_crash_' + crash.type, v: { x: Math.round(refund) }, tone: 'bad' });
+  if (jackpot) W(2, { k: 'L_jack_' + jackpot.type, v: { v: Math.round(jackpot.visits || 0), x: jackpot.gain && jackpot.type.startsWith('mega_') ? Math.round(jackpot.gain) : jackpot.mult ? jackpot.mult.toFixed(1) : '' }, tone: 'good' });
+  if (crash) W(2, { k: 'L_crash_' + crash.type, v: { x: Math.round(crash.loss || refund) }, tone: 'bad' });
   if (backlash) W(2, { k: 'L_backlash', v: {}, tone: 'bad' });
   const paid = rows.filter((r) => r.spend > 0 && r.c !== 'collab').map((r) => ({ c: r.c, roas: (r.conv * P.price) / r.spend }));
   if (paid.length) {
@@ -2268,7 +2329,7 @@ Object.assign(I18N.en, {
   mf_h: 'What moved the result', mf_season: 'Market demand in {m}', mf_trend: 'Trend heat for {c} (social reach)', mf_fatigue: 'Audience tired of {c}', mf_trust: 'Customer trust ({t}/100)', mf_luck: 'Luck at {r} intensity', mf_news: 'News: {e}', mf_sat: '{c}: only this share of spend turned into reach',
   mf_match: 'How each channel’s audience responded', mf_m_good: 'strong', mf_m_mid: 'average', mf_m_bad: 'weak', mf_reach: 'Who you reached (visitors by age)', mf_reach_sub: '◀ marks the age you targeted. Channels bring their own audiences.',
   research: 'Audience insights', research_open: 'Audience insights', research_btn: 'Buy the report (£{c})', research_desc: 'A market report on who buys in your industry: their ages, gender, what they watch, where they spend time, and how they engage on each platform.',
-  rs_intro: 'Market report: {p} buyers', rs_age: 'Customer age', rs_age_sub: 'Share of likely buyers in each age group.', rs_gender: 'Gender', rs_watch: 'What they watch', rs_watch_sub: 'Which content styles this audience responds to.', rs_where: 'Where they spend time', rs_where_sub: 'Relative pull of each channel for this industry.', rs_eng: 'Engagement and cost', rs_eng_sub: 'Typical engagement rate · cost per visit.',
+  rs_intro: 'Market report: {p} buyers', rs_age: 'Customer age', rs_age_sub: 'How strongly each age group buys in this industry (share of the total response).', rs_gender: 'Gender', rs_watch: 'What they watch', rs_watch_sub: 'Which content styles this audience responds to.', rs_where: 'Where they spend time', rs_where_sub: 'Relative pull of each channel for this industry.', rs_eng: 'Engagement and cost', rs_eng_sub: 'Typical engagement rate · cost per visit.',
 });
 Object.assign(I18N.ko, {
   mb_title: '돈이 어디로 갔나요?', mb_flow: '이번 달 돈의 흐름', mb_start: '월초 현금', mb_rev: '매출: 신규 {n}명 + 재구매·기존 {m}명', mb_cogs: '제품 원가 (매출의 {p}%)', mb_ad: '광고: {c}', mb_offer: '제안·딜 비용', mb_overhead: '팀·툴·고정비', mb_refund: '환불', mb_net: '이번 달 순이익', mb_end: '월말 현금',
@@ -2276,7 +2337,7 @@ Object.assign(I18N.ko, {
   mf_h: '결과를 바꾼 요인', mf_season: '{m} 시장 수요', mf_trend: '{c} 트렌드 열기 (소셜 도달)', mf_fatigue: '{c} 반복으로 인한 피로', mf_trust: '고객 신뢰 ({t}/100)', mf_luck: '{r} 강도의 운', mf_news: '뉴스: {e}', mf_sat: '{c}: 넣은 돈 중 도달로 이어진 비율',
   mf_match: '채널별 고객 반응', mf_m_good: '좋음', mf_m_mid: '보통', mf_m_bad: '약함', mf_reach: '이번 달 도달한 사람들 (방문자 연령)', mf_reach_sub: '◀는 내가 타깃한 연령이에요. 채널마다 원래 모이는 연령층이 달라요.',
   research: '고객 인사이트', research_open: '고객 인사이트', research_btn: '리포트 구매 (£{c})', research_desc: '내 업종 구매자에 대한 시장 리포트: 연령, 성별, 즐겨 보는 콘텐츠, 주로 머무는 채널, 플랫폼별 참여율과 비용.',
-  rs_intro: '시장 리포트: {p} 구매자', rs_age: '고객 연령', rs_age_sub: '연령대별 잠재 구매자 비율.', rs_gender: '성별', rs_watch: '즐겨 보는 콘텐츠', rs_watch_sub: '이 고객층이 반응하는 콘텐츠 스타일.', rs_where: '주로 머무는 곳', rs_where_sub: '이 업종 고객을 끌어당기는 채널별 힘.', rs_eng: '참여율과 비용', rs_eng_sub: '평균 참여율 · 방문 1회당 비용.',
+  rs_intro: '시장 리포트: {p} 구매자', rs_age: '고객 연령', rs_age_sub: '이 업종에서 연령대별로 얼마나 잘 팔리는지 (전체 반응 중 비중).', rs_gender: '성별', rs_watch: '즐겨 보는 콘텐츠', rs_watch_sub: '이 고객층이 반응하는 콘텐츠 스타일.', rs_where: '주로 머무는 곳', rs_where_sub: '이 업종 고객을 끌어당기는 채널별 힘.', rs_eng: '참여율과 비용', rs_eng_sub: '평균 참여율 · 방문 1회당 비용.',
 });
 Object.assign(I18N.en, { mf_sov: 'Rivals took market share (you cut ads)', mf_noad: 'Word of mouth fading ({n} months with no ads)', mm_h: 'Compared with last month', mm_up: 'Net profit up {x} on last month.', mm_down: 'Net profit down {x} on last month.', mm_spend: 'Ad and event spend', mm_season: 'Market demand', mm_trend: 'Trend heat ({c})', mm_trust: 'Customer trust', mm_luck: 'Luck', mm_sov: 'Your share of the market', mm_noad: 'Word of mouth', mm_new: 'New customers', mm_viral: 'A viral moment this month', mm_crash: 'A disaster this month', mm_boss_win: 'Investor reward paid out', mm_boss_lose: 'Investor penalty charged',
   L_sov: 'You cut ad spend sharply. Rivals filled the gap and took market share (−{p}% sales).', L_noad: 'No paid ads this month. Existing customers and word of mouth kept {x} sales coming.', L_noad_long: '{n} months without ads. Word of mouth is fading (−{p}% new customers from organic).' });
@@ -2540,8 +2601,9 @@ function logText(e) {
   if (e.k === 'L_milestone') v.n = int(v.n);
   if (v.t != null && e.k.startsWith('L_follow')) v.t = int(v.t);
   if (v.v != null && e.k === 'L_viral') v.v = int(v.v);
-  if (v.f != null) v.f = int(v.f);
+  if (typeof v.f === 'number') v.f = int(v.f);
   if (e.k === 'L_luck_press') v.x = int(v.x);
+  if (/^L_(jack_mega|crash_doom)_/.test(e.k)) v.x = int(v.x);
   if (e.k === 'L_launch') v.h = (v.h >= 0 ? '+' : '') + v.h;
   return t(e.k, v);
 }
@@ -2604,6 +2666,7 @@ function startGame() {
   UI.plan = { gender: 'all', age: 'a25', content: 'short', risk: 'normal' };
   UI.alloc = {};
   ATTEMPTS++; store.set('vob-attempts', ATTEMPTS);
+  { const lastMega = store.get('vob-mega-at', 0); G.megaOK = ch ? (((G.seed >>> 3) % 50) === 0) : (ATTEMPTS - lastMega >= 50); }
   track('game_start', { industry: UI.product, challenge: ch ? 'yes' : 'no', attempt: ATTEMPTS });
   if (NET.supa) sb('plays', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, product: UI.product }) }).catch(() => {});
   UI.touched = false; UI.offer = 'decline'; UI.collab = null; UI.choices = {}; UI.notes = {}; UI.posted = false; UI.screen = 'plan';
@@ -2616,6 +2679,7 @@ function launch(skip) {
   const offerTaken = UI.offer === 'accept' && G.offer ? String(G.offer) : 'none';
   const r = simulate(G, { ...UI.plan }, alloc, UI.offer === 'accept' && !!G.offer, UI.collab, UI.choices || {});
   checkAch(r);
+  if (r.megaGain) store.set('vob-mega-at', ATTEMPTS);
   { const spend = Object.values(alloc).reduce((x, y) => x + y, 0), top = CHANNEL_ORDER.filter((c) => alloc[c] > 0).sort((x, y) => alloc[y] - alloc[x])[0] || 'none';
     track('month_launch', { industry: G.product, month: G.month, spend: Math.round(spend), top_channel: top, intensity: UI.plan.risk, target_age: UI.plan.age, target_gender: UI.plan.gender, content: UI.plan.content, collab: UI.collab ? 'yes' : 'no', offer: offerTaken, net: Math.round(r.net), outcome: r.jackpot ? 'jackpot' : r.viral ? 'viral' : r.crash ? 'crash' : r.net >= 0 ? 'profit' : 'loss', endless: G.endless ? 'yes' : 'no' }); }
   if (G.endless) submitScore('endless', G.peakCash, G.month);
@@ -2636,7 +2700,7 @@ function nextMonth() {
     UI.screen = 'year'; save(); go(); return;
   }
   G.month++; rollM(G);
-  { const mm = ((G.month - 1) % 12) + 1; if (G.month <= 12 && mm === 4 && rsLv() === 1 && !G.rsAsk4) UI.rsPopup = 2; else if (G.month <= 12 && mm === 9 && rsLv() === 2 && !G.rsAsk9) UI.rsPopup = 3; else UI.rsPopup = 0; }
+  { const mm = ((G.month - 1) % 12) + 1; if (G.month <= 12 && mm === 4 && rsLv() === 1 && !G.rsAsk4) UI.rsPopup = 2; else if (G.month <= 12 && mm === 9 && rsLv() >= 1 && rsLv() <= 2 && !G.rsAsk9) UI.rsPopup = 3; else UI.rsPopup = 0; }
   const last = G.last ? G.last.alloc : {}, lt = Object.values(last).reduce((a, b) => a + b, 0), cap = Math.max(0, G.cash * 0.9), f = lt > cap && lt > 0 ? cap / lt : 1;
   UI.alloc = {}; for (const c in last) UI.alloc[c] = roundTo(last[c] * f, 10);
   UI.offer = 'decline'; UI.collab = null; UI.choices = {}; UI.touched = true; UI.screen = 'plan'; save(); go();
@@ -2841,6 +2905,7 @@ function totalsHtml() {
   return `<div class="totals"><div><small>${esc(t('allocated'))}</small><b>${gbp(tot)}</b></div><div><small>${esc(t('reserve'))}</small><b>${gbp(Math.max(0, G.cash - tot))}</b></div><div><small>${esc(t('overhead'))}</small><b>${gbp(OVERHEADS[lvlNow()] + (PRODUCTS[G.product].fixed || 0))}</b></div></div>
     ${over > 0.01 ? `<div class="warn">${esc(t('over_budget', { x: gbp(over) }))}</div>` : ''}`;
 }
+function bestPlanFor(p) { const P = PRODUCTS[p]; let best = null, bv = -1; for (let i = 0; i < 4; i++) for (const g of ['f', 'm', 'all']) { const v = P.age[i] * P.g[g]; if (v > bv) { bv = v; best = { age: AGES[i], gender: g }; } } const c = Object.keys(P.content).reduce((x, y) => (P.content[y] > P.content[x] ? y : x)); return { ...best, content: c, risk: 'normal' }; }
 const BASE_ENG = { instagram: 0.032, tiktok: 0.051, youtube: 0.024, influencer: 0.041, email: 0.18, google: 0.045, seo: 0.03 };
 function pctBars(title, entries, sub) {
   const tot = entries.reduce((x, e) => x + e[1], 0) || 1, max = Math.max(...entries.map((e) => e[1]));
@@ -2855,11 +2920,11 @@ function researchBox() {
     + pctBars(t('rs_gender'), [[t('gender_opts.f'), P.g.f], [t('gender_opts.m'), P.g.m], [t('gender_opts.all'), P.g.all]], t('rs_gender_sub'));
   if (lv >= 2) h += pctBars(t('rs_watch'), CONTENTS.map((c) => [t('contents.' + c), P.content[c]]), t('rs_watch_sub'))
     + pctBars(t('rs_where'), CHANNEL_ORDER.map((c) => [t('channels.' + c), P.ch[c]]), t('rs_where_sub'));
-  if (lv >= 3) h += pctBars(t('rs_eng'), CHANNEL_ORDER.map((c) => { const e = BASE_ENG[c] * P.ch[c]; return [t('channels.' + c), e, (e * 100).toFixed(1) + '% · ' + (CHANNELS[c].cpc ? gbp(CHANNELS[c].cpc, 2) : '–')]; }), t('rs_eng_sub'));
+  if (lv >= 3) { const bp = bestPlanFor(G.product); h += pctBars(t('rs_eng'), CHANNEL_ORDER.map((c) => { const cv = Math.min(0.25, CHANNELS[c].cvr * P.cvrMult * Math.sqrt(fitQ(G.product, c, bp))); return [t('channels.' + c), cv, (cv * 100).toFixed(1) + '% · ' + (CHANNELS[c].cpc ? gbp(CHANNELS[c].cpc, 2) : '–')]; }), t('rs_eng_sub')); }
   const m = ((G.month - 1) % 12) + 1;
   let nx = '';
-  if (lv === 1) nx = G.rsAsk4 || m >= 4 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
-  else if (lv === 2) nx = G.rsAsk9 || m >= 9 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(9), c: gbp(RS_COST[3]) });
+  if (lv === 1 && !G.rsAsk4 && m < 4 && G.month <= 12) nx = t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
+  else if (lv <= 2) nx = G.rsAsk9 || m >= 9 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(9), c: gbp(RS_COST[3]) });
   return h + (nx ? `<p class="note" style="margin-top:12px">${esc(nx)}</p>` : '');
 }
 function rsPopup() {
@@ -2867,7 +2932,7 @@ function rsPopup() {
   const cost = RS_COST[lv], can = G.cash >= cost;
   return `<div class="modal" id="rsmodal"><div class="inner" role="dialog" aria-modal="true">
     <span class="eyebrow">${esc(t('rs_pop_tag'))}</span><h3 style="margin:0;font-size:22px">${esc(t('rs_pop_h', { n: lv }))}</h3>
-    <p class="note" style="margin:0">${esc(t('rs_pop_p' + lv))}</p><p class="note" style="margin:0">${esc(t('rs_pop_once'))}</p>
+    <p class="note" style="margin:0">${esc(t(lv === 3 && rsLv() === 1 ? 'rs_pop_p3b' : 'rs_pop_p' + lv))}</p><p class="note" style="margin:0">${esc(t('rs_pop_once'))}</p>
     ${can ? '' : `<p class="note" style="margin:0;color:var(--accent)">${esc(t('rs_pop_cash', { c: gbp(cost) }))}</p>`}
     <div class="row"><button class="btn primary" data-act="rsbuy" ${can ? '' : 'disabled'}>${esc(t('rs_pop_buy', { c: gbp(cost) }))}</button><button class="btn" data-act="rsskip">${esc(t('rs_pop_skip'))}</button></div></div></div>`;
 }
@@ -2962,6 +3027,8 @@ function moneyBox(r) {
     ...(r.offerCost - (r.collab ? r.collab.cost : 0) > 0 ? [[t('mb_offer'), -(r.offerCost - (r.collab ? r.collab.cost : 0)), 'minus']] : []),
     [t('mb_overhead'), -r.overhead, 'minus'],
     ...(r.refund ? [[t('mb_refund'), -r.refund, 'minus']] : []),
+    ...(r.megaGain ? [[t('mb_mega'), r.megaGain, 'plus']] : []),
+    ...(r.doomLoss ? [[t('mb_doom'), -r.doomLoss, 'minus']] : []),
     ...(r.bossRes ? [[t('mb_boss'), r.bossRes.delta, r.bossRes.delta >= 0 ? 'plus' : 'minus']] : []),
     [t('mb_net'), r.net, r.net >= 0 ? 'plus' : 'minus'],
     [t('mb_end'), r.cash, 'base'],
@@ -2978,6 +3045,8 @@ function moneyBox(r) {
   f.push([t('mf_trend', { c: t('contents.' + r.plan.content) }), mult(r.heat), r.heat >= 1 ? 'good' : 'bad']);
   if (r.fatigue && r.fatigue.contentF < 1) f.push([t('mf_fatigue', { c: t('contents.' + r.plan.content) }), mult(r.fatigue.contentF), 'bad']);
   f.push([t('mf_trust', { t: Math.round(r.trust) }), mult(r.trustM || 1), (r.trustM || 1) >= 1 ? 'good' : 'bad']);
+  if (r.rampF != null && r.rampF < 1) f.push([t('mf_ramp'), mult(r.rampF), 'bad']);
+  if (r.alignF != null && r.alignF < 1) f.push([t('mf_align'), mult(r.alignF), 'bad']);
   if (r.spend > 0) f.push([t('mf_luck', { r: t('risk_opts.' + (r.risk || 'normal')) }), mult(r.riskFactor || 1), (r.riskFactor || 1) >= 1 ? 'good' : 'bad']);
   if (r.sovF != null && r.sovF < 1) f.push([t('mf_sov'), mult(r.sovF), 'bad']);
   if (r.noAdF != null && r.noAdF < 1) f.push([t('mf_noad', { n: r.noAd }), mult(r.noAdF), 'bad']);
@@ -3212,7 +3281,7 @@ document.addEventListener('click', (e) => {
   if (a === 'choose') { UI.choices = UI.choices || {}; UI.choices[b.dataset.d] = v; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'collab') { UI.collab = v || null; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'logmore') { UI.logOpen = true; const y = scrollY; render(); scrollTo(0, y); return; }
-  if (a === 'research' || a === 'rsbuy') { const target = a === 'research' ? 1 : UI.rsPopup; if (target && rsLv() === target - 1 && G.cash >= RS_COST[target]) { G.cash -= RS_COST[target]; G.rsLv = target; G.research = true; if (target === 2) G.rsAsk4 = true; if (target === 3) G.rsAsk9 = true; G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; if (target === 1) grant('data'); track('research_buy', { level: target, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
+  if (a === 'research' || a === 'rsbuy') { const target = a === 'research' ? 1 : UI.rsPopup; if (target && rsLv() < target && G.cash >= RS_COST[target]) { G.cash -= RS_COST[target]; G.rsLv = target; G.research = true; if (target === 2) G.rsAsk4 = true; if (target === 3) { G.rsAsk9 = true; G.rsAsk4 = true; } G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; if (target === 1) grant('data'); track('research_buy', { level: target, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'rsskip') { if (UI.rsPopup === 2) G.rsAsk4 = true; if (UI.rsPopup === 3) G.rsAsk9 = true; track('research_skip', { level: UI.rsPopup }); UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   const avail = CHANNEL_ORDER.filter(unlocked);
   const budget = Math.max(0, G.cash - collabCost() - offerCostNow() - decisionCostNow());
