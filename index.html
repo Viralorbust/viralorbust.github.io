@@ -1041,6 +1041,7 @@ Object.assign(I18N.ko, {
 });
 I18N.en.channels.luck = 'Lucky break'; I18N.ko.channels.luck = '행운';
 Object.assign(I18N.en, {
+  rs_full_desc: 'The full market report in one go: who buys (age and gender), what they watch, where they spend time, and how each platform converts and what it costs.', rs_full: 'Full report',
   rs1_desc: 'A market report on who buys in your industry: their ages and gender. Buyers get one chance in April and one in September to upgrade to a deeper report.',
   rs_lv: 'Level {n}', rs_gender_sub: 'Response to each gender setting. “Everyone” is its own option.',
   rs_next: 'An upgrade will be offered in {m} ({c}). Miss it and it is gone.', rs_missed: 'No more upgrades this year.',
@@ -1058,6 +1059,7 @@ Object.assign(I18N.en, {
   hall_rank: 'rank {r} of {n}', hall_none: 'You are not on the hall of fame yet. Finish 12 months and share your result to get on it.', hall_none_best: '(Best on this device: {x})', hall_none_endless: 'Play endless mode to get on this board.',
 });
 Object.assign(I18N.ko, {
+  rs_full_desc: '한 번에 받는 전체 시장 리포트예요. 구매자 연령·성별, 즐겨 보는 콘텐츠, 주로 머무는 채널, 플랫폼별 전환율과 비용까지 모두 알려줘요.', rs_full: '전체 리포트',
   rs1_desc: '내 업종 구매자의 연령과 성별을 알려주는 시장 리포트예요. 구매하면 4월과 9월에 한 번씩 더 깊은 리포트로 업그레이드할 기회가 와요.',
   rs_lv: '{n}단계', rs_gender_sub: '성별 설정별 반응. "전체"도 하나의 선택지예요.',
   rs_next: '{m}에 업그레이드 제안이 와요 ({c}). 놓치면 다시 오지 않아요.', rs_missed: '올해는 더 이상 업그레이드할 수 없어요.',
@@ -2464,6 +2466,10 @@ const monName = (m, long) => t(long ? 'months_long' : 'months_short')[(m - 1) % 
 const yearOf = (m) => Math.floor((m - 1) / 12) + 1;
 const JACKPOT_EVERY = 23;
 const RESEARCH_COST = 400, RS_COST = [0, 400, 2000, 8000];
+// café: one purchase unlocks the full report (all 3 levels) for £800, no upgrade popups
+const RS_FULL = { coffee: 800 };
+const rsFull = () => !!(G && RS_FULL[G.product]);
+const rsCost1 = () => (rsFull() ? RS_FULL[G.product] : RS_COST[1]);
 const rsLv = () => (G ? G.rsLv || (G.research ? 1 : 0) : 0);
 // which report parts were actually bought: skipping April means its part never shows, even after buying September
 const rsHas = (n) => (G ? (G.rsBought ? G.rsBought.includes(n) : rsLv() >= n) : false);
@@ -3007,8 +3013,8 @@ function pctBars(title, entries, sub) {
 }
 function researchBox() {
   const P = PRODUCTS[G.product], lv = rsLv();
-  if (!lv) return `<p class="note" style="margin-top:6px">${esc(t('rs1_desc'))}</p><button class="btn sm" data-act="research" ${G.cash < RS_COST[1] ? 'disabled' : ''} style="margin-top:8px">${esc(t('research_btn', { c: RS_COST[1] }))}</button>`;
-  let h = `<p class="note" style="margin:6px 0 0">${esc(t('rs_intro', { p: prodName(G.product) }))} · <b>${esc(t('rs_lv', { n: lv }))}</b></p>`
+  if (!lv) return `<p class="note" style="margin-top:6px">${esc(t(rsFull() ? 'rs_full_desc' : 'rs1_desc'))}</p><button class="btn sm" data-act="research" ${G.cash < rsCost1() ? 'disabled' : ''} style="margin-top:8px">${esc(t('research_btn', { c: rsCost1() }))}</button>`;
+  let h = `<p class="note" style="margin:6px 0 0">${esc(t('rs_intro', { p: prodName(G.product) }))} · <b>${esc(rsFull() ? t('rs_full') : t('rs_lv', { n: lv }))}</b></p>`
     + pctBars(t('rs_age'), AGES.map((x, i) => [t('age_opts.' + x), P.age[i]]), t('rs_age_sub'))
     + pctBars(t('rs_gender'), [[t('gender_opts.f'), P.g.f], [t('gender_opts.m'), P.g.m], [t('gender_opts.all'), P.g.all]], t('rs_gender_sub'));
   if (rsHas(2)) h += pctBars(t('rs_watch'), CONTENTS.map((c) => [t('contents.' + c), P.content[c]]), t('rs_watch_sub'))
@@ -3016,7 +3022,8 @@ function researchBox() {
   if (rsHas(3)) { const bp = bestPlanFor(G.product); h += pctBars(t('rs_eng'), CHANNEL_ORDER.map((c) => { const cv = Math.min(0.25, CHANNELS[c].cvr * P.cvrMult * Math.sqrt(fitQ(G.product, c, bp))); return [t('channels.' + c), cv, (cv * 100).toFixed(1) + '% · ' + (CHANNELS[c].cpc ? gbp(CHANNELS[c].cpc, 2) : '–')]; }), t('rs_eng_sub')); }
   const m = ((G.month - 1) % 12) + 1;
   let nx = '';
-  if (lv === 1 && !G.rsAsk4 && m < 4 && G.month <= 12) nx = t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
+  if (rsFull()) nx = '';
+  else if (lv === 1 && !G.rsAsk4 && m < 4 && G.month <= 12) nx = t('rs_next', { m: monName(4), c: gbp(RS_COST[2]) });
   else if (lv <= 2) nx = G.rsAsk9 || m >= 9 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(9), c: gbp(RS_COST[3]) });
   return h + (nx ? `<p class="note" style="margin-top:12px">${esc(nx)}</p>` : '');
 }
@@ -3087,7 +3094,7 @@ function planScreen() {
       <div class="row" style="margin:10px 0 4px;gap:6px"><button class="ghost" data-act="spread">${esc(t('spread'))}</button><button class="ghost" data-act="half">${esc(t('half'))}</button>${G.last ? `<button class="ghost" data-act="repeat">${esc(t('repeat'))}</button>` : ''}<button class="ghost" data-act="clear">${esc(t('clear'))}</button></div>
       ${G.month === 1 && !UI.touched ? `<p class="note" style="margin:6px 0 0">${esc(t('example'))}</p>` : ''}
       ${CHANNEL_ORDER.map(allocRow).join('')}<div id="totals">${totalsHtml()}</div></div>
-    <details class="box"><summary>${esc(t('research_open'))}${rsLv() ? ' · ' + esc(t('rs_lv', { n: rsLv() })) : ' · £' + RS_COST[1]}</summary>${researchBox()}</details>
+    <details class="box"><summary>${esc(t('research_open'))}${rsLv() ? ' · ' + esc(rsFull() ? t('rs_full') : t('rs_lv', { n: rsLv() })) : ' · £' + rsCost1()}</summary>${researchBox()}</details>
     ${recent.length ? `<div><h2>${esc(t('log_title'))}</h2><p class="note">${esc(t('log_sub'))}</p>${logList(recent, true, UI.logOpen ? 80 : 8)}${recent.length > 8 && !UI.logOpen ? `<div style="padding-top:12px"><button class="ghost" data-act="logmore">${esc(t('log_more'))}</button></div>` : ''}</div>` : ''}
     <p class="sim">${esc(t('sim'))}</p>
   </div></main>
@@ -3407,6 +3414,7 @@ document.addEventListener('click', (e) => {
   if (a === 'choose') { UI.choices = UI.choices || {}; UI.choices[b.dataset.d] = v; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'collab') { UI.collab = v || null; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'logmore') { UI.logOpen = true; const y = scrollY; render(); scrollTo(0, y); return; }
+  if (a === 'research' && rsFull()) { const c = rsCost1(); if (!rsLv() && G.cash >= c) { G.cash -= c; G.rsBought = [1, 2, 3]; G.rsLv = 3; G.research = true; G.rsAsk4 = true; G.rsAsk9 = true; G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; grant('data'); track('research_buy', { level: 3, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'research' || a === 'rsbuy') { const target = a === 'research' ? 1 : UI.rsPopup; if (target && rsLv() < target && G.cash >= RS_COST[target]) { G.cash -= RS_COST[target]; G.rsBought = [...(G.rsBought || (rsLv() ? [1] : [])), target]; G.rsLv = target; G.research = true; if (target === 2) G.rsAsk4 = true; if (target === 3) { G.rsAsk9 = true; G.rsAsk4 = true; } G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; if (target === 1) grant('data'); track('research_buy', { level: target, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'rsskip') { if (UI.rsPopup === 2) G.rsAsk4 = true; if (UI.rsPopup === 3) G.rsAsk9 = true; track('research_skip', { level: UI.rsPopup }); UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   const avail = CHANNEL_ORDER.filter(unlocked);
