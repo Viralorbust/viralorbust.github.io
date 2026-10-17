@@ -337,6 +337,23 @@ html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: no
 @keyframes bustshake { 0%,100% { transform: none; } 20% { transform: translateX(-8px) rotate(-1deg); } 40% { transform: translateX(7px) rotate(1deg); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
 @media (prefers-reduced-motion: reduce) { .busth { animation: none; } }
 
+
+/* One shared glossary for the monthly report. */
+.report-glossary-tools { display:flex; justify-content:flex-end; margin-bottom:8px; }
+.report-glossary-button { display:flex; flex-direction:column; align-items:center; gap:5px; border:0; background:transparent; color:var(--muted); cursor:pointer; font:inherit; font-size:12px; padding:6px 10px; }
+.report-glossary-button svg { width:38px; height:38px; padding:8px; border:1px solid var(--line); border-radius:50%; background:var(--surface); color:var(--ink); }
+.report-glossary-button:hover svg { border-color:var(--teal); color:var(--teal); }
+.report-glossary-button:focus-visible { outline:2px solid var(--teal); outline-offset:3px; border-radius:8px; }
+#marketing-glossary { width:min(640px, calc(100% - 32px)); max-height:80vh; padding:24px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--ink); }
+#marketing-glossary::backdrop { background:rgba(0,0,0,.55); }
+.glossary-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.glossary-heading h2 { margin:0; }
+#marketing-glossary dt { font-weight:700; margin-top:20px; }
+#marketing-glossary dd { margin:6px 0 0; color:var(--muted); font-size:14px; line-height:1.8; }
+
+.glossary-example { margin-top:16px; padding:14px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); font-size:13px; white-space:pre-line; }
+#marketing-glossary dt { padding-top:20px; border-top:1px solid var(--line); }
+#marketing-glossary dt:first-child { border-top:0; padding-top:0; }
 </style>
 </head>
 <body>
@@ -3200,11 +3217,14 @@ function resultScreen() {
     ${statBars({ net: r.net, fol: r.followGain, trust: r.trustDelta })}
     <div><h2>${esc(t('log_title'))}</h2><p class="note">${esc(t('log_sub'))}</p>${logList(r.log, false)}</div>
     <div><label class="label" for="note" style="display:block">${esc(t('diary_line'))}</label><div class="row" style="flex-wrap:nowrap"><input class="input" id="note" maxlength="60" placeholder="${esc(t('diary_ph'))}" value="${esc(note)}"><button class="btn" data-act="savenote" style="flex:none">OK</button></div></div>
+    <section aria-label="${esc(t('report'))}">
+    <div class="report-glossary-tools"><button type="button" class="report-glossary-button" data-marketing-glossary aria-haspopup="dialog" aria-controls="marketing-glossary"><span>${LANG === 'ko' ? '용어 설명' : 'Glossary'}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5" stroke-linecap="round"/></svg></button></div>
     <div class="kpis">
       ${k(t('k_impr'), int(r.impressions))}${k(t('k_visits'), int(r.visits))}${k(t('k_cvr'), pct(r.cvr, 2))}
       ${k(t('k_new'), int(r.newConv))}${k(P.model === 'sub' ? t('subs_lbl.' + G.product) : t('k_ret'), int(P.model === 'sub' ? r.subs : r.returning))}${k(t('k_rev'), gbp(r.revenue))}
       ${k(t('k_cac'), r.newConv > 0 && r.spend + r.offerCost > 0 ? gbp(r.cac, 2) : '–')}${k(t('k_roas'), r.roas ? r.roas.toFixed(2) + '×' : '–')}${k(t('k_roi'), r.spend + r.offerCost > 0 ? (r.roi >= 0 ? '+' : '') + pct(r.roi, 0) : '–', r.roi >= 0 ? 'gain' : 'loss')}
     </div>
+    </section>
     <details class="box infobox" ${r.month <= 2 ? 'open' : ''}><summary>ⓘ ${esc(t('mb_title'))}</summary>${moneyBox(r)}</details>
     <div><h2>${esc(t('by_channel'))}</h2><div class="tbl"><table><thead><tr><th>${esc(t('ch'))}</th><th>${esc(t('spend'))}</th><th>${esc(t('visits'))}</th><th>${esc(t('cvr'))}</th><th>${esc(t('cust'))}</th><th>${esc(t('cac'))}</th><th>${esc(t('roas'))}</th></tr></thead>
       <tbody>${rows.map((x) => { const roas = x.spend > 0 ? (x.conv * P.price) / x.spend : null; return `<tr><td>${chIcon(x.c)} ${esc(t('channels.' + x.c))}</td><td>${x.spend ? gbp(x.spend) : '–'}</td><td>${int(x.visits)}</td><td>${pct(x.cvr, 2)}</td><td>${x.conv.toFixed(1)}</td><td>${x.spend && x.conv > 0.05 ? gbp(x.spend / x.conv, 2) : '–'}</td><td class="${roas == null ? '' : roas * P.margin >= 1 ? 'gain' : 'loss'}">${roas == null ? '–' : roas.toFixed(2) + '×'}</td></tr>`; }).join('')}</tbody></table></div>
@@ -3466,5 +3486,41 @@ try { window.__host?.hot?.snapshot?.(() => ({ G, UI })); } catch {}
 window.__host?.hot?.ready ? window.__host.hot.ready(boot) : boot(window.__host?.hot?.data ?? {});
 
 </script>
+
+<script>
+(() => {
+ const glossaryTranslations = {"en": [["Impressions", "The total number of times an ad or piece of content is shown. One person can generate several impressions.", "Example: one person seeing an ad three times counts as three impressions. This game estimates impressions from visits."], ["Visitors", "Potential customers who arrive this month through ads, search or organic traffic. Not every visitor buys.", "Read the funnel as impressions → visitors → purchases to understand where customers drop off."], ["Click-through rate (CTR)", "The percentage of ad impressions that lead to a click.", "Formula: clicks ÷ impressions × 100\nExample: 20 clicks from 1,000 impressions means a 2% CTR."], ["Conversion rate (CVR)", "The percentage of visitors who become new customers this month.", "Formula: new customers ÷ visitors × 100\nExample: 50 purchases from 1,000 visitors means a 5% conversion rate."], ["New customers", "Customers making their first purchase this month. This depends on visitor numbers and conversion rate.", "Example: 1,000 visitors at a 5% conversion rate produces about 50 new customers."], ["Returning customers", "Previous customers who buy again this month, shown separately from new customers.", "Repeat purchases help sustain revenue without depending entirely on acquiring new customers."], ["Active subscribers", "Customers who currently maintain a subscription, including existing subscribers.", "New subscribers join the total; customers who cancel leave it."], ["Revenue", "Total sales or subscription income this month, before costs are deducted.", "Revenue minus product costs is gross profit. Marketing costs, overhead and other adjustments determine final profit."], ["Marketing cost / Ad spend", "Ad spend is the budget spent across channels. Monthly marketing cost also includes additional campaign costs.", "This game includes channel spend plus offer, collaboration and decision costs when calculating monthly CAC, ROAS and ROI."], ["CAC · Customer acquisition cost", "Marketing cost per new customer. Compare it with the profit each customer brings.", "Formula: marketing cost ÷ new customers\nExample: £1,000 spent to acquire 50 new customers means a £20 CAC.\nThis game includes channel spend plus offer, collaboration and decision costs. A dash means no new customers or no spend."], ["ROAS · Return on ad spend", "Revenue generated per pound of marketing spend. This measures sales, not profit.", "Formula: revenue ÷ marketing cost\nExample: £3,000 revenue from £1,000 spend means 3× ROAS.\nThis game includes offer, collaboration and decision costs. A high ROAS can still lose money when margins are low. A dash means no spend or zero ROAS."], ["ROI · Return on investment", "Profit relative to marketing spend. 0% means marketing costs were recovered; a negative value means they were not.", "Game formula: (gross profit − marketing cost) ÷ marketing cost × 100\nExample: £1,500 gross profit and £1,000 marketing cost means +50% ROI.\nMarketing cost includes offers, collaborations and decisions. Overhead and special gains or losses are excluded, so this differs from final net profit. A dash means no spend."], ["Gross profit", "Revenue remaining after product costs, before marketing costs and overhead.", "Formula: revenue − product costs"], ["Margin", "The share of revenue retained as gross profit.", "Formula: gross profit ÷ revenue × 100\nExample: £30 gross profit on £100 revenue means a 30% margin."], ["Net profit / loss", "The final result after marketing costs, overhead and other adjustments.", "This game also accounts for refunds and special gains or losses. Net profit therefore differs from gross profit and ROI."], ["Overhead", "Operating costs outside your advertising budget.", "Team, tools and other fixed costs reduce final profit and cash."], ["Funnel", "The stages a customer passes through before buying.", "Impressions → visitors → purchases. Compare the stages to identify where potential customers drop off."], ["By channel", "A comparison of spend, visitors, conversion rate, customers, CAC and ROAS for each channel.", "Channel CAC uses channel spend ÷ new purchases. Channel ROAS uses new-purchase revenue ÷ channel spend, so these can differ from monthly totals."], ["Cash", "Money available for future campaigns and operations.", "Cash reflects costs and final gains or losses. It is different from revenue."]], "ko": [["노출수", "광고나 콘텐츠가 표시된 총횟수예요. 한 사람이 여러 번 노출을 만들 수 있어요.", "예시: 한 사람이 광고를 세 번 보면 노출수는 3회예요. 이 게임은 방문 수를 바탕으로 노출수를 추정해요."], ["방문자", "이번 달 광고, 검색 또는 자연 유입으로 방문한 잠재 고객이에요. 모든 방문자가 구매하는 것은 아니에요.", "퍼널을 노출 → 방문 → 구매 순서로 읽으면 어느 단계에서 고객이 이탈하는지 이해할 수 있어요."], ["클릭률 (CTR)", "광고 노출 중 클릭으로 이어진 비율이에요.", "계산식: 클릭 수 ÷ 노출수 × 100\n예시: 노출 1,000회에서 클릭 20회가 발생하면 CTR은 2%예요."], ["전환율 (CVR)", "이번 달 방문자 중 신규 고객이 된 비율이에요.", "계산식: 신규 고객 수 ÷ 방문자 수 × 100\n예시: 방문자 1,000명 중 50명이 구매하면 전환율은 5%예요."], ["신규 고객", "이번 달 처음 구매한 고객이에요. 방문자 수와 전환율에 따라 달라져요.", "예시: 방문자 1,000명에 전환율이 5%라면 신규 고객은 약 50명이에요."], ["재구매 고객", "이번 달 다시 구매한 기존 고객이에요. 신규 고객과 구분해서 표시해요.", "재구매는 신규 고객 확보에만 의존하지 않고 매출을 유지하는 데 도움이 돼요."], ["활성 구독자", "기존 구독자를 포함해 현재 구독을 유지하는 고객이에요.", "새로 구독한 고객은 총수에 더해지고, 구독을 취소한 고객은 빠져요."], ["매출", "비용을 빼기 전, 이번 달 판매 또는 구독으로 발생한 총수입이에요.", "매출에서 상품 원가를 빼면 매출총이익이에요. 여기에서 마케팅 비용, 고정비 및 기타 조정 항목을 반영하면 최종 이익이 결정돼요."], ["마케팅 비용 / 광고비", "광고비는 채널별로 지출한 예산이에요. 월간 마케팅 비용에는 추가 캠페인 비용도 포함돼요.", "이 게임의 월간 CAC, ROAS, ROI 계산에는 채널 광고비와 제안, 협업, 의사결정 비용이 포함돼요."], ["CAC · 고객 획득 비용", "신규 고객 한 명을 얻는 데 든 마케팅 비용이에요. 고객 한 명이 가져오는 이익과 비교해 보세요.", "계산식: 마케팅 비용 ÷ 신규 고객 수\n예시: £1,000를 써서 신규 고객 50명을 얻으면 CAC는 £20예요.\n이 게임은 채널 광고비와 제안, 협업, 의사결정 비용을 포함해요. 대시(–)는 신규 고객이 없거나 지출이 없다는 뜻이에요."], ["ROAS · 광고비 대비 매출", "마케팅 비용 £1당 발생한 매출이에요. 이익이 아니라 매출을 측정해요.", "계산식: 매출 ÷ 마케팅 비용\n예시: £1,000를 써서 매출 £3,000이 발생하면 ROAS는 3배예요.\n이 게임은 제안, 협업, 의사결정 비용을 포함해요. 마진이 낮으면 ROAS가 높아도 손해일 수 있어요. 대시(–)는 지출이 없거나 ROAS가 0이라는 뜻이에요."], ["ROI · 투자 수익률", "마케팅 비용 대비 이익 비율이에요. 0%는 마케팅 비용을 회수했다는 뜻이고, 음수는 회수하지 못했다는 뜻이에요.", "게임 계산식: (매출총이익 − 마케팅 비용) ÷ 마케팅 비용 × 100\n예시: 매출총이익 £1,500, 마케팅 비용 £1,000이면 ROI는 +50%예요.\n마케팅 비용에는 제안, 협업, 의사결정 비용이 포함돼요. 고정비와 특별 손익은 제외하므로 최종 순이익과 달라요. 대시(–)는 지출이 없다는 뜻이에요."], ["매출총이익", "매출에서 상품 원가를 뺀 금액이에요. 마케팅 비용과 고정비를 빼기 전 이익이에요.", "계산식: 매출 − 상품 원가"], ["마진", "매출 중 매출총이익이 차지하는 비율이에요.", "계산식: 매출총이익 ÷ 매출 × 100\n예시: 매출 £100에서 매출총이익이 £30이면 마진은 30%예요."], ["순이익 / 순손실", "마케팅 비용, 고정비 및 기타 조정 항목을 반영한 최종 결과예요.", "이 게임은 환불과 특별 손익도 반영해요. 따라서 순이익은 매출총이익이나 ROI와 달라요."], ["고정비", "광고 예산 외에 사업 운영에 드는 비용이에요.", "인력, 도구 및 기타 고정비는 최종 이익과 현금을 줄여요."], ["퍼널", "고객이 구매하기까지 거치는 단계예요.", "노출 → 방문 → 구매. 각 단계를 비교하면 잠재 고객이 어디에서 이탈하는지 알 수 있어요."], ["채널별 성과", "각 채널의 광고비, 방문자, 전환율, 고객, CAC, ROAS를 비교하는 표예요.", "채널 CAC는 채널 광고비 ÷ 신규 구매 수예요. 채널 ROAS는 신규 구매 매출 ÷ 채널 광고비이므로 월간 전체 지표와 다를 수 있어요."], ["현금", "다음 캠페인과 운영에 쓸 수 있는 자금이에요.", "현금에는 비용과 최종 손익이 반영돼요. 매출과는 다른 금액이에요."]]};
+ let opener;
+ function closeGlossary() { document.getElementById('marketing-glossary')?.close(); }
+ document.addEventListener('click', (event) => {
+   const button = event.target.closest('[data-marketing-glossary]');
+   if (!button) return;
+   opener = button;
+   const korean = LANG === 'ko';
+   const terms = glossaryTranslations[korean ? 'ko' : 'en'];
+   document.getElementById('marketing-glossary')?.remove();
+   let dialog = document.getElementById('marketing-glossary');
+   if (!dialog) {
+     dialog = document.createElement('dialog'); dialog.id = 'marketing-glossary';
+     dialog.setAttribute('aria-labelledby', 'marketing-glossary-title');
+     dialog.innerHTML = '<div class="glossary-heading"><h2 id="marketing-glossary-title">마케팅 용어 설명</h2><button type="button" class="btn" autofocus>닫기</button></div><dl></dl>';
+     dialog.querySelector('h2').textContent = korean ? '마케팅 용어 설명' : 'Marketing glossary';
+     dialog.querySelector('button').textContent = korean ? '닫기' : 'Close';
+     dialog.lang = korean ? 'ko' : 'en';
+     const list = dialog.querySelector('dl');
+     for (const [name, description, example] of terms) {
+       const dt = document.createElement('dt'), dd = document.createElement('dd');
+       dt.textContent = name; dd.textContent = description; const box = document.createElement('div'); box.className = 'glossary-example'; box.textContent = example; dd.append(box); list.append(dt, dd);
+     }
+     dialog.querySelector('button').addEventListener('click', closeGlossary);
+     dialog.addEventListener('click', e => { const r = dialog.getBoundingClientRect(); if (e.target === dialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) closeGlossary(); });
+     dialog.addEventListener('close', () => { if (opener?.isConnected) opener.focus(); });
+     document.body.append(dialog);
+   }
+   dialog.showModal(); dialog.scrollTop = 0;
+ });
+})();
+</script>
+
 </body>
 </html>
