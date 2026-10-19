@@ -31,9 +31,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Viral or Bust","url":"https://viralorbust.github.io/","description":"A free browser game that simulates a 12-month digital marketing budget: split £5,000 across Instagram, TikTok, search ads and SEO, target audiences, and grow or go bust.","genre":["Simulation","Business"],"gamePlatform":"Web browser","applicationCategory":"Game","inLanguage":["en","ko"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}</script>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f6f6f7">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Russo+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 body { margin: 0; -webkit-font-smoothing: antialiased; }
@@ -46,9 +50,11 @@ img { max-width: 100%; }
   --accent: #fe2c55; --on-accent: #ffffff; --accent-soft: #3a0f1a;
   --teal: #25f4ee; --teal-soft: #0b2a2b; --purple: #25f4ee; --orange: #ff8aa3; --gold-soft: #2a1118;
   --grad: linear-gradient(90deg, #25f4ee, #fe2c55);
-  --f-sans: "Noto Sans KR", system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
-  --f-serif: "Source Serif 4", "Noto Serif KR", Georgia, serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-sans: "Pretendard Variable", Pretendard, -apple-system, system-ui, "Apple SD Gothic Neo", sans-serif;
+  --f-display: "Russo One", "Black Han Sans", "Pretendard Variable", Pretendard, sans-serif;
+  --f-title: "Galmuri11", "Pretendard Variable", Pretendard, sans-serif;
+  --f-serif: "Russo One", "Black Han Sans", "Pretendard Variable", Pretendard, sans-serif;
+  --f-mono: "Russo One", "Black Han Sans", "Pretendard Variable", Pretendard, sans-serif;
   --shadow: 0 10px 30px -18px rgba(0, 0, 0, .9);
   color-scheme: dark;
 }
@@ -337,6 +343,9 @@ html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: no
 @keyframes bustshake { 0%,100% { transform: none; } 20% { transform: translateX(-8px) rotate(-1deg); } 40% { transform: translateX(7px) rotate(1deg); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
 @media (prefers-reduced-motion: reduce) { .busth { animation: none; } }
 
+/* Typography: Pretendard everywhere; numbers bold with even-width digits */
+.h1, h1, h2, h3, .btn, .seg button, summary, .eyebrow { font-family: var(--f-display); }
+.mono, .eyebrow { letter-spacing: 0.01em; }
 
 /* One shared glossary for the monthly report. */
 .report-glossary-tools { display:flex; justify-content:flex-end; margin-bottom:8px; }
@@ -354,10 +363,28 @@ html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: no
 .glossary-example { margin-top:16px; padding:14px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); font-size:13px; white-space:pre-line; }
 #marketing-glossary dt { padding-top:20px; border-top:1px solid var(--line); }
 #marketing-glossary dt:first-child { border-top:0; padding-top:0; }
+
+/* Quick guide modal + coach tip */
+.modal .inner.guide { gap: 14px; }
+.guide-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.6; }
+.guide-dots { display: flex; gap: 6px; justify-content: center; }
+.guide-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.guide-dots span.on { background: var(--accent); width: 18px; border-radius: 4px; }
+.coach { border: 1px solid var(--teal); background: var(--teal-soft); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.coach p { margin: 0; font-size: 14px; line-height: 1.6; }
+
+.mono, .serif, .bigstats b, .kpi b, .hcard .sc, .gh .big, .grade, .post .ph b { font-variant-numeric: tabular-nums; }
+.bigstats b, .kpi b, .gh .big, .hcard .sc, .post .ph b { font-weight: 800; letter-spacing: -0.02em; }
+
+/* Game typography: pixel (Galmuri) for the big title, Russo One + Black Han Sans for headings, buttons, labels and numbers; body stays Pretendard */
+.h1, h1, h2, h3, .btn, .seg button, summary, .eyebrow, .mono, .serif, .bigstats b, .kpi b, .gh .big, .grade, .hcard b, .hcard .sc, .post .ph b, .burst, .busth { font-weight: 400 !important; font-synthesis: none; letter-spacing: 0; }
+.h1.title-pixel { font-family: var(--f-title); font-weight: 700 !important; letter-spacing: 0; line-height: 1.12; }
+.h1.title-pixel .ig-text { font-family: inherit !important; font-weight: 700 !important; text-shadow: -0.06em -0.03em 0 #25f4ee, 0.06em 0.03em 0 #fe2c55; }
+
 </style>
 </head>
 <body>
-<div id="app"><main><div class="col boot" style="padding-top:96px"><div class="eyebrow"><span lang="ko">무료 마케팅 시뮬레이션 · 모든 수치는 가상</span><span lang="en">free marketing simulation · every number is fictional</span></div><h1 class="h1"><span lang="ko">바이럴 아니면 <em class="ig-text">파산</em></span><span lang="en">Viral or <em class="ig-text">Bust</em></span></h1></div></main></div>
+<div id="app"><main><div class="col boot" style="padding-top:96px"><h1 class="h1 title-pixel"><span lang="ko">바이럴 아니면 <em class="ig-text">파산</em></span><span lang="en">Viral or <em class="ig-text">Bust</em></span></h1></div></main></div>
 <!--SEO-START-->
 <section id="seo" class="seo col" aria-label="About Viral or Bust">
   <div lang="en">
@@ -735,7 +762,15 @@ Object.assign(I18N.en, {
   ago_s: 'just now', ago_m: '{n} min ago', ago_h: '{n} h ago', ago_d: '{n} days ago',
   tick_year: '{ago} · someone turned {p} into {x}', tick_bust: '{ago} · someone went bust with {p}',
   hall: 'Hall of fame', hall_all: 'Leaderboard',
-  feed_title: 'Shared campaigns', feed_sub: 'Finished runs and the one line their marketers left. Names are nicknames only.',
+  guide_btn: 'How to play', guide_tag: 'Quick guide', guide_prev: 'Back', guide_next: 'Next', guide_go: 'Start playing', guide_skip: 'Skip',
+  guide_steps: [
+    ['How the game works', ['You get £5,000 and 12 months to grow a brand.', 'Each month you pick a target audience (gender and age), a content style and how much to spend on each channel, then launch.', 'Profit grows your cash. If your cash runs out, you go bust.']],
+    ['First move: buy the insights', ['Every industry has different target customers. If your target is wrong, ads barely sell, however much you spend.', 'In month 1, open Audience insights and buy the report (£400, or £800 for Café: the full report at once).', 'Target the age and gender with the tallest bars. In April and September you may get one chance to upgrade to a deeper report.']],
+    ['How to spend', ['Start with around half your cash, split across 2–3 channels.', '"All-in" can win big but can also wipe you out. "Safe" or "Normal" is a better start.', 'Fixed costs leave every month, so always keep some cash back.']],
+    ['If you get stuck', ['Losing money for months? Check the insights again and change your target or content.', 'Lots of visitors but few buyers: your target or content is off. Few visitors: raise the budget or try other channels.', 'On the monthly report, tap the magnifier for the glossary and read the campaign log to see why.', 'Reach 200 followers to unlock creator collabs.']]
+  ],
+  stuck_h: 'Coach tip', stuck_noins: 'Two losing months in a row. Buy the Audience insights report and target the age and gender with the tallest bars.', stuck_ins: 'Two losing months in a row. Re-check your insights: does your target match the tallest bars? Try another content style too.', stuck_cash: 'Cash is getting low. Spend less this month and keep money back for fixed costs.',
+  feed_title: 'Shared campaigns', feed_sub: 'One line from each marketer who made the Hall of Fame.',
   feed_empty: 'No shared campaigns yet. Finish a run and leave the first one.', cheer: 'Cheer', cheered_n: '{n} people cheered this', cheered_1: 'Someone cheered this', delete_post: 'Delete', more: 'Show more',
   setup: 'Your campaign', setup_product: 'Product you manage', setup_name: 'Nickname (shown on shared boards)', setup_sound: 'Sound effects',
   setup_hint: 'You can start straight away with these settings.', start_cta: 'Start the campaign', continue_cta: 'Continue · {m} {x}',
@@ -780,7 +815,15 @@ Object.assign(I18N.ko, {
   ago_s: '방금', ago_m: '{n}분 전', ago_h: '{n}시간 전', ago_d: '{n}일 전',
   tick_year: '{ago} · 누군가 {p}(으)로 {x}를 만들었어요', tick_bust: '{ago} · 누군가 {p}(으)로 파산했어요',
   hall: '명예의 전당', hall_all: '리더보드',
-  feed_title: '함께 나눈 캠페인', feed_sub: '끝까지 달린 캠페인과 마케터가 남긴 한마디예요. 닉네임만 남아요.',
+  guide_btn: '게임 방법', guide_tag: '빠른 가이드', guide_prev: '이전', guide_next: '다음', guide_go: '게임 시작하기', guide_skip: '건너뛰기',
+  guide_steps: [
+    ['이렇게 하는 게임이에요', ['£5,000과 12개월 동안 브랜드를 키워요.', '매달 타깃(성별·연령), 콘텐츠, 채널별 예산을 정하고 캠페인을 집행해요.', '이익이 나면 현금이 늘고, 현금이 바닥나면 파산이에요.']],
+    ['첫 달에 꼭: 인사이트 구매', ['업종마다 타깃 고객이 달라요. 타깃이 틀리면 광고비를 아무리 써도 거의 안 팔려요.', '첫 달에 "고객 인사이트" 리포트를 사세요 (£400, 카페·레스토랑은 £800에 전체 리포트).', '막대가 가장 높은 연령·성별을 타깃으로 고르세요. 4월·9월에는 더 깊은 리포트로 업그레이드할 기회가 한 번씩 와요.']],
+    ['예산은 이렇게', ['처음엔 현금의 절반 정도만 2~3개 채널에 나눠 쓰세요.', '"올인"은 크게 벌 수도 있지만 한 번에 망할 수도 있어요. 처음엔 "안전"이나 "보통"을 추천해요.', '고정비가 매달 나가니 현금은 항상 조금 남겨두세요.']],
+    ['막히면 이렇게 해보세요', ['적자가 계속되면 인사이트를 다시 보고 타깃이나 콘텐츠를 바꿔보세요.', '방문자는 많은데 구매가 적으면 타깃·콘텐츠 문제, 방문자가 적으면 예산·채널 문제예요.', '월간 리포트에서 돋보기(용어 설명)와 캠페인 기록을 보면 이유를 알 수 있어요.', '팔로워가 200명을 넘으면 크리에이터 협업이 열려요.']]
+  ],
+  stuck_h: '코치 팁', stuck_noins: '두 달 연속 적자예요. 고객 인사이트 리포트를 사서 막대가 가장 높은 연령·성별을 타깃으로 골라보세요.', stuck_ins: '두 달 연속 적자예요. 지금 타깃이 인사이트의 가장 높은 막대와 맞는지 다시 확인하고, 콘텐츠도 바꿔보세요.', stuck_cash: '현금이 얼마 안 남았어요. 이번 달은 예산을 줄이고 고정비 낼 돈을 남겨두세요.',
+  feed_title: '함께 나눈 캠페인', feed_sub: '명예의 전당에 오른 마케터가 남긴 한마디예요.',
   feed_empty: '아직 공유된 캠페인이 없어요. 한 판을 끝내고 첫 기록을 남겨 보세요.', cheer: '응원해요', cheered_n: '{n}명이 응원했어요', cheered_1: '누군가 응원했어요', delete_post: '지우기', more: '더 보기',
   setup: '나의 캠페인', setup_product: '맡을 상품', setup_name: '닉네임 (공유 보드에 표시)', setup_sound: '효과음',
   setup_hint: '설정은 그대로 두고 바로 시작해도 괜찮아요.', start_cta: '캠페인 시작', continue_cta: '이어하기 · {m} {x}',
@@ -2146,9 +2189,9 @@ const PX = (() => {
       // overlay
       const W = canvas.width;
       ctx.fillStyle = 'rgba(20,24,31,.78)'; roundRect(ctx, 24, 22, 250, 46, 10); ctx.fill();
-      ctx.fillStyle = '#ffffff'; ctx.font = '600 22px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle'; ctx.fillText(labels.tag, 40, 46);
+      ctx.fillStyle = '#ffffff'; ctx.font = '400 22px "Russo One", "Black Han Sans", sans-serif'; ctx.textBaseline = 'middle'; ctx.fillText(labels.tag, 40, 46);
       const k = ease((t - 1.2) / 2.6), v = lerp(o.startCash, o.cash, k);
-      ctx.textAlign = 'right'; ctx.font = '700 64px "Source Serif 4", Georgia, serif';
+      ctx.textAlign = 'right'; ctx.font = '400 64px "Russo One", "Black Han Sans", sans-serif';
       const txt = fmtCash(v); const tw = ctx.measureText(txt).width;
       ctx.fillStyle = 'rgba(0,0,0,.8)'; roundRect(ctx, W - tw - 60, 18, tw + 40, 84, 12); ctx.fill();
       ctx.fillStyle = t < 1.2 ? '#ffffff' : o.net >= 0 ? '#25f4ee' : '#fe2c55'; ctx.fillText(txt, W - 40, 62);
@@ -2159,11 +2202,11 @@ const PX = (() => {
       spark(ctx, pts, 44, canvas.height - 112, 260, 72, pts.length - 2 + ease((t - 1.2) / 2.6), { lw: 4, base: true, endCol: o.net >= 0 ? '#25f4ee' : '#fe2c55' });
       if (o.viral && t > 1.0) {
         const s = 1 + Math.sin(t * 8) * 0.04; ctx.save(); ctx.translate(W / 2 - 60, 150); ctx.scale(s, s); ctx.rotate(-0.06);
-        ctx.font = '900 76px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center';
+        ctx.font = '400 76px "Russo One", "Black Han Sans", sans-serif'; ctx.textAlign = 'center';
         ctx.lineWidth = 12; ctx.strokeStyle = '#000000'; ctx.strokeText(labels.viral, 0, 0); const g = ctx.createLinearGradient(-200, 0, 200, 0); GRAD.forEach((c, i) => g.addColorStop(i / 3, c)); ctx.fillStyle = g; ctx.fillText(labels.viral, 0, 0); ctx.restore(); ctx.textAlign = 'left';
       }
       if (o.dead) bustStamp(ctx, W / 2, canvas.height * 0.4, 120, t - 1.6, labels.bust);
-      if (o.lvlUp && t > 4) { ctx.fillStyle = '#f6c945'; roundRect(ctx, W / 2 - 220, canvas.height - 80, 440, 56, 28); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.font = '800 26px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center'; ctx.fillText(labels.lvl, W / 2, canvas.height - 51); ctx.textAlign = 'left'; }
+      if (o.lvlUp && t > 4) { ctx.fillStyle = '#f6c945'; roundRect(ctx, W / 2 - 220, canvas.height - 80, 440, 56, 28); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.font = '400 26px "Russo One", "Black Han Sans", sans-serif'; ctx.textAlign = 'center'; ctx.fillText(labels.lvl, W / 2, canvas.height - 51); ctx.textAlign = 'left'; }
     }, D, false);
   }
   // big red "BUST" stamp that slams onto the picture, then shakes for a moment
@@ -2171,7 +2214,7 @@ const PX = (() => {
     if (dt < 0 || !label) return;
     const k = Math.min(1, dt / 0.32), s = 2.4 - 1.4 * ease(k), shake = dt > 0.32 && dt < 0.8 ? Math.sin(dt * 70) * size * 0.03 : 0;
     ctx.save(); ctx.translate(cx + shake, cy); ctx.rotate(-0.12); ctx.scale(s, s); ctx.globalAlpha = Math.min(1, k * 1.4);
-    ctx.font = '900 ' + size + 'px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '400 ' + size + 'px "Russo One", "Black Han Sans", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const tw = ctx.measureText(label).width, pw = tw + size * 0.6, ph = size * 1.3;
     ctx.fillStyle = 'rgba(0,0,0,.55)'; roundRect(ctx, -pw / 2, -ph / 2, pw, ph, size * 0.12); ctx.fill();
     ctx.lineWidth = size * 0.09; ctx.strokeStyle = '#fe2c55'; roundRect(ctx, -pw / 2, -ph / 2, pw, ph, size * 0.12); ctx.stroke();
@@ -2200,7 +2243,7 @@ const PX = (() => {
     const g = ctx.createLinearGradient(0, 0, W, 0); GRAD.forEach((c, i) => g.addColorStop(i / 3, c));
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, 10);
     ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-    ctx.fillStyle = '#8b8c94'; ctx.font = '500 22px "IBM Plex Mono", monospace'; ctx.fillText(L.header, 40, 66);
+    ctx.fillStyle = '#8b8c94'; ctx.font = '400 22px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.header, 40, 66);
     ctx.textAlign = 'right'; ctx.fillText(run.nick || '', W - 40, 66); ctx.textAlign = 'left';
     const pts = [START, ...run.months.map((m) => m.cash)];
     const n = run.months.length;
@@ -2208,10 +2251,10 @@ const PX = (() => {
       const k = ease(T / 1.2);
       scene(b, { w: 144, h: 108, t: T, month: 1, mood: 'neutral', product: run.product, plan: run.months[0] ? run.months[0].plan : null, content: run.months[0] ? run.months[0].plan.content : null, customers: 0, seed: 4 });
       blit(ctx, buf, 0, 120, 720, 540);
-      ctx.fillStyle = '#ffffff'; ctx.font = '700 120px "Source Serif 4", Georgia, serif'; ctx.globalAlpha = k; ctx.fillText(fmtCash(START), 40, 820);
+      ctx.fillStyle = '#ffffff'; ctx.font = '400 120px "Russo One", "Black Han Sans", sans-serif'; ctx.globalAlpha = k; ctx.fillText(fmtCash(START), 40, 820);
       ctx.fillStyle = '#fe2c55'; ctx.fillText('→ ?', 40, 950); ctx.globalAlpha = 1;
-      ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Noto Sans KR", sans-serif'; ctx.fillText(L.title, 40, 1050);
-      ctx.fillStyle = '#8b8c94'; ctx.font = '400 30px "Noto Sans KR", sans-serif'; ctx.fillText(L.product, 40, 1100);
+      ctx.fillStyle = '#ffffff'; ctx.font = '400 44px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.title, 40, 1050);
+      ctx.fillStyle = '#8b8c94'; ctx.font = '400 30px "Pretendard Variable", Pretendard, sans-serif'; ctx.fillText(L.product, 40, 1100);
     } else if (T < INTRO + n * PER) {
       const i = Math.min(n - 1, Math.floor((T - INTRO) / PER)), lt = T - INTRO - i * PER, m = run.months[i];
       const mood = m.bust || m.crash === 'ban' || m.crash === 'boycott' ? 'closed' : m.viral || m.jackpot ? 'good' : m.net >= 0 ? 'good' : 'bad';
@@ -2222,17 +2265,17 @@ const PX = (() => {
       ctx.globalAlpha = slide; blit(ctx, buf, 0, 120, 720, 540); ctx.globalAlpha = 1;
       if (m.bust) bustStamp(ctx, 360, 390, 110, lt - 1.0, L.bust);
       // month + cash
-      ctx.fillStyle = '#ffffff'; ctx.font = '700 84px "Source Serif 4", Georgia, serif'; ctx.fillText(L.monthName(m.month), 40, 780);
+      ctx.fillStyle = '#ffffff'; ctx.font = '400 84px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.monthName(m.month), 40, 780);
       const cv = lerp(pts[i], pts[i + 1], ease((lt - 0.4) / 1.6));
-      ctx.textAlign = 'right'; ctx.font = '700 64px "Source Serif 4", Georgia, serif'; ctx.fillStyle = m.net >= 0 ? '#25f4ee' : '#fe2c55'; ctx.fillText(fmtCash(cv), W - 40, 778);
-      ctx.font = '600 26px "IBM Plex Mono", monospace'; ctx.fillText((m.net >= 0 ? '+' : '−') + fmtCash(Math.abs(m.net)).replace('−', ''), W - 40, 818); ctx.textAlign = 'left';
-      if ((m.viral || m.jackpot) && lt > 0.8) { ctx.save(); ctx.translate(560, 220); ctx.rotate(-0.08); ctx.font = '900 60px "Noto Sans KR", sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 10; ctx.strokeStyle = '#000000'; ctx.strokeText(L.viral, 0, 0); ctx.fillStyle = g; ctx.fillText(L.viral, 0, 0); ctx.restore(); ctx.textAlign = 'left'; }
+      ctx.textAlign = 'right'; ctx.font = '400 64px "Russo One", "Black Han Sans", sans-serif'; ctx.fillStyle = m.net >= 0 ? '#25f4ee' : '#fe2c55'; ctx.fillText(fmtCash(cv), W - 40, 778);
+      ctx.font = '400 26px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText((m.net >= 0 ? '+' : '−') + fmtCash(Math.abs(m.net)).replace('−', ''), W - 40, 818); ctx.textAlign = 'left';
+      if ((m.viral || m.jackpot) && lt > 0.8) { ctx.save(); ctx.translate(560, 220); ctx.rotate(-0.08); ctx.font = '400 60px "Russo One", "Black Han Sans", sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 10; ctx.strokeStyle = '#000000'; ctx.strokeText(L.viral, 0, 0); ctx.fillStyle = g; ctx.fillText(L.viral, 0, 0); ctx.restore(); ctx.textAlign = 'left'; }
       // diary text typewriter
-      ctx.font = '500 34px "Noto Sans KR", sans-serif'; ctx.fillStyle = '#ffffff';
+      ctx.font = '500 34px "Pretendard Variable", Pretendard, sans-serif'; ctx.fillStyle = '#ffffff';
       const text = m.diary || '';
       const shown = text.slice(0, Math.floor(text.length * ease((lt - 0.3) / 1.8)));
       wrap(ctx, shown, W - 80).slice(0, 4).forEach((ln, k) => ctx.fillText(ln, 40, 880 + k * 50));
-      if (m.note) { ctx.font = '600 32px "Noto Sans KR", sans-serif'; ctx.fillStyle = '#25f4ee'; wrap(ctx, '“' + m.note + '”', W - 80).slice(0, 2).forEach((ln, k) => ctx.fillText(ln, 40, 1090 + k * 44)); }
+      if (m.note) { ctx.font = '600 32px "Pretendard Variable", Pretendard, sans-serif'; ctx.fillStyle = '#25f4ee'; wrap(ctx, '“' + m.note + '”', W - 80).slice(0, 2).forEach((ln, k) => ctx.fillText(ln, 40, 1090 + k * 44)); }
       // progress line
       spark(ctx, pts, 40, 1150, W - 80, 80, i + ease((lt - 0.4) / 1.6), { lw: 5, base: true, dots: true, dotR: 5, dotCol: (j) => (run.months[j - 1].net >= 0 ? '#25f4ee' : '#fe2c55') });
       // month ticks
@@ -2240,15 +2283,15 @@ const PX = (() => {
     } else {
       const ot = T - INTRO - n * PER, k = ease(ot / 0.8);
       ctx.globalAlpha = k;
-      ctx.fillStyle = '#8b8c94'; ctx.font = '500 30px "Noto Sans KR", sans-serif'; ctx.fillText(L.endLabel, 40, 200);
-      ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '700 132px "Source Serif 4", Georgia, serif'; ctx.fillText(fmtCash(run.final), 40, 340);
+      ctx.fillStyle = '#8b8c94'; ctx.font = '500 30px "Pretendard Variable", Pretendard, sans-serif'; ctx.fillText(L.endLabel, 40, 200);
+      ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '400 132px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(fmtCash(run.final), 40, 340);
       if (run.outcome === 'bust' && L.bust) bustStamp(ctx, 360, 540, 150, ot, L.bust);
-      else { ctx.fillStyle = '#fe2c55'; ctx.font = '700 300px "Source Serif 4", Georgia, serif'; ctx.fillText(run.grade, 40, 680); }
-      ctx.fillStyle = '#ffffff'; ctx.font = '800 40px "Noto Sans KR", sans-serif'; wrap(ctx, L.gradeLine, W - 80).slice(0, 2).forEach((ln, j) => ctx.fillText(ln, 40, 760 + j * 54));
-      ctx.fillStyle = '#8b8c94'; ctx.font = '500 28px "IBM Plex Mono", monospace'; ctx.fillText(L.stats, 40, 900);
+      else { ctx.fillStyle = '#fe2c55'; ctx.font = '400 300px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(run.grade, 40, 680); }
+      ctx.fillStyle = '#ffffff'; ctx.font = '400 40px "Russo One", "Black Han Sans", sans-serif'; wrap(ctx, L.gradeLine, W - 80).slice(0, 2).forEach((ln, j) => ctx.fillText(ln, 40, 760 + j * 54));
+      ctx.fillStyle = '#8b8c94'; ctx.font = '400 28px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.stats, 40, 900);
       spark(ctx, pts, 40, 960, W - 80, 160, n, { lw: 6, base: true, dots: true, dotR: 6, dotCol: (j) => (run.months[j - 1].net >= 0 ? '#25f4ee' : '#fe2c55') });
-      ctx.fillStyle = '#ffffff'; ctx.font = '800 34px "Noto Sans KR", sans-serif'; ctx.fillText(L.outro, 40, 1200);
-      ctx.fillStyle = '#8b8c94'; ctx.font = '500 20px "IBM Plex Mono", monospace'; ctx.fillText(L.sim, 40, 1244);
+      ctx.fillStyle = '#ffffff'; ctx.font = '400 34px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.outro, 40, 1200);
+      ctx.fillStyle = '#8b8c94'; ctx.font = '400 20px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.sim, 40, 1244);
       ctx.globalAlpha = 1;
     }
   }
@@ -2300,15 +2343,15 @@ const PX = (() => {
     scene(b, { w: 144, h: 72, t: 2.5, month: last ? last.month : 1, mood: run.outcome === 'bust' ? 'closed' : 'good', product: run.product, plan: last ? last.plan : null, content: last ? last.plan.content : null, customers: run.outcome === 'bust' ? 0 : 10, coins: run.outcome !== 'bust', coinStart: 1.5, seed: 9, walkStart: 0, span: 0.1 });
     blit(ctx, buf, 0, 14, W, 540);
     if (run.outcome === 'bust' && L.bust) bustStamp(ctx, W / 2, 284, 170, 5, L.bust);
-    ctx.fillStyle = '#8b8c94'; ctx.font = '500 30px "IBM Plex Mono", monospace'; ctx.fillText('VIRAL OR BUST', 60, 640);
+    ctx.fillStyle = '#8b8c94'; ctx.font = '400 30px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText('VIRAL OR BUST', 60, 640);
     ctx.textAlign = 'right'; ctx.fillText(run.nick || '', W - 60, 640); ctx.textAlign = 'left';
-    ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Noto Sans KR", sans-serif'; ctx.fillText(L.product, 60, 710);
-    ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '700 150px "Source Serif 4", Georgia, serif'; ctx.fillText(fmtCash(run.final), 60, 870);
-    ctx.fillStyle = '#fe2c55'; ctx.textAlign = 'right'; ctx.font = '700 200px "Source Serif 4", Georgia, serif'; ctx.fillText(run.grade, W - 60, 880); ctx.textAlign = 'left';
-    ctx.fillStyle = '#8b8c94'; ctx.font = '500 32px "IBM Plex Mono", monospace'; ctx.fillText(L.stats, 60, 940);
+    ctx.fillStyle = '#ffffff'; ctx.font = '400 48px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.product, 60, 710);
+    ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '400 150px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(fmtCash(run.final), 60, 870);
+    ctx.fillStyle = '#fe2c55'; ctx.textAlign = 'right'; ctx.font = '400 200px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(run.grade, W - 60, 880); ctx.textAlign = 'left';
+    ctx.fillStyle = '#8b8c94'; ctx.font = '400 32px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.stats, 60, 940);
     spark(ctx, [START, ...run.months.map((m) => m.cash)], 60, 990, W - 120, 200, run.months.length, { lw: 8, base: true, dots: true, dotR: 8, dotCol: (j) => (run.months[j - 1].net >= 0 ? '#25f4ee' : '#fe2c55') });
-    ctx.fillStyle = '#ffffff'; ctx.font = '800 38px "Noto Sans KR", sans-serif'; ctx.fillText(L.outro, 60, 1275);
-    ctx.fillStyle = '#8b8c94'; ctx.font = '500 22px "IBM Plex Mono", monospace'; ctx.fillText(L.sim, 60, 1316);
+    ctx.fillStyle = '#ffffff'; ctx.font = '400 38px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.outro, 60, 1275);
+    ctx.fillStyle = '#8b8c94'; ctx.font = '400 22px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.sim, 60, 1316);
     return new Promise((res) => cv.toBlob(res, 'image/png'));
   }
 
@@ -2344,7 +2387,7 @@ const PX = (() => {
     try { new ResizeObserver(layout).observe(canvas); } catch {}
     const CYCLE = 11, DRAW = 7.2;
     function pill(x, y, text, bg, fg) {
-      ctx.font = '600 12px "IBM Plex Mono", monospace'; const w = ctx.measureText(text).width + 16;
+      ctx.font = '400 12px "Russo One", "Black Han Sans", sans-serif'; const w = ctx.measureText(text).width + 16;
       x = Math.max(4, Math.min(W - w - 4, x - w / 2));
       ctx.fillStyle = bg; roundRect(ctx, x, y - 11, w, 22, 11); ctx.fill(); ctx.fillStyle = fg; ctx.textBaseline = 'middle'; ctx.fillText(text, x + 8, y + 0.5);
     }
@@ -2390,7 +2433,7 @@ const PX = (() => {
       const pulse = 1 + Math.sin(tt * 6) * 0.25;
       ctx.fillStyle = cur >= START ? 'rgba(37,244,238,.25)' : 'rgba(254,44,85,.25)'; ctx.beginPath(); ctx.arc(hx, hy, 11 * pulse, 0, 7); ctx.fill();
       ctx.fillStyle = cur >= START ? '#25f4ee' : '#fe2c55'; ctx.beginPath(); ctx.arc(hx, hy, 5, 0, 7); ctx.fill();
-      ctx.font = '600 13px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle'; const lab = fmtCash(cur), lw = ctx.measureText(lab).width + 14;
+      ctx.font = '400 13px "Russo One", "Black Han Sans", sans-serif'; ctx.textBaseline = 'middle'; const lab = fmtCash(cur), lw = ctx.measureText(lab).width + 14;
       const lx = Math.min(W - lw - 4, hx + 12); ctx.fillStyle = col.surface; roundRect(ctx, lx, hy - 12, lw, 24, 6); ctx.fill(); ctx.strokeStyle = col.grid; ctx.stroke(); ctx.fillStyle = col.ink; ctx.fillText(lab, lx + 7, hy + 0.5);
       ctx.globalAlpha = 1;
     }, CYCLE, true);
@@ -2754,12 +2797,12 @@ function compareChart(mine, theirs, nameA, nameB) {
   const max = Math.max(...all, START) * 1.08, min = Math.min(0, ...all), span = max - min || 1;
   const x = (i) => L + (i / Math.max(1, n - 1)) * (W - L - R), y = (v) => T + (1 - (v - min) / span) * (H - T - B);
   const path = (arr) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
-  let grid = ''; for (let k = 0; k <= 3; k++) { const v = min + (span / 1.08) * (k / 3); grid += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${shortGbp(v)}</text>`; }
+  let grid = ''; for (let k = 0; k <= 3; k++) { const v = min + (span / 1.08) * (k / 3); grid += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="Russo One, Black Han Sans, sans-serif">${shortGbp(v)}</text>`; }
   const lastM = mine[mine.length - 1], lastT = theirs[theirs.length - 1];
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(nameA)} vs ${esc(nameB)}">${grid}
     <path d="${path(theirs)}" fill="none" stroke="#fe2c55" stroke-width="2.5"/><path d="${path(mine)}" fill="none" stroke="#25f4ee" stroke-width="3"/>
     <circle cx="${x(theirs.length - 1)}" cy="${y(lastT)}" r="5" fill="#fe2c55"/><circle cx="${x(mine.length - 1)}" cy="${y(lastM)}" r="5" fill="#25f4ee"/>
-    <text x="${L + 6}" y="${T + 12}" font-size="12" fill="#25f4ee" font-family="IBM Plex Mono, monospace">● ${esc(nameA)}</text><text x="${L + 6}" y="${T + 28}" font-size="12" fill="#fe2c55" font-family="IBM Plex Mono, monospace">● ${esc(nameB)}</text></svg>`;
+    <text x="${L + 6}" y="${T + 12}" font-size="12" fill="#25f4ee" font-family="Russo One, Black Han Sans, sans-serif">● ${esc(nameA)}</text><text x="${L + 6}" y="${T + 28}" font-size="12" fill="#fe2c55" font-family="Russo One, Black Han Sans, sans-serif">● ${esc(nameB)}</text></svg>`;
 }
 
 // ---------- analytics (GA4 on the hosted site only) ----------
@@ -2849,9 +2892,9 @@ function cashChart(hist) {
   const vals = hist.map((x) => x.cash); const max = Math.max(...vals, START) * 1.08, min = Math.min(0, ...vals), span = max - min || 1;
   const x = (i) => L + (hist.length === 1 ? 0 : (i / (hist.length - 1)) * (W - L - R)), y = (v) => T + (1 - (v - min) / span) * (H - T - B);
   const step = (() => { const raw = span / 4, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p; })();
-  let grid = ''; for (let v = Math.ceil(min / step) * step; v <= max; v += step) grid += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${shortGbp(v)}</text>`;
+  let grid = ''; for (let v = Math.ceil(min / step) * step; v <= max; v += step) grid += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="Russo One, Black Han Sans, sans-serif">${shortGbp(v)}</text>`;
   const every = Math.ceil(hist.length / 12); let xl = '';
-  hist.forEach((p, i) => { if (i % every === 0 || i === hist.length - 1) xl += `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${i === 0 ? '0' : 'M' + p.month}</text>`; });
+  hist.forEach((p, i) => { if (i % every === 0 || i === hist.length - 1) xl += `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Russo One, Black Han Sans, sans-serif">${i === 0 ? '0' : 'M' + p.month}</text>`; });
   const line = hist.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.cash).toFixed(1)}`).join(' ');
   const dots = hist.slice(1).map((p, i) => `<circle cx="${x(i + 1)}" cy="${y(p.cash)}" r="3.5" fill="${p.net >= 0 ? 'var(--teal)' : 'var(--accent)'}"/>`).join('');
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t('cash_chart'))}">${grid}<line x1="${L}" x2="${W - R}" y1="${y(START)}" y2="${y(START)}" stroke="var(--muted)" stroke-dasharray="3 4"/>
@@ -2892,8 +2935,7 @@ function homeScreen() {
   <div class="col">
     ${UI.challenge ? challengeBanner(UI.challenge) : ''}
     <section class="block" style="padding-top:8px">
-      <div class="eyebrow">${esc(t('eyebrow_home'))}</div>
-      <h1 class="h1">${esc(t('h1_a'))}<em class="ig-text">${esc(t('h1_b'))}</em></h1>
+      <h1 class="h1 title-pixel">${esc(t('h1_a'))}<em class="ig-text">${esc(t('h1_b'))}</em></h1>
       <p class="lede">${esc(t('lede'))}</p>
       <div class="bigstats" id="bigstats"></div>
     </section>
@@ -3044,6 +3086,24 @@ function researchBox() {
   else if (lv <= 2) nx = G.rsAsk9 || m >= 9 || G.month > 12 ? t('rs_missed') : t('rs_next', { m: monName(9), c: gbp(RS_COST[3]) });
   return h + (nx ? `<p class="note" style="margin-top:12px">${esc(nx)}</p>` : '');
 }
+function guidePopup() {
+  const steps = t('guide_steps'), i = Math.max(0, Math.min(steps.length - 1, (UI.guide || 1) - 1)), [h, items] = steps[i], last = i === steps.length - 1;
+  return `<div class="modal" id="guidemodal"><div class="inner guide" role="dialog" aria-modal="true" aria-labelledby="guide-h">
+    <div class="hrow"><span class="eyebrow">${esc(t('guide_tag'))} · ${i + 1}/${steps.length}</span><button class="linkbtn" data-act="guide" data-v="close">${esc(t('guide_skip'))}</button></div>
+    <h3 id="guide-h" style="margin:0;font-size:22px">${esc(h)}</h3>
+    <ul class="guide-list">${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+    <div class="guide-dots">${steps.map((_, k) => `<span class="${k === i ? 'on' : ''}"></span>`).join('')}</div>
+    <div class="row">${i > 0 ? `<button class="btn" data-act="guide" data-v="prev">${esc(t('guide_prev'))}</button>` : ''}<button class="btn primary" data-act="guide" data-v="${last ? 'close' : 'next'}">${esc(last ? t('guide_go') : t('guide_next'))}</button></div></div></div>`;
+}
+function stuckTip() {
+  if (!G || G.month < 3 || G.endless) return '';
+  const h = G.history.filter((x) => x.month > 0), a = h[h.length - 1], b = h[h.length - 2];
+  const msgs = [];
+  if (a && b && a.net < 0 && b.net < 0) msgs.push(t(rsLv() ? 'stuck_ins' : 'stuck_noins'));
+  if (G.cash < 1500) msgs.push(t('stuck_cash'));
+  if (!msgs.length) return '';
+  return `<div class="coach"><span class="eyebrow">💡 ${esc(t('stuck_h'))}</span>${msgs.map((m) => `<p>${esc(m)}</p>`).join('')}</div>`;
+}
 function rsPopup() {
   const lv = UI.rsPopup; if (!lv || !G) return '';
   const cost = RS_COST[lv], can = G.cash >= cost;
@@ -3089,6 +3149,8 @@ function planScreen() {
     <div class="gh"><span class="eyebrow">${esc(t('attempt', { n: ATTEMPTS }))} · CMP-${String(G.month).padStart(2, '0')} · ${esc(prodName(G.product))} · ${esc(brandName(G.product))} · ${esc(t('levels')[lvlNow()])}${G.endless ? ' · ' + esc(t('endless')) + ' Y' + yearOf(G.month) : ''}</span>
       <h1 class="h1" style="margin:0;font-size:clamp(40px,9vw,64px)">${esc(t('plan_title', { mon }))}</h1>
       ${G.challenge ? `<p class="note" style="margin:0"><span style="color:#fe2c55">● ${esc(G.challenge.nick)}</span> ${esc(G.month === 1 ? t('vs_start') : t('vs_month', { m: monName(G.month - 1) }))} <span class="mono">${G.month > 1 && G.challenge.path[G.month - 1] != null ? gbp(G.challenge.path[G.month - 1]) : gbp(START)}</span> · <span style="color:#25f4ee">● ${esc(t('lb_you'))}</span> <span class="mono">${gbp(G.cash)}</span></p>` : ''}</div>
+    <div class="row" style="margin-top:-14px"><button class="btn sm" data-act="guide" data-v="open">❔ ${esc(t('guide_btn'))}</button></div>
+    ${stuckTip()}
     ${statBars(null)}
     ${missionBox()}
     <div class="stage"><canvas id="preview" aria-label="${esc(planReady() ? t('preview_cap', { g: t('gender_opts.' + UI.plan.gender), a: t('age_opts.' + UI.plan.age), c: t('contents.' + UI.plan.content) }) : t('pick_cap'))}"></canvas>
@@ -3363,7 +3425,8 @@ function render() {
   else if (UI.screen === 'result') html = resultScreen();
   else if (UI.screen === 'year') html = endScreen('year');
   else html = endScreen('bust');
-  document.getElementById('app').innerHTML = html + (UI.screen === 'plan' && UI.rsPopup ? rsPopup() : '');
+  if (UI.screen === 'plan' && G && G.month === 1 && !G.endless && !UI.guide && !store.get('vob-guide-seen', false)) UI.guide = 1;
+  document.getElementById('app').innerHTML = html + (UI.screen === 'plan' && UI.guide ? guidePopup() : UI.screen === 'plan' && UI.rsPopup ? rsPopup() : '');
   { const seo = document.getElementById('seo'); if (seo) seo.hidden = !(!G || UI.screen === 'home'); }
   const hero = document.getElementById('hero');
   if (hero) {
@@ -3436,6 +3499,7 @@ document.addEventListener('click', (e) => {
   if (a === 'logmore') { UI.logOpen = true; const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'research' && rsFull()) { const c = rsCost1(); if (!rsLv() && G.cash >= c) { G.cash -= c; G.rsBought = [1, 2, 3]; G.rsLv = 3; G.research = true; G.rsAsk4 = true; G.rsAsk9 = true; G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; grant('data'); track('research_buy', { level: 3, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'research' || a === 'rsbuy') { const target = a === 'research' ? 1 : UI.rsPopup; if (target && rsLv() < target && G.cash >= RS_COST[target]) { G.cash -= RS_COST[target]; G.rsBought = [...(G.rsBought || (rsLv() ? [1] : [])), target]; G.rsLv = target; G.research = true; if (target === 2) G.rsAsk4 = true; if (target === 3) { G.rsAsk9 = true; G.rsAsk4 = true; } G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash }; if (target === 1) grant('data'); track('research_buy', { level: target, industry: G.product }); } UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
+  if (a === 'guide') { const n = t('guide_steps').length; if (v === 'open') UI.guide = 1; else if (v === 'next') UI.guide = Math.min(n, (UI.guide || 1) + 1); else if (v === 'prev') UI.guide = Math.max(1, (UI.guide || 1) - 1); else { UI.guide = 0; store.set('vob-guide-seen', true); } const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'rsskip') { if (UI.rsPopup === 2) G.rsAsk4 = true; if (UI.rsPopup === 3) G.rsAsk9 = true; track('research_skip', { level: UI.rsPopup }); UI.rsPopup = 0; save(); const y = scrollY; render(); scrollTo(0, y); return; }
   const avail = CHANNEL_ORDER.filter(unlocked);
   const budget = Math.max(0, G.cash - collabCost() - offerCostNow() - decisionCostNow());
@@ -3478,16 +3542,13 @@ function boot(data) {
   const ch = parseToken(location.hash);
   if (ch) { track('challenge_open', { industry: ch.product, grade: ch.grade }); UI.challenge = ch; UI.chRegistered = false; if (G) { UI.prevScreen = UI.prevScreen || (UI.screen !== 'home' ? UI.screen : 'plan'); } UI.screen = 'home'; }
   const go2 = () => render();
-  if (document.fonts && document.fonts.load) Promise.all(['700 20px "Source Serif 4"', '800 20px "Noto Sans KR"', '500 20px "IBM Plex Mono"'].map((f) => document.fonts.load(f).catch(() => {}))).then(() => { if (UI.screen !== 'home') render(); });
+  if (document.fonts && document.fonts.load) Promise.all(['400 20px "Russo One"', '400 20px "Black Han Sans"', '800 20px "Pretendard Variable"'].map((f) => document.fonts.load(f).catch(() => {}))).then(() => { if (UI.screen !== 'home') render(); });
   go2();
   initNet();
 }
 try { window.__host?.hot?.snapshot?.(() => ({ G, UI })); } catch {}
 window.__host?.hot?.ready ? window.__host.hot.ready(boot) : boot(window.__host?.hot?.data ?? {});
 
-</script>
-
-<script>
 (() => {
  const glossaryTranslations = {"en": [["Impressions", "The total number of times an ad or piece of content is shown. One person can generate several impressions.", "Example: one person seeing an ad three times counts as three impressions. This game estimates impressions from visits."], ["Visitors", "Potential customers who arrive this month through ads, search or organic traffic. Not every visitor buys.", "Read the funnel as impressions → visitors → purchases to understand where customers drop off."], ["Click-through rate (CTR)", "The percentage of ad impressions that lead to a click.", "Formula: clicks ÷ impressions × 100\nExample: 20 clicks from 1,000 impressions means a 2% CTR."], ["Conversion rate (CVR)", "The percentage of visitors who become new customers this month.", "Formula: new customers ÷ visitors × 100\nExample: 50 purchases from 1,000 visitors means a 5% conversion rate."], ["New customers", "Customers making their first purchase this month. This depends on visitor numbers and conversion rate.", "Example: 1,000 visitors at a 5% conversion rate produces about 50 new customers."], ["Returning customers", "Previous customers who buy again this month, shown separately from new customers.", "Repeat purchases help sustain revenue without depending entirely on acquiring new customers."], ["Active subscribers", "Customers who currently maintain a subscription, including existing subscribers.", "New subscribers join the total; customers who cancel leave it."], ["Revenue", "Total sales or subscription income this month, before costs are deducted.", "Revenue minus product costs is gross profit. Marketing costs, overhead and other adjustments determine final profit."], ["Marketing cost / Ad spend", "Ad spend is the budget spent across channels. Monthly marketing cost also includes additional campaign costs.", "This game includes channel spend plus offer, collaboration and decision costs when calculating monthly CAC, ROAS and ROI."], ["CAC · Customer acquisition cost", "Marketing cost per new customer. Compare it with the profit each customer brings.", "Formula: marketing cost ÷ new customers\nExample: £1,000 spent to acquire 50 new customers means a £20 CAC.\nThis game includes channel spend plus offer, collaboration and decision costs. A dash means no new customers or no spend."], ["ROAS · Return on ad spend", "Revenue generated per pound of marketing spend. This measures sales, not profit.", "Formula: revenue ÷ marketing cost\nExample: £3,000 revenue from £1,000 spend means 3× ROAS.\nThis game includes offer, collaboration and decision costs. A high ROAS can still lose money when margins are low. A dash means no spend or zero ROAS."], ["ROI · Return on investment", "Profit relative to marketing spend. 0% means marketing costs were recovered; a negative value means they were not.", "Game formula: (gross profit − marketing cost) ÷ marketing cost × 100\nExample: £1,500 gross profit and £1,000 marketing cost means +50% ROI.\nMarketing cost includes offers, collaborations and decisions. Overhead and special gains or losses are excluded, so this differs from final net profit. A dash means no spend."], ["Gross profit", "Revenue remaining after product costs, before marketing costs and overhead.", "Formula: revenue − product costs"], ["Margin", "The share of revenue retained as gross profit.", "Formula: gross profit ÷ revenue × 100\nExample: £30 gross profit on £100 revenue means a 30% margin."], ["Net profit / loss", "The final result after marketing costs, overhead and other adjustments.", "This game also accounts for refunds and special gains or losses. Net profit therefore differs from gross profit and ROI."], ["Overhead", "Operating costs outside your advertising budget.", "Team, tools and other fixed costs reduce final profit and cash."], ["Funnel", "The stages a customer passes through before buying.", "Impressions → visitors → purchases. Compare the stages to identify where potential customers drop off."], ["By channel", "A comparison of spend, visitors, conversion rate, customers, CAC and ROAS for each channel.", "Channel CAC uses channel spend ÷ new purchases. Channel ROAS uses new-purchase revenue ÷ channel spend, so these can differ from monthly totals."], ["Cash", "Money available for future campaigns and operations.", "Cash reflects costs and final gains or losses. It is different from revenue."]], "ko": [["노출수", "광고나 콘텐츠가 표시된 총횟수예요. 한 사람이 여러 번 노출을 만들 수 있어요.", "예시: 한 사람이 광고를 세 번 보면 노출수는 3회예요. 이 게임은 방문 수를 바탕으로 노출수를 추정해요."], ["방문자", "이번 달 광고, 검색 또는 자연 유입으로 방문한 잠재 고객이에요. 모든 방문자가 구매하는 것은 아니에요.", "퍼널을 노출 → 방문 → 구매 순서로 읽으면 어느 단계에서 고객이 이탈하는지 이해할 수 있어요."], ["클릭률 (CTR)", "광고 노출 중 클릭으로 이어진 비율이에요.", "계산식: 클릭 수 ÷ 노출수 × 100\n예시: 노출 1,000회에서 클릭 20회가 발생하면 CTR은 2%예요."], ["전환율 (CVR)", "이번 달 방문자 중 신규 고객이 된 비율이에요.", "계산식: 신규 고객 수 ÷ 방문자 수 × 100\n예시: 방문자 1,000명 중 50명이 구매하면 전환율은 5%예요."], ["신규 고객", "이번 달 처음 구매한 고객이에요. 방문자 수와 전환율에 따라 달라져요.", "예시: 방문자 1,000명에 전환율이 5%라면 신규 고객은 약 50명이에요."], ["재구매 고객", "이번 달 다시 구매한 기존 고객이에요. 신규 고객과 구분해서 표시해요.", "재구매는 신규 고객 확보에만 의존하지 않고 매출을 유지하는 데 도움이 돼요."], ["활성 구독자", "기존 구독자를 포함해 현재 구독을 유지하는 고객이에요.", "새로 구독한 고객은 총수에 더해지고, 구독을 취소한 고객은 빠져요."], ["매출", "비용을 빼기 전, 이번 달 판매 또는 구독으로 발생한 총수입이에요.", "매출에서 상품 원가를 빼면 매출총이익이에요. 여기에서 마케팅 비용, 고정비 및 기타 조정 항목을 반영하면 최종 이익이 결정돼요."], ["마케팅 비용 / 광고비", "광고비는 채널별로 지출한 예산이에요. 월간 마케팅 비용에는 추가 캠페인 비용도 포함돼요.", "이 게임의 월간 CAC, ROAS, ROI 계산에는 채널 광고비와 제안, 협업, 의사결정 비용이 포함돼요."], ["CAC · 고객 획득 비용", "신규 고객 한 명을 얻는 데 든 마케팅 비용이에요. 고객 한 명이 가져오는 이익과 비교해 보세요.", "계산식: 마케팅 비용 ÷ 신규 고객 수\n예시: £1,000를 써서 신규 고객 50명을 얻으면 CAC는 £20예요.\n이 게임은 채널 광고비와 제안, 협업, 의사결정 비용을 포함해요. 대시(–)는 신규 고객이 없거나 지출이 없다는 뜻이에요."], ["ROAS · 광고비 대비 매출", "마케팅 비용 £1당 발생한 매출이에요. 이익이 아니라 매출을 측정해요.", "계산식: 매출 ÷ 마케팅 비용\n예시: £1,000를 써서 매출 £3,000이 발생하면 ROAS는 3배예요.\n이 게임은 제안, 협업, 의사결정 비용을 포함해요. 마진이 낮으면 ROAS가 높아도 손해일 수 있어요. 대시(–)는 지출이 없거나 ROAS가 0이라는 뜻이에요."], ["ROI · 투자 수익률", "마케팅 비용 대비 이익 비율이에요. 0%는 마케팅 비용을 회수했다는 뜻이고, 음수는 회수하지 못했다는 뜻이에요.", "게임 계산식: (매출총이익 − 마케팅 비용) ÷ 마케팅 비용 × 100\n예시: 매출총이익 £1,500, 마케팅 비용 £1,000이면 ROI는 +50%예요.\n마케팅 비용에는 제안, 협업, 의사결정 비용이 포함돼요. 고정비와 특별 손익은 제외하므로 최종 순이익과 달라요. 대시(–)는 지출이 없다는 뜻이에요."], ["매출총이익", "매출에서 상품 원가를 뺀 금액이에요. 마케팅 비용과 고정비를 빼기 전 이익이에요.", "계산식: 매출 − 상품 원가"], ["마진", "매출 중 매출총이익이 차지하는 비율이에요.", "계산식: 매출총이익 ÷ 매출 × 100\n예시: 매출 £100에서 매출총이익이 £30이면 마진은 30%예요."], ["순이익 / 순손실", "마케팅 비용, 고정비 및 기타 조정 항목을 반영한 최종 결과예요.", "이 게임은 환불과 특별 손익도 반영해요. 따라서 순이익은 매출총이익이나 ROI와 달라요."], ["고정비", "광고 예산 외에 사업 운영에 드는 비용이에요.", "인력, 도구 및 기타 고정비는 최종 이익과 현금을 줄여요."], ["퍼널", "고객이 구매하기까지 거치는 단계예요.", "노출 → 방문 → 구매. 각 단계를 비교하면 잠재 고객이 어디에서 이탈하는지 알 수 있어요."], ["채널별 성과", "각 채널의 광고비, 방문자, 전환율, 고객, CAC, ROAS를 비교하는 표예요.", "채널 CAC는 채널 광고비 ÷ 신규 구매 수예요. 채널 ROAS는 신규 구매 매출 ÷ 채널 광고비이므로 월간 전체 지표와 다를 수 있어요."], ["현금", "다음 캠페인과 운영에 쓸 수 있는 자금이에요.", "현금에는 비용과 최종 손익이 반영돼요. 매출과는 다른 금액이에요."]]};
  let opener;
@@ -3520,7 +3581,7 @@ window.__host?.hot?.ready ? window.__host.hot.ready(boot) : boot(window.__host?.
    dialog.showModal(); dialog.scrollTop = 0;
  });
 })();
-</script>
 
+</script>
 </body>
 </html>
