@@ -45,6 +45,12 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -676,7 +682,7 @@ en: {
     mogul: ['Co-owner', 'Get a stake in the company.'],
     bust: ['Lesson learned', 'Go bust once.'],
   },
-  grades: { S: 'Legendary. Hire this person.', A: 'Excellent. The board is thrilled.', B: 'Solid growth. Promotion material.', C: 'You kept the lights on.', D: 'Budget burned. Read the data and try again.' },
+  grades: { 'SS+': 'Mythic. The whole industry studies your campaigns.', SS: 'Unreal. Rivals want to poach you.', S: 'Legendary. Hire this person.', A: 'Excellent. The board is thrilled.', B: 'Solid growth. Promotion material.', C: 'You kept the lights on.', D: 'Budget burned. Read the data and try again.' },
   share_text: 'I turned £1,000 into £{x} in Viral or Bust ({p}). Can you beat it?', copy: 'Copy result', copied: 'Copied',
   stars: 'Fit', example: 'Suggested starting split', reset_confirm: 'Abandon this run?', yes: 'Yes, start over', no: 'Keep playing',
 },
@@ -774,7 +780,7 @@ ko: {
     mogul: ['대주주', '회사 지분 받기.'],
     bust: ['값진 교훈', '한 번 파산하기.'],
   },
-  grades: { S: '전설. 당장 채용하세요.', A: '훌륭합니다. 이사회가 매우 만족합니다.', B: '탄탄한 성장. 승진감입니다.', C: '회사는 살렸습니다.', D: '예산을 태웠습니다. 데이터를 읽고 다시 도전하세요.' },
+  grades: { 'SS+': '신화. 업계 전체가 당신의 캠페인을 연구합니다.', SS: '괴물. 경쟁사가 스카우트하러 옵니다.', S: '전설. 당장 채용하세요.', A: '훌륭합니다. 이사회가 매우 만족합니다.', B: '탄탄한 성장. 승진감입니다.', C: '회사는 살렸습니다.', D: '예산을 태웠습니다. 데이터를 읽고 다시 도전하세요.' },
   share_text: 'Viral or Bust에서 £1,000를 £{x}로 키웠어요 ({p}). 이길 수 있나요?', copy: '결과 복사', copied: '복사됨',
   stars: '적합도', example: '추천 시작 배분', reset_confirm: '이번 판을 포기할까요?', yes: '네, 새로 시작', no: '계속하기',
 },
@@ -1197,6 +1203,9 @@ Object.assign(I18N.ko, { lvl_tag: 'LEVEL UP!', lvl_ok: '다시 일하러 가기'
 Object.assign(I18N.en, { rescue_tag: 'SECOND CHANCE', rescue_h: 'An investor puts in {x}', rescue_p: 'The money ran out, but an investor liked what you were trying. This only happens once per run.', rescue_tip: 'Tip: check who actually buys in this industry, then match your audience and content to it.', rescue_ok: 'Try again' });
 Object.assign(I18N.ko, { rescue_tag: '한 번 더 기회!', rescue_h: '투자자에게 {x} 투자를 받았어요', rescue_p: '돈이 바닥났지만 투자자가 가능성을 봤어요. 한 판에 딱 한 번만 있어요.', rescue_tip: '팁: 이 업종에서 실제로 사는 고객이 누군지 보고 타깃과 콘텐츠를 맞춰보세요.', rescue_ok: '다시 해보기' });
 
+Object.assign(I18N.en, { diff_lbl: 'Difficulty:', pot_lbl: 'Earning potential:', pot: ['Highest', 'High', 'Medium', 'Low'] });
+Object.assign(I18N.ko, { diff_lbl: '난이도', pot_lbl: '수익', pot: ['최고', '높음', '보통', '낮음'] });
+
 // ===== Viral or Bust — simulation engine (all figures fictional) =====
 const AGES = ['a16', 'a25', 'a35', 'a45'];
 const GENDERS = ['f', 'm', 'all'];
@@ -1228,13 +1237,13 @@ const CHANNELS = {
 };
 
 const PRODUCTS = {
-  serum: { price: 28, margin: 0.68, cvrMult: 1.0, model: 'oneoff', repeat: 0.25, difficulty: 1,
-           age: [1.15, 1.25, 1.0, 0.7], g: { f: 1.25, m: 0.5, all: 0.9 },
+  serum: { price: 28, margin: 0.72, cvrMult: 1.25, model: 'oneoff', repeat: 0.25, difficulty: 1,
+           age: [1.15, 1.25, 1.05, 0.85], g: { f: 1.25, m: 0.8, all: 1.05 },
            content: { short: 1.1, creator: 1.35, edu: 1.15, promo: 1.0, story: 0.95, meme: 0.8 },
            ch: { instagram: 1.3, tiktok: 1.15, seo: 1.0, google: 0.9, influencer: 1.35, youtube: 1.0, email: 1.1 },
            season: [0, 0, 0, 0, 0.05, 0.05, 0.05, 0, 0, 0, 0.05, 0.1] },
-  sneakers: { price: 85, margin: 0.4, cvrMult: 0.7, model: 'oneoff', repeat: 0.08, difficulty: 3,
-           age: [1.4, 1.1, 0.75, 0.45], g: { f: 0.7, m: 1.25, all: 0.92 },
+  sneakers: { price: 85, margin: 0.32, cvrMult: 0.82, model: 'oneoff', repeat: 0.18, difficulty: 3,
+           age: [1.3, 1.15, 0.95, 0.75], g: { f: 0.95, m: 1.2, all: 1.05 },
            content: { short: 1.25, creator: 1.3, edu: 0.7, promo: 1.1, story: 1.0, meme: 1.3 },
            ch: { instagram: 1.1, tiktok: 1.35, seo: 0.8, google: 0.95, influencer: 1.25, youtube: 1.15, email: 0.9 },
            season: [-0.05, 0, 0.1, 0.15, 0.15, 0.1, 0.05, 0.1, 0.05, 0, 0.05, 0.05] },
@@ -1339,7 +1348,7 @@ function searchRoll() { const r = Math.random(); if (r < 0.07) return rnd(1.3, 1
 function inboxRoll() { const r = Math.random(); if (r < 0.1) return rnd(0.5, 0.7); if (r < 0.18) return rnd(1.2, 1.4); return 1; }
 // ===== mega jackpots & sudden collapses (rare, huge) =====
 const MEGA_KINDS = ['deal', 'unicorn', 'line'], DOOM_KINDS = ['lawsuit', 'hack', 'scandal'];
-let MEGA_P = { safe: 0.15, normal: 0.18, bold: 0.25 }, DOOM_P = { safe: 0.003, normal: 0.008, bold: 0.015 };
+let MEGA_P = { safe: 0.2, normal: 0.24, bold: 0.32 }, DOOM_P = { safe: 0.003, normal: 0.008, bold: 0.015 };
 let MEGA_MAG = [0.8, 2.5], DOOM_MAG = [0.3, 0.6], MEGA_CAP = 2500000, DOOM_FLOOR = 3000;
 function rollLuck() {
   if (Math.random() >= 0.22) return null;
@@ -2322,7 +2331,7 @@ const PX = (() => {
       ctx.fillStyle = '#8b8c94'; ctx.font = '500 30px "Pretendard Variable", Pretendard, sans-serif'; ctx.fillText(L.endLabel, 40, 200);
       ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '400 132px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(fmtCash(run.final), 40, 340);
       if (run.outcome === 'bust' && L.bust) bustStamp(ctx, 360, 540, 150, ot, L.bust);
-      else { ctx.fillStyle = '#fe2c55'; ctx.font = '400 300px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(run.grade, 40, 680); }
+      else { ctx.fillStyle = '#fe2c55'; ctx.font = '400 ' + (run.grade.length > 2 ? 190 : run.grade.length > 1 ? 240 : 300) + 'px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(run.grade, 40, 680); }
       ctx.fillStyle = '#ffffff'; ctx.font = '400 40px "Russo One", "Black Han Sans", sans-serif'; wrap(ctx, L.gradeLine, W - 80).slice(0, 2).forEach((ln, j) => ctx.fillText(ln, 40, 760 + j * 54));
       ctx.fillStyle = '#8b8c94'; ctx.font = '400 28px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.stats, 40, 900);
       spark(ctx, pts, 40, 960, W - 80, 160, n, { lw: 6, base: true, dots: true, dotR: 6, dotCol: (j) => (run.months[j - 1].net >= 0 ? '#25f4ee' : '#fe2c55') });
@@ -2383,7 +2392,7 @@ const PX = (() => {
     ctx.textAlign = 'right'; ctx.fillText(run.nick || '', W - 60, 640); ctx.textAlign = 'left';
     ctx.fillStyle = '#ffffff'; ctx.font = '400 48px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.product, 60, 710);
     ctx.fillStyle = run.final >= START ? '#25f4ee' : '#fe2c55'; ctx.font = '400 150px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(fmtCash(run.final), 60, 870);
-    ctx.fillStyle = '#fe2c55'; ctx.textAlign = 'right'; ctx.font = '400 200px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(run.grade, W - 60, 880); ctx.textAlign = 'left';
+    ctx.fillStyle = '#fe2c55'; ctx.textAlign = 'right'; ctx.font = '400 ' + (run.grade.length > 2 ? 140 : run.grade.length > 1 ? 170 : 200) + 'px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(run.grade, W - 60, 880); ctx.textAlign = 'left';
     ctx.fillStyle = '#8b8c94'; ctx.font = '400 32px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.stats, 60, 940);
     spark(ctx, [START, ...run.months.map((m) => m.cash)], 60, 990, W - 120, 200, run.months.length, { lw: 8, base: true, dots: true, dotR: 8, dotCol: (j) => (run.months[j - 1].net >= 0 ? '#25f4ee' : '#fe2c55') });
     ctx.fillStyle = '#ffffff'; ctx.font = '400 38px "Russo One", "Black Han Sans", sans-serif'; ctx.fillText(L.outro, 60, 1275);
@@ -2590,7 +2599,9 @@ const shortGbp = (n) => { const a = Math.abs(n), s = n < 0 ? '−£' : '£'; ret
 const shortN = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e4 ? Math.round(n / 1e3) + 'k' : n >= 1e3 ? (n / 1e3).toFixed(1) + 'k' : String(Math.round(n)));
 const monName = (m, long) => t(long ? 'months_long' : 'months_short')[(m - 1) % 12];
 const yearOf = (m) => Math.floor((m - 1) / 12) + 1;
-const JACKPOT_EVERY = 23;
+const JACKPOT_EVERY = 15;
+// earning potential shown on the industry cards (from balance simulations): 0 high, 1 medium, 2 low
+const POTENTIAL = { serum: 0, sneakers: 1, coffee: 2, app: 3 };
 const RESEARCH_COST = 400, RS_COST = [0, 400, 2000, 8000];
 // café: one purchase unlocks the full report (all 3 levels) for £800, no upgrade popups
 const RS_FULL = { coffee: 800 };
@@ -2603,7 +2614,7 @@ const ORDER = ['sneakers', 'coffee', 'serum', 'app'];
 const agoText = (ts) => { const s = (Date.now() - ts) / 1000; return s < 60 ? t('ago_s') : s < 3600 ? t('ago_m', { n: Math.floor(s / 60) }) : s < 86400 ? t('ago_h', { n: Math.floor(s / 3600) }) : t('ago_d', { n: Math.floor(s / 86400) }); };
 const prodName = (p) => t('industry.' + p + '.0');
 const brandName = (p) => t('products.' + p + '.name');
-const gradeOf = (c) => { const x = c / START; return x >= 20 ? 'S' : x >= 8 ? 'A' : x >= 3 ? 'B' : x >= 1 ? 'C' : 'D'; };
+const gradeOf = (c) => { const x = c / START; return x >= 150 ? 'SS+' : x >= 60 ? 'SS' : x >= 20 ? 'S' : x >= 8 ? 'A' : x >= 3 ? 'B' : x >= 1 ? 'C' : 'D'; };
 
 // ---------- state ----------
 let G = null;
@@ -2837,14 +2848,14 @@ function b64u(str) { try { return btoa(unescape(encodeURIComponent(str))).replac
 function ub64(x) { try { x = x.replace(/-/g, '+').replace(/_/g, '/'); while (x.length % 4) x += '='; return decodeURIComponent(escape(atob(x))); } catch { return 'Player'; } }
 const n36 = (v) => (v < 0 ? 'n' : '') + Math.round(Math.abs(v)).toString(36);
 const d36 = (x) => (x[0] === 'n' ? -parseInt(x.slice(1), 36) : parseInt(x, 36));
-function makeToken(run) { return ['vs1', PCODE[run.product], n36(run.final), run.months.length.toString(36), run.grade, b64u((run.nick || 'Player').slice(0, 18)), ((run.seed || 1) >>> 0).toString(36), run.months.slice(0, 12).map((m) => n36(m.cash)).join('_')].join('.'); }
+function makeToken(run) { return ['vs1', PCODE[run.product], n36(run.final), run.months.length.toString(36), ({ 'SS+': 'P', SS: 'Q' })[run.grade] || run.grade, b64u((run.nick || 'Player').slice(0, 18)), ((run.seed || 1) >>> 0).toString(36), run.months.slice(0, 12).map((m) => n36(m.cash)).join('_')].join('.'); }
 function parseToken(h) {
   try {
     const p = String(h || '').replace(/^#/, '').split('.'); if (p[0] !== 'vs1' || p.length < 8) return null;
     const product = PDEC[p[1]]; if (!product) return null;
     const path = [START, ...p[7].split('_').filter(Boolean).map(d36)];
     if (path.some((v) => !isFinite(v))) return null;
-    return { product, final: d36(p[2]), months: parseInt(p[3], 36), grade: (p[4] || 'C').slice(0, 1), nick: ub64(p[5]).slice(0, 18) || 'Player', seed: parseInt(p[6], 36) || 1, path, token: p.join('.') };
+    return { product, final: d36(p[2]), months: parseInt(p[3], 36), grade: (({ P: 'SS+', Q: 'SS' })[(p[4] || 'C').slice(0, 1)] || (p[4] || 'C').slice(0, 1)), nick: ub64(p[5]).slice(0, 18) || 'Player', seed: parseInt(p[6], 36) || 1, path, token: p.join('.') };
   } catch { return null; }
 }
 const challengeLink = (token) => refUrl('challenge') + '#' + token;
@@ -3019,7 +3030,7 @@ function homeScreen() {
     <section class="block stack" id="setup">
       <h2>${esc(t('setup'))}</h2>
       <div><p class="label" style="color:var(--ink);font-size:17px;margin-bottom:2px">${esc(t('setup_product'))}</p><p class="note" style="margin:0 0 12px">${esc(t('setup_why'))}</p>
-        ${seg('product', 2, ORDER.map((p) => [p, '<b>' + esc(prodName(p)) + '</b>', esc(t('industry.' + p + '.1')) + '<br>' + esc(t('diff')[PRODUCTS[p].difficulty - 1] + ' · ' + t('model_lbl.' + p))]), UI.product)}
+        ${seg('product', 2, ORDER.map((p) => [p, '<b>' + esc(prodName(p)) + '</b>', esc(t('industry.' + p + '.1')) + '<br>' + esc(t('diff_lbl') + ' ' + t('diff')[PRODUCTS[p].difficulty - 1] + ' · ' + t('pot_lbl') + ' ' + t('pot')[POTENTIAL[p]] + ' · ' + t('model_lbl.' + p))]), UI.product)}
         <p class="note"><b style="color:var(--ink)">${esc(brandName(UI.product))}</b> · ${esc(t('products.' + UI.product + '.hint'))} <span class="mono">${esc(t('price'))} ${gbp(PRODUCTS[UI.product].price)} · ${esc(t('margin'))} ${Math.round(PRODUCTS[UI.product].margin * 100)}%${PRODUCTS[UI.product].fixed ? ' · ' + esc(t('fixed_cost')) + ' ' + gbp(PRODUCTS[UI.product].fixed) + '/' + (LANG === 'ko' ? '월' : 'mo') : ''}</span></p></div>
       <div><label class="label" for="nick" style="display:block">${esc(t('setup_name'))}</label><input class="input" id="nick" maxlength="18" placeholder="${esc(t('nick_ph'))}" value="${esc(UI.nick)}"></div>
       <div><button class="btn primary ig" data-act="start">${esc(t('start_cta'))}</button><p class="note">${esc(t('setup_hint'))}</p></div>
@@ -3055,7 +3066,7 @@ function renderLive() {
 function hallEntries(kind) {
   if (NET.state !== 'on') return RUNS.filter((r) => (kind === 'campaign' ? r.outcome === 'year' : true)).sort((x, y) => y.final - x.final).slice(0, 10)
     .map((r) => ({ nick: r.nick, score: r.final, product: r.product, grade: r.grade, seed: r.seed, path: r.months.slice(0, 12).map((m) => m.cash), mine: true }));
-  const list = (NET.scores[kind] || []).map((d) => ({ nick: d.nick, score: d[kind] || 0, product: d[kind + 'Product'], grade: d[kind + 'Grade'] || gradeOf(d[kind] || 0), seed: d[kind + 'Seed'], path: d[kind + 'Path'], mine: d.id === NET.uid }));
+  const list = (NET.scores[kind] || []).map((d) => ({ nick: d.nick, score: d[kind] || 0, product: d[kind + 'Product'], grade: kind === 'campaign' ? gradeOf(d[kind] || 0) : d[kind + 'Grade'] || gradeOf(d[kind] || 0), seed: d[kind + 'Seed'], path: d[kind + 'Path'], mine: d.id === NET.uid }));
   if (kind === 'campaign') for (const f of NET.fame) if (!list.some((x) => x.nick === f.nick && Math.round(x.score) === Math.round(f.campaign))) list.push({ nick: f.nick, score: f.campaign, product: f.campaignProduct, grade: f.campaignGrade, seed: f.campaignSeed, path: f.campaignPath });
   return list.filter((x) => x.score > 0).sort((x, y) => y.score - x.score).slice(0, 20);
 }
