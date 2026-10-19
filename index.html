@@ -37,6 +37,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Russo+One&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -381,6 +385,26 @@ html[lang="en"] .seo [lang="ko"], html[lang="ko"] .seo [lang="en"] { display: no
 .h1.title-pixel { font-family: var(--f-title); font-weight: 700 !important; letter-spacing: 0; line-height: 1.12; }
 .h1.title-pixel .ig-text { font-family: inherit !important; font-weight: 700 !important; text-shadow: -0.06em -0.03em 0 #25f4ee, 0.06em 0.03em 0 #fe2c55; }
 
+/* level-up popup */
+.lvlmodal .inner.lvlup{text-align:center;align-items:center;gap:10px;animation:lvlIn .45s cubic-bezier(.2,1.4,.4,1) .35s both}
+.lvl-tag{font-family:var(--f-title);font-weight:700;font-size:34px;letter-spacing:.02em;color:#f6c945;-webkit-text-stroke:1.5px #b07d0f;text-shadow:3px 3px 0 #fe2c55;animation:lvlPulse .9s ease-in-out infinite alternate}
+.lvl-av{display:flex;align-items:flex-end;justify-content:center;gap:14px}
+.lvl-av>div{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.55}
+.lvl-av>div.now{opacity:1;filter:drop-shadow(0 0 14px rgba(246,201,69,.75));animation:lvlBounce .6s ease-in-out 1s infinite alternate}
+.lvl-av small{font-size:12px;color:var(--muted)}
+.lvl-arrow{font-family:var(--f-display);font-size:30px;color:var(--muted);margin-bottom:60px}
+.lvlup h3{margin:0;font-family:var(--f-display);font-size:28px}
+.lvlup p{margin:0}
+.lvl-perk{font-weight:600;color:var(--teal,#139c9c)}
+canvas.lvlav{image-rendering:pixelated}
+.titlecard{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.titlecard small{display:block;color:var(--muted);font-size:12px}
+.titlecard b{font-family:var(--f-display);font-size:24px;font-weight:400}
+@keyframes lvlIn{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes lvlPulse{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes lvlBounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.lvlmodal .inner.lvlup,.lvl-tag,.lvl-av>div.now{animation:none}}
+
 </style>
 </head>
 <body>
@@ -610,7 +634,7 @@ en: {
     coffee: { name: 'Daily Grind Coffee Club', hint: 'A ritual purchase. Slow cash, loyal subscribers.' },
     app: { name: 'Tempo Focus App', hint: 'People search for solutions. Cheap plan, long retention.' },
   },
-  levels: ['Marketing Intern', 'Marketing Executive', 'Marketing Manager', 'Head of Growth', 'CMO', 'Influencer Mogul'],
+  levels: ['Marketing Intern', 'Marketing Executive', 'Marketing Manager', 'Head of Growth', 'Marketing Director', 'CEO', 'Equity Partner'],
   lvl_next: '£{x} more lifetime revenue to {lvl}',
   events: {
     tiktok_down: ['TikTok algorithm shake-up', 'Reach on TikTok drops: TikTok visitors −40% this month.'],
@@ -645,7 +669,7 @@ en: {
     comeback: ['Comeback', 'Drop below £300, then climb past £2,000.'],
     gamble: ['Deal maker', 'Win a deal offer.'],
     seo: ['Search engine', 'Build SEO equity above 1,000.'],
-    mogul: ['Influencer Mogul', 'Reach the top level.'],
+    mogul: ['Equity Partner', 'Get a stake in the company.'],
     bust: ['Lesson learned', 'Go bust once.'],
   },
   grades: { S: 'Legendary. Hire this person.', A: 'Excellent. The board is thrilled.', B: 'Solid growth. Promotion material.', C: 'You kept the lights on.', D: 'Budget burned. Read the data and try again.' },
@@ -708,7 +732,7 @@ ko: {
     coffee: { name: '데일리 그라인드 커피 클럽', hint: '습관적 구매. 현금은 느리지만 구독자가 오래 남습니다.' },
     app: { name: '템포 포커스 앱', hint: '사람들은 해결책을 검색합니다. 저렴한 요금, 긴 유지 기간.' },
   },
-  levels: ['마케팅 인턴', '마케팅 담당자', '마케팅 매니저', '그로스 총괄', 'CMO', '인플루언서 거물'],
+  levels: ['마케팅 인턴', '마케팅 담당자', '마케팅 매니저', '그로스 총괄', '마케팅 이사', '사장', '지분 파트너'],
   lvl_next: '{lvl}까지 누적 매출 £{x} 남음',
   events: {
     tiktok_down: ['틱톡 알고리즘 변경', '틱톡 도달률 하락: 이번 달 틱톡 방문자 −40%.'],
@@ -743,7 +767,7 @@ ko: {
     comeback: ['역전승', '£300 아래로 떨어졌다가 £2,000 넘기기.'],
     gamble: ['딜 메이커', '제안을 수락해 성공하기.'],
     seo: ['검색 엔진', 'SEO 자산 1,000 이상 쌓기.'],
-    mogul: ['인플루언서 거물', '최고 레벨 달성.'],
+    mogul: ['지분 파트너', '회사 지분 받기.'],
     bust: ['값진 교훈', '한 번 파산하기.'],
   },
   grades: { S: '전설. 당장 채용하세요.', A: '훌륭합니다. 이사회가 매우 만족합니다.', B: '탄탄한 성장. 승진감입니다.', C: '회사는 살렸습니다.', D: '예산을 태웠습니다. 데이터를 읽고 다시 도전하세요.' },
@@ -1161,6 +1185,11 @@ Object.assign(I18N.ko, { rs_eng: '채널별 전환율과 클릭당 비용', rs_e
 Object.assign(I18N.en, { mf_ramp: 'New brand: few people know you yet', mf_align: 'Target and content don’t fit this industry’s buyers' });
 Object.assign(I18N.ko, { mf_ramp: '신생 브랜드: 아직 아는 사람이 적음', mf_align: '타겟·콘텐츠가 이 업종 고객과 안 맞음' });
 
+Object.assign(I18N.en, { lvl_tag: 'LEVEL UP!', lvl_ok: 'Back to work', lvl_next: 'Next: {n} at {x} lifetime revenue', lvl_top: 'You reached the top of the ladder.', final_title: 'Final title',
+  lvl_lines: ['', 'Your first real title. The boss finally remembers your name.', 'You have a team now. And a tie.', 'Growth is officially your problem. Blazer unlocked.', 'You got a seat at the board table. Suit fitted.', 'The whole company is yours to run.', 'Your marketing was so good, the founders gave you a stake in the company.'] });
+Object.assign(I18N.ko, { lvl_tag: 'LEVEL UP!', lvl_ok: '다시 일하러 가기', lvl_next: '다음 직함: {n} (누적 매출 {x})', lvl_top: '직장 사다리 꼭대기에 올랐어요.', final_title: '최종 직함',
+  lvl_lines: ['', '첫 정식 직함이에요. 이제 상사가 이름을 기억해요.', '팀이 생겼어요. 넥타이도요.', '이제 성장은 공식적으로 내 책임이에요. 블레이저 해금!', '이사회 테이블에 자리가 생겼어요. 정장 맞춤 완료.', '이제 회사 전체를 이끌어요.', '마케팅을 너무 잘해서 창업자들이 회사 지분을 나눠줬어요.'] });
+
 // ===== Viral or Bust — simulation engine (all figures fictional) =====
 const AGES = ['a16', 'a25', 'a35', 'a45'];
 const GENDERS = ['f', 'm', 'all'];
@@ -1216,9 +1245,9 @@ const PRODUCTS = {
 
 // Jan..Dec market demand
 const SEASON = [0.88, 0.9, 0.95, 1.0, 1.0, 0.96, 0.95, 0.96, 1.0, 1.05, 1.28, 1.22];
-const LEVELS = [0, 2000, 8000, 25000, 70000, 200000]; // lifetime revenue
-const LEVEL_K = [1, 1.25, 1.55, 1.9, 2.3, 2.8];
-const OVERHEADS = [60, 120, 220, 400, 750, 1400];
+const LEVELS = [0, 2000, 8000, 25000, 70000, 200000, 500000]; // lifetime revenue
+const LEVEL_K = [1, 1.25, 1.55, 1.9, 2.3, 2.8, 3.2];
+const OVERHEADS = [60, 120, 220, 400, 750, 1400, 2200];
 const START = 5000;
 const MISSIONS = { sneakers: { kind: 'followers', target: 5000 }, coffee: { kind: 'streak', target: 3 }, serum: { kind: 'customers', target: 1000 }, app: { kind: 'users', target: 1500 } };
 function missionProgress(s) { const m = MISSIONS[s.product]; const v = m.kind === 'followers' ? s.followers : m.kind === 'streak' ? s.bestStreak || 0 : m.kind === 'customers' ? s.customers : s.subs; return { ...m, value: v, done: v >= m.target }; }
@@ -2439,7 +2468,36 @@ const PX = (() => {
     }, CYCLE, true);
   }
 
-  return { scene, preview, clip, bustLoop, diaryPlayer, recordDiary, diaryDuration, shareCard, thumb, hero, stopAll, CH_ICON, GRAD };
+  // ---------- level avatar: same person, outfit changes with each promotion ----------
+  function avatar(canvas, lvl) {
+    const c = canvas.getContext('2d'), S = 16, H = 22;
+    const px = Math.max(1, Math.floor(Math.min(canvas.width / S, canvas.height / H)));
+    c.clearRect(0, 0, canvas.width, canvas.height); c.save();
+    c.translate(Math.round((canvas.width - S * px) / 2), Math.round((canvas.height - H * px) / 2)); c.scale(px, px);
+    const skin = C.skinA, hair = C.hairBr, P = (x, y, w, h, col) => R(c, x, y, w, h, col);
+    const O = [
+      { top: '#9aa3ad', arm: skin, pants: '#3b4a66' },                 // intern: plain tee
+      { top: '#4f8fe6', arm: '#4f8fe6', pants: '#2c3a55' },            // executive: shirt
+      { top: '#f6f7f5', arm: '#f6f7f5', pants: '#2c3a55', tie: C.rose }, // manager: shirt + tie
+      { top: C.teal, arm: C.teal, pants: '#2d3440', shirt: '#f6f7f5', tie: C.rose }, // head of growth: blazer
+      { top: '#26324a', arm: '#26324a', pants: '#26324a', shirt: '#f6f7f5', tie: '#7a4fc4' }, // director: suit
+      { top: '#14181f', arm: '#14181f', pants: '#14181f', shirt: '#f6f7f5', tie: C.gold }, // CEO
+      { top: '#14181f', arm: '#14181f', pants: '#14181f', shirt: '#f6f7f5', tie: C.gold, crown: true, bag: true }, // equity partner
+    ][Math.max(0, Math.min(6, lvl))];
+    if (O.crown) { P(5, 0, 6, 2, C.gold); P(5, -1, 1, 1, C.gold); P(7, -1, 2, 1, C.gold); P(10, -1, 1, 1, C.gold); P(7, 0, 2, 1, C.rose); }
+    P(5, 3, 6, 6, skin); P(5, 2, 6, 2, hair); P(5, 3, 1, 2, hair); P(10, 3, 1, 1, hair);
+    P(6, 5, 1, 1, C.ink); P(9, 5, 1, 1, C.ink); P(7, 7, 2, 1, '#b5544a');
+    P(4, 9, 8, 6, O.top);
+    if (O.shirt) { P(7, 9, 2, 3, O.shirt); }
+    if (O.tie) { P(7, 10, 2, 4, O.tie); }
+    if (lvl === 0) { P(6, 9, 1, 3, C.cyan); P(9, 9, 1, 3, C.cyan); P(6, 12, 4, 2, '#ffffff'); P(7, 12, 2, 1, C.cyan); }
+    P(3, 10, 1, 4, O.arm); P(12, 10, 1, 4, O.arm); P(3, 14, 1, 1, skin); P(12, 14, 1, 1, skin);
+    P(5, 15, 2, 4, O.pants); P(9, 15, 2, 4, O.pants); P(5, 19, 2, 1, C.ink); P(9, 19, 2, 1, C.ink);
+    if (lvl >= 5) { P(13, 13, 3, 3, '#6b3f22'); P(14, 12, 1, 1, '#6b3f22'); }
+    if (O.bag) { P(0, 12, 3, 4, C.gold); P(1, 11, 1, 1, C.gold); P(1, 13, 1, 2, '#8a6510'); }
+    c.restore();
+  }
+  return { scene, preview, clip, bustLoop, diaryPlayer, recordDiary, diaryDuration, shareCard, thumb, hero, stopAll, avatar, CH_ICON, GRAD };
 })();
 
 // ---------- tiny sound ----------
@@ -2460,6 +2518,7 @@ const SFX = (() => {
     win() { [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.16, 'square', 0.04, i * 0.1)); },
     lose() { [392, 370, 349, 311].forEach((f, i) => tone(f, 0.28, 'triangle', 0.06, i * 0.22)); },
     viral() { for (let i = 0; i < 8; i++) tone(600 + i * 120, 0.09, 'square', 0.035, i * 0.06); },
+    levelup() { [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, i === 6 ? 0.4 : 0.11, 'square', 0.04, 0.25 + i * 0.09)); },
   };
 })();
 
@@ -2568,7 +2627,7 @@ function checkAch(r) {
   if (G.minCash < 1500 && G.cash > 10000) grant('comeback');
   if (missionProgress(G).done) grant('mission');
   if (r.offer && r.offer.win && r.offer.id !== 'flash_sale') grant('gamble');
-  if (G.seo > 1000) grant('seo'); if (r.lvlAfter >= 5) grant('mogul');
+  if (G.seo > 1000) grant('seo'); if (r.lvlAfter >= 6) grant('mogul');
   if (G.followers >= 1000) grant('followers1k');
   if (r.collab && !r.collab.scandal && r.collab.fit >= 1.1) grant('collab');
 }
@@ -2843,6 +2902,9 @@ function launch(skip) {
     track('month_launch', { industry: G.product, month: G.month, spend: Math.round(spend), top_channel: top, intensity: UI.plan.risk, target_age: UI.plan.age, target_gender: UI.plan.gender, content: UI.plan.content, collab: UI.collab ? 'yes' : 'no', offer: offerTaken, net: Math.round(r.net), outcome: r.jackpot ? 'jackpot' : r.viral ? 'viral' : r.crash ? 'crash' : r.net >= 0 ? 'profit' : 'loss', endless: G.endless ? 'yes' : 'no' }); }
   if (G.endless) submitScore('endless', G.peakCash, G.month);
   if (r.viral || r.jackpot) SFX.viral(); else if (r.net >= 0 && !r.crash) SFX.win(); else SFX.lose();
+  const lvUp = r.lvlAfter > r.lvlBefore;
+  UI.lvlPop = lvUp ? { from: r.lvlBefore, to: r.lvlAfter } : null;
+  if (lvUp) { setTimeout(() => SFX.levelup && SFX.levelup(), 900); track('level_up', { industry: G.product, month: G.month, level: t('levels')[r.lvlAfter] }); }
   UI.screen = 'result'; save(); go();
 }
 function nextMonth() {
@@ -3094,6 +3156,19 @@ function guidePopup() {
     <ul class="guide-list">${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <div class="guide-dots">${steps.map((_, k) => `<span class="${k === i ? 'on' : ''}"></span>`).join('')}</div>
     <div class="row">${i > 0 ? `<button class="btn" data-act="guide" data-v="prev">${esc(t('guide_prev'))}</button>` : ''}<button class="btn primary" data-act="guide" data-v="${last ? 'close' : 'next'}">${esc(last ? t('guide_go') : t('guide_next'))}</button></div></div></div>`;
+}
+function lvlPopup() {
+  const p = UI.lvlPop; if (!p) return '';
+  const L = t('levels'), nx = p.to + 1 < L.length ? t('lvl_next', { n: L[p.to + 1], x: gbp(LEVELS[p.to + 1]) }) : t('lvl_top');
+  const un = CHANNEL_ORDER.filter((c) => CHANNELS[c].unlock - 1 === p.to).map((c) => t('unlocked', { ch: t('channels.' + c) }));
+  return `<div class="modal lvlmodal" id="lvlmodal"><div class="inner lvlup" role="dialog" aria-modal="true" aria-labelledby="lvl-h">
+    <span class="lvl-tag">${esc(t('lvl_tag'))}</span>
+    <div class="lvl-av"><div><canvas class="lvlav" data-lvl="${p.from}" width="96" height="132"></canvas><small>${esc(L[p.from])}</small></div><span class="lvl-arrow">→</span><div class="now"><canvas class="lvlav" data-lvl="${p.to}" width="128" height="176"></canvas></div></div>
+    <h3 id="lvl-h">${esc(L[p.to])}</h3>
+    <p>${esc(t('lvl_lines')[p.to] || '')}</p>
+    ${un.length ? `<p class="lvl-perk">🔓 ${esc(un.join(' · '))}</p>` : ''}<p class="lvl-perk">${esc(t('bigger'))}</p>
+    <p class="note">${esc(nx)}</p>
+    <div class="row"><button class="btn primary" data-act="lvlclose">${esc(t('lvl_ok'))}</button></div></div></div>`;
 }
 function stuckTip() {
   if (!G || G.month < 3 || G.endless) return '';
@@ -3361,6 +3436,7 @@ function endScreen(kind) {
       ${kind === 'year' && !run.registered && (!UI.nick || UI.nick === 'Player') ? `<input class="input" id="endnick" maxlength="18" placeholder="${esc(t('fame_nick'))}">` : ''}
       <div class="row"><button class="btn primary ig" data-act="${kind === 'year' ? 'sendch' : 'sharech'}">${esc(kind === 'year' ? t('fame_btn') : t('vs_share_btn'))}</button>${kind === 'year' && run.registered ? `<button class="btn" data-act="home">${esc(t('fame_view'))}</button>` : ''}</div><div id="sharebox-end" hidden></div></div>
     ${kind === 'year' ? `<div class="decision vsinvite"><span class="tag">${esc(t('ch_banner_tag'))}</span><h3>${esc(t('vs_share_h', { x: gbp(run.final), g: run.grade }))}</h3><p>${esc(t('vs_share_sub'))}</p><div class="row"><button class="btn primary" data-act="sharech">${esc(t('vs_share_btn'))}</button></div><div id="sharebox-vs" hidden></div></div>` : ''}
+    <div class="titlecard"><canvas class="lvlav" data-lvl="${G ? levelOf(G.totalRevenue) : 0}" width="72" height="99"></canvas><div><small>${esc(t('final_title'))}</small><b>${esc(t('levels')[G ? levelOf(G.totalRevenue) : 0])}</b></div></div>
     ${missionBox(true)}
     <div class="kpis">${k(t('final_cash'), gbp(run.final))}${k(t('growth'), (run.final >= START ? '+' : '') + pct(run.final / START - 1, 0))}${k(t('stat_followers'), int(run.followers || 0))}${k(t('best_month'), best ? esc(monName(best.month)) + ' ' + sgbp(Math.round(best.net)) : '–')}${k(t('virals'), run.virals)}${k(t('total_rev'), gbp(G.totalRevenue))}</div>
     <div><h2>${esc(kind === 'year' ? t('diary_title') : t('diary_title_bust'))}</h2>
@@ -3426,7 +3502,8 @@ function render() {
   else if (UI.screen === 'year') html = endScreen('year');
   else html = endScreen('bust');
   if (UI.screen === 'plan' && G && G.month === 1 && !G.endless && !UI.guide && !store.get('vob-guide-seen', false)) UI.guide = 1;
-  document.getElementById('app').innerHTML = html + (UI.screen === 'plan' && UI.guide ? guidePopup() : UI.screen === 'plan' && UI.rsPopup ? rsPopup() : '');
+  document.getElementById('app').innerHTML = html + (UI.screen === 'plan' && UI.guide ? guidePopup() : UI.screen === 'plan' && UI.rsPopup ? rsPopup() : UI.screen === 'result' && UI.lvlPop ? lvlPopup() : '');
+  document.querySelectorAll('canvas.lvlav').forEach((cv) => PX.avatar && PX.avatar(cv, +cv.dataset.lvl));
   { const seo = document.getElementById('seo'); if (seo) seo.hidden = !(!G || UI.screen === 'home'); }
   const hero = document.getElementById('hero');
   if (hero) {
@@ -3509,6 +3586,7 @@ document.addEventListener('click', (e) => {
   if (a === 'clear') { UI.alloc = {}; rer(); return; }
   if (a === 'repeat' && G.last) { const last = G.last.alloc, lt = Object.values(last).reduce((x, y) => x + y, 0), f = lt > budget ? budget / lt : 1; UI.alloc = {}; for (const c in last) UI.alloc[c] = roundTo(last[c] * f, 10); UI.plan = { ...G.last.plan }; rer(); return; }
   if (a === 'launch') { launch(false); return; }
+  if (a === 'lvlclose') { UI.lvlPop = null; save(); go(); return; }
   if (a === 'skip') { launch(true); return; }
   if (a === 'replayclip') { CLIP && CLIP.restart(); return; }
   if (a === 'savenote') { const n = document.getElementById('note'); if (n && G.last) { UI.notes[G.last.month] = n.value.trim().slice(0, 60); save(); toast('', t('diary_saved')); } return; }
