@@ -79,6 +79,10 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -2723,6 +2727,8 @@ function checkAch(r) {
 const NET = { fame: [], state: 'loading', db: null, user: null, uid: null, readOnly: false, scores: { campaign: [], endless: [] }, posts: [], peers: 0, room: null, dl: null };
 // ---------- Supabase adapter ----------
 const PLAYER_ID = (() => { let id = store.get('vob-pid', null); if (!id) { id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); store.set('vob-pid', id); } return id; })();
+// the database grade column holds at most 2 characters: store SS+ as 'S+' and read it back as SS+
+const gDb = (g) => (g === 'SS+' ? 'S+' : g || null), gUi = (g) => (g === 'S+' ? 'SS+' : g);
 async function sb(path, opt = {}) {
   const r = await fetch(SUPA_URL.replace(/\/$/, '') + '/rest/v1/' + path, { ...opt, headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', ...(opt.headers || {}) } });
   if (!r.ok && r.status !== 409) throw new Error('supabase ' + r.status);
@@ -2738,12 +2744,12 @@ async function sbLoad() {
       sb('plays?select=id&created_at=gte.' + encodeURIComponent(since), { headers: { Prefer: 'count=exact', Range: '0-0' } }).then((r) => +((r.headers.get('content-range') || '/0').split('/')[1] || 0)),
     ]);
     const best = (rows, kind) => { const m = new Map(); for (const r of rows) { if (!m.has(r.player_id) || m.get(r.player_id).score < r.score) m.set(r.player_id, r); }
-      return [...m.values()].sort((x, y) => y.score - x.score).slice(0, 20).map((r) => ({ id: r.player_id, nick: r.nick, [kind]: Number(r.score), [kind + 'Product']: r.product, [kind + 'Grade']: r.grade, [kind + 'Seed']: r.seed, [kind + 'Path']: r.path })); };
+      return [...m.values()].sort((x, y) => y.score - x.score).slice(0, 20).map((r) => ({ id: r.player_id, nick: r.nick, [kind]: Number(r.score), [kind + 'Product']: r.product, [kind + 'Grade']: gUi(r.grade), [kind + 'Seed']: r.seed, [kind + 'Path']: r.path })); };
     NET.scores.campaign = best(c, 'campaign'); NET.scores.endless = best(e, 'endless');
     const rankOf = (rows) => { const m = new Map(); for (const r of rows) if (!m.has(r.player_id) || m.get(r.player_id).score < r.score) m.set(r.player_id, r); const all = [...m.values()].sort((x, y) => y.score - x.score); const i = all.findIndex((r) => r.player_id === PLAYER_ID); return i < 0 ? null : { rank: i + 1, total: all.length, score: Number(all[i].score) }; };
     NET.myRank = { campaign: rankOf(c), endless: rankOf(e) };
     const mine = new Set(store.get('vob-cheered', []));
-    NET.posts = f.map((p) => { const n = Number(p.cheer_count || 0); const ch = Array(n).fill('_'); if (mine.has(String(p.id)) && n) ch[0] = NET.uid; return { id: String(p.id), uid: p.player_id, nick: p.nick, product: p.product, outcome: p.outcome, final: Number(p.final), grade: p.grade, months: p.months, virals: p.virals, followers: p.followers, line: p.line, path: p.path, createdAt: Date.parse(p.created_at), cheers: ch }; });
+    NET.posts = f.map((p) => { const n = Number(p.cheer_count || 0); const ch = Array(n).fill('_'); if (mine.has(String(p.id)) && n) ch[0] = NET.uid; return { id: String(p.id), uid: p.player_id, nick: p.nick, product: p.product, outcome: p.outcome, final: Number(p.final), grade: gUi(p.grade), months: p.months, virals: p.virals, followers: p.followers, line: p.line, path: p.path, createdAt: Date.parse(p.created_at), cheers: ch }; });
     NET.recentPlays = pl;
     const cnt = (path) => sb(path, { headers: { Prefer: 'count=exact', Range: '0-0' } }).then((r) => +((r.headers.get('content-range') || '/0').split('/')[1] || 0)).catch(() => 0);
     const [allPlays, fameCount, postCount] = await Promise.all([cnt('plays?select=id'), cnt('scores?select=id&kind=eq.campaign'), cnt('posts?select=id')]);
@@ -2780,7 +2786,7 @@ async function submitScore(kind, value, months, product, extra) {
   if (value > (BEST[kind] || 0)) { BEST[kind] = value; store.set('vob-best', BEST); }
   if (NET.supa) {
     const key = 'vob-sb-' + kind; if (value <= store.get(key, -Infinity)) return;
-    try { await sb('scores', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, nick: (UI.nick || 'Player').slice(0, 18), kind, score: Math.round(value), product: product || (G ? G.product : 'serum'), grade: extra ? extra.grade : null, seed: extra ? extra.seed : null, path: extra ? extra.path : null }) }); store.set(key, value); sbLoad(); } catch {}
+    try { await sb('scores', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, nick: (UI.nick || 'Player').slice(0, 18), kind, score: Math.round(value), product: product || (G ? G.product : 'serum'), grade: extra ? gDb(extra.grade) : null, seed: extra ? extra.seed : null, path: extra ? extra.path : null }) }); store.set(key, value); sbLoad(); } catch {}
     return;
   }
   if (NET.state !== 'on' || NET.readOnly || !NET.uid) return;
@@ -2796,7 +2802,7 @@ async function submitScore(kind, value, months, product, extra) {
 async function sharePost(run, line) {
   if (NET.supa) {
     const best = run.months.reduce((x, y) => (y.net > (x ? x.net : -Infinity) ? y : x), null);
-    try { await sb('posts', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, nick: (run.nick || 'Player').slice(0, 18), product: run.product, outcome: run.outcome, final: Math.round(run.final), grade: run.grade, months: run.months.length, virals: run.virals || 0, followers: Math.round(run.followers || 0), line: (line || '').slice(0, 80), path: [START, ...run.months.slice(0, 24).map((m) => Math.round(m.cash))] }) }); sbLoad(); return true; } catch { toast('', t('share_need')); return false; }
+    try { await sb('posts', { method: 'POST', body: JSON.stringify({ player_id: PLAYER_ID, nick: (run.nick || 'Player').slice(0, 18), product: run.product, outcome: run.outcome, final: Math.round(run.final), grade: gDb(run.grade), months: run.months.length, virals: run.virals || 0, followers: Math.round(run.followers || 0), line: (line || '').slice(0, 80), path: [START, ...run.months.slice(0, 24).map((m) => Math.round(m.cash))] }) }); sbLoad(); return true; } catch { toast('', t('share_need')); return false; }
   }
   if (NET.state !== 'on' || NET.readOnly || !NET.uid) { toast('', t('share_need')); return false; }
   const months = run.months;
@@ -3550,12 +3556,12 @@ function nearMiss(run) {
   lines.push(t('nm_busts', { n: BUSTS, a: ATTEMPTS }));
   return `<ul class="log" style="margin-top:6px">${lines.map((l) => `<li class="bad"><span class="w">—</span><span>${esc(l)}</span></li>`).join('')}</ul>`;
 }
-function registerRun(run) {
+function registerRun(run, viaPost) {
   if (!run || run.outcome !== 'year' || run.registered) return;
   const n = document.getElementById('endnick'); if (n && n.value.trim()) { UI.nick = n.value.trim().slice(0, 18); store.set('vob-nick', UI.nick); run.nick = UI.nick; }
   run.registered = true; saveRun(run); save();
   track('hall_of_fame_submit', { industry: run.product, grade: run.grade, final: Math.round(run.final) });
-  if (!UI.posted && NET.supa) sharePost(run, '').then((ok) => { if (ok) { UI.posted = true; save(); } });
+  if (!viaPost && !UI.posted && NET.supa) sharePost(run, '').then((ok) => { if (ok) { UI.posted = true; save(); } });
   submitScore('campaign', run.final, 12, run.product, { seed: run.seed, path: run.months.slice(0, 12).map((m) => Math.round(m.cash)), grade: run.grade });
   toast(t('hall'), t('fame_toast'));
 }
@@ -3713,7 +3719,7 @@ document.addEventListener('click', (e) => {
   if (a === 'cardsave') { const run = RUNS.find((r) => r.id === UI.lastRun); registerRun(run); if (run) saveCard(run, document.getElementById('dstatus')); return; }
   if (a === 'copylink') { const run = RUNS.find((r) => r.id === UI.lastRun); registerRun(run); const msg = run ? shareMessage(run) : siteUrl(); const st = document.getElementById('dstatus');
     try { navigator.clipboard.writeText(msg).then(() => { st && (st.textContent = t('link_copied')); }, () => { st && (st.textContent = msg); }); } catch { st && (st.textContent = msg); } return; }
-  if (a === 'post') { const run = RUNS.find((r) => r.id === UI.lastRun); registerRun(run); const line = document.getElementById('postline')?.value || ''; if (run) sharePost(run, line).then((ok) => { if (ok) { UI.posted = true; save(); const y = scrollY; render(); scrollTo(0, y); } }); return; }
+  if (a === 'post') { const run = RUNS.find((r) => r.id === UI.lastRun); if (UI.posted) return; registerRun(run, true); const line = document.getElementById('postline')?.value || ''; if (run) sharePost(run, line).then((ok) => { if (ok) { UI.posted = true; save(); const y = scrollY; render(); scrollTo(0, y); } }); return; }
   if (!G) return;
   if (a === 'gender' || a === 'age' || a === 'content' || a === 'risk') { UI.plan[a] = v; UI.touched = true; SFX.click(); save(); const y = scrollY; render(); scrollTo(0, y); return; }
   if (a === 'offer') { UI.offer = v; save(); const y = scrollY; render(); scrollTo(0, y); return; }
