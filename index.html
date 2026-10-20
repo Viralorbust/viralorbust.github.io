@@ -69,6 +69,16 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -438,6 +448,13 @@ canvas.lvlav{image-rendering:pixelated}
 .rs-reco{margin:12px 0 4px;padding:12px 14px;border:2px solid var(--accent);border-radius:14px;background:var(--surface)}
 .rs-reco ul{margin:6px 0 0;padding-left:18px}
 .rs-reco li{margin:4px 0;font-size:14px;line-height:1.45}
+
+.gladder{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:14px}
+@media (max-width:560px){.gladder{grid-template-columns:repeat(4,1fr)}}
+.gladder span{min-width:0;text-align:center;padding:6px 2px;border:1.5px solid var(--line,#ddd);border-radius:10px;opacity:.55}
+.gladder span b{display:block;font-family:var(--f-serif);font-size:18px;line-height:1.1}
+.gladder span small{display:block;font-size:10px;white-space:nowrap}
+.gladder span.on{opacity:1;border-color:var(--accent);background:var(--accent);color:#fff}
 
 </style>
 </head>
@@ -1234,18 +1251,25 @@ Object.assign(I18N.en, { lvl_why: 'Why: your total sales since day one passed {n
 Object.assign(I18N.ko, { lvl_why: '승진 이유: 누적 매출 {need} 돌파 (현재 {x}). 직함은 통장 잔고가 아니라 게임 시작부터 쌓인 매출로 올라가요.' });
 
 Object.assign(I18N.en, { rs_reco_h: 'What the data says to do', rs_reco_who: 'Target: {g}, {a}.', rs_reco_what: 'Content: alternate {a} and {b} month by month. Repeating one style wears the audience out.', rs_reco_where: 'Channels that fit best: {c}. Add new channels as they unlock.', rs_reco_how: 'Spend about {p} of your cash a month, split across those channels, on Safe or Normal intensity.' });
-Object.assign(I18N.ko, { rs_reco_h: '데이터가 말하는 공략', rs_reco_who: '타깃: {g} · {a}', rs_reco_what: '콘텐츠: {a} ↔ {b}, 한 달씩 번갈아 쓰세요. 같은 스타일만 반복하면 고객이 질려요.', rs_reco_where: '잘 맞는 채널: {c}. 승진해서 새 채널이 열리면 바로 추가하세요.', rs_reco_how: '한 달에 가진 돈의 {p}만 위 채널에 나눠 쓰고, 강도는 안전이나 보통으로 하세요.' });
+Object.assign(I18N.ko, { rs_reco_h: '데이터가 말하는 공략', rs_reco_who: '타깃: {g} · {a}', rs_reco_what: '콘텐츠: 한두 달마다 다른 콘텐츠로 바꿔 보세요. 같은 스타일만 반복하면 고객이 질려요.', rs_reco_where: '잘 맞는 채널: {c}. 승진해서 새 채널이 열리면 바로 추가하세요.', rs_reco_how: '한 달에 가진 돈의 {p}만 위 채널에 나눠 쓰고, 강도는 안전이나 보통으로 하세요.' });
 
 Object.assign(I18N.en, { safety_tag: 'DATA PAYS OFF', safety_h: 'Your investor puts in {x}', safety_p: 'You ran out of cash, but your campaign followed the audience data, so the investor keeps backing you. Runs that follow the data never go bust.', safety_tip: 'Tip: spend less per month and split it across the channels in the report.',
-  mh_tag: 'MID-YEAR REVIEW · YOUR DATA', mh_h: 'How to grow sales from here', mh_ok: 'Plan June', mh_summary: 'January to May: {r} in sales, profit in {w} of {n} months.', mh_best: 'Your best content so far: {c} ({x} a month on average).',
-  mh_target_buy: 'Your audience does not match who buys ({p}% match). The full insight report (£800) shows it: {g}, {a}.', mh_target: 'Your audience does not match who buys ({p}% match). The report says: {g}, {a}.',
-  mh_rotate: 'You used {c} {n} months in a row. Audiences tire of one style. Alternate {a} and {b} month by month.', mh_channels: 'You spent on {n} channels a month on average. Splitting across 3 or more lets each pound go further.',
+  mh_tag: 'MID-YEAR REVIEW · YOUR DATA', mh_h: 'How to grow sales from here', mh_ok: 'Plan July', mh_summary: 'January to May: {r} in sales, profit in {w} of {n} months.', mh_best: 'Your best content so far: {c} ({x} a month on average).',
+  mh_target_buy: 'Your audience does not match who buys ({p}% match). The full insight report (£800) shows who really buys.', mh_target: 'Your audience does not match who buys ({p}% match). Check the age and gender charts in your insight report again.',
+  mh_rotate: 'You used {c} {n} months in a row. Audiences tire of one style. Switch to a different style every month or two.', mh_channels: 'You spent on {n} channels a month on average. Splitting across 3 or more lets each pound go further.',
   mh_spend: 'You spent {p}% of your cash each month. Around 20–35% leaves more profit to compound.', mh_risk: 'You picked All-in a lot. Safe or Normal makes more on average and goes bust far less.', mh_good: 'You are doing the right things. Keep alternating content and add channels as they unlock.' });
 Object.assign(I18N.ko, { safety_tag: '데이터가 지켜줬어요', safety_h: '투자자 지원 {x}', safety_p: '돈이 바닥났지만 고객 데이터대로 한 캠페인이라 투자자가 계속 믿어줘요. 데이터대로 하면 파산하지 않아요.', safety_tip: '팁: 한 달 예산을 줄이고 리포트에 나온 채널에 나눠 쓰세요.',
-  mh_tag: '6월 중간 점검 · 내 플레이 데이터', mh_h: '매출을 더 늘리려면', mh_ok: '6월 계획하기', mh_summary: '1~5월 매출 {r} · 5달 중 {w}달 흑자', mh_best: '지금까지 내 데이터에서 가장 잘 된 콘텐츠: {c} (한 달 평균 {x})',
-  mh_target_buy: '타깃이 실제 구매자와 안 맞아요 (일치도 {p}%). 전체 인사이트 리포트(£800)에 정답이 있어요: {g} · {a}', mh_target: '타깃이 실제 구매자와 안 맞아요 (일치도 {p}%). 리포트 기준 정답: {g} · {a}',
-  mh_rotate: '{c} 콘텐츠를 {n}달 연속 썼어요. 같은 스타일은 고객이 질려요. {a} ↔ {b}, 한 달씩 번갈아 쓰세요.', mh_channels: '한 달에 평균 {n}개 채널만 썼어요. 3개 이상으로 나누면 같은 돈으로 더 많이 팔려요.',
+  mh_tag: '상반기 결산 · 내 플레이 데이터', mh_h: '매출을 더 늘리려면', mh_ok: '7월 계획하기', mh_summary: '1~5월 매출 {r} · {n}달 중 {w}달 흑자', mh_best: '지금까지 내 데이터에서 가장 잘 된 콘텐츠: {c} (한 달 평균 {x})',
+  mh_target_buy: '타깃이 실제 구매자와 안 맞아요 (일치도 {p}%). 전체 인사이트 리포트(£800)에서 실제 구매자를 확인해 보세요.', mh_target: '타깃이 실제 구매자와 안 맞아요 (일치도 {p}%). 인사이트 리포트의 연령·성별 차트를 다시 확인해 보세요.',
+  mh_rotate: '{c} 콘텐츠를 {n}달 연속 썼어요. 같은 스타일은 고객이 질려요. 한두 달마다 다른 콘텐츠로 바꿔 보세요.', mh_channels: '한 달에 평균 {n}개 채널만 썼어요. 3개 이상으로 나누면 같은 돈으로 더 많이 팔려요.',
   mh_spend: '매달 가진 돈의 {p}%를 썼어요. 20~35% 정도로 줄이면 남는 이익이 쌓여서 더 크게 불어나요.', mh_risk: '올인을 자주 골랐어요. 안전이나 보통이 평균 수익도 높고 파산도 훨씬 적어요.', mh_good: '잘하고 있어요. 콘텐츠를 계속 번갈아 쓰고, 새 채널이 열리면 바로 추가하세요.' });
+
+Object.assign(I18N.en, { mf_launch: 'Launch buzz: new brand, everyone is curious' });
+Object.assign(I18N.ko, { mf_launch: '오픈 효과: 신상 브랜드라 다들 궁금해함' });
+Object.assign(I18N.en.achievements, { cash1m: ['Millionaire', 'Hold £1,000,000 in cash.'] });
+Object.assign(I18N.ko.achievements, { cash1m: ['백만장자', '현금 £1,000,000 보유.'] });
+Object.assign(I18N.en, { gl_bust: 'Bust' });
+Object.assign(I18N.ko, { gl_bust: '파산' });
 
 // ===== Viral or Bust — simulation engine (all figures fictional) =====
 const AGES = ['a16', 'a25', 'a35', 'a45'];
@@ -1302,9 +1326,9 @@ const PRODUCTS = {
 
 // Jan..Dec market demand
 const SEASON = [0.88, 0.9, 0.95, 1.0, 1.0, 0.96, 0.95, 0.96, 1.0, 1.05, 1.28, 1.22];
-const LEVELS = [0, 2000, 8000, 25000, 70000, 200000, 500000]; // lifetime revenue
-const LEVEL_K = [1, 1.25, 1.55, 1.9, 2.3, 2.8, 3.2];
-const OVERHEADS = [60, 120, 220, 400, 750, 1400, 2200];
+const LEVELS = [0,3000,15000,60000,200000,700000,2000000]; // lifetime revenue
+const LEVEL_K = [1,1.4,2,2.8,4,6.5,10];
+const OVERHEADS = [60,150,300,600,1200,2500,5000];
 const START = 5000;
 const MISSIONS = { sneakers: { kind: 'followers', target: 5000 }, coffee: { kind: 'streak', target: 3 }, serum: { kind: 'customers', target: 1000 }, app: { kind: 'users', target: 1500 } };
 function missionProgress(s) { const m = MISSIONS[s.product]; const v = m.kind === 'followers' ? s.followers : m.kind === 'streak' ? s.bestStreak || 0 : m.kind === 'customers' ? s.customers : s.subs; return { ...m, value: v, done: v >= m.target }; }
@@ -1390,7 +1414,7 @@ function inboxRoll() { const r = Math.random(); if (r < 0.1) return rnd(0.5, 0.7
 // ===== mega jackpots & sudden collapses (rare, huge) =====
 const MEGA_KINDS = ['deal', 'unicorn', 'line'], DOOM_KINDS = ['lawsuit', 'hack', 'scandal'];
 let MEGA_P = { safe: 0.2, normal: 0.24, bold: 0.32 }, DOOM_P = { safe: 0.003, normal: 0.008, bold: 0.015 };
-let MEGA_MAG = [0.8, 2.5], DOOM_MAG = [0.3, 0.6], MEGA_CAP = 2500000, DOOM_FLOOR = 3000;
+let MEGA_MAG = [1,3], DOOM_MAG = [0.3, 0.6], MEGA_CAP = 8000000, DOOM_FLOOR = 3000;
 function rollLuck() {
   if (Math.random() >= 0.22) return null;
   const good = Math.random() < 0.5, type = pick(good ? LUCK_GOOD : LUCK_BAD);
@@ -1552,8 +1576,8 @@ function alignScore(p, plan) {
   return clamp(Math.pow(ageR, 1.2) * Math.pow(genR, 1.2) * Math.pow(cont, 1.0), 0.003, 1);
 }
 // UPSIDE_OK: below this the plan ignores the data, so no lucky breaks, viral hits or upside swings
-const ALIGN_OK = 0.75, UPSIDE_OK = 0.6, RAMP = [0.85, 0.92, 1];
-const alignFactor = (a) => (a >= 0.97 ? 1 : Math.max(0.45, a));
+const ALIGN_OK = 0.75, UPSIDE_OK = 0.6, RAMP = [2.3,1.8,1.4];
+const alignFactor = (a) => (a >= 0.97 ? 1 : Math.max(0.6, a));
 function fitQ(p, c, plan) { return Math.pow(rawFit(p, c, plan).total, 1.3); }
 
 // fatigue preview, used by UI too
@@ -1618,7 +1642,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     const C = CHANNELS[c];
     const q = fitQ(s.product, c, plan);
     const mq = Math.sqrt(q);
-    const k = C.k * LEVEL_K[lvl] * (1 + s.brand / 400);
+    const k = C.k * 1.5 * LEVEL_K[lvl] * (1 + s.brand / 400);
     const eff = spend > 0 ? k * (1 - Math.exp(-spend / k)) : 0;
     let reach = ((ev.reach && ev.reach[c]) || 1) * (SOCIAL_CH.includes(c) ? heat : Math.pow(heat, 0.3));
     if (ev.contentOnly && !ev.contentOnly.includes(plan.content) && reach > 1) reach = 1;
@@ -2656,6 +2680,10 @@ const agoText = (ts) => { const s = (Date.now() - ts) / 1000; return s < 60 ? t(
 const prodName = (p) => t('industry.' + p + '.0');
 const brandName = (p) => t('products.' + p + '.name');
 const gradeOf = (c) => { const x = c / START; return x >= 150 ? 'SS+' : x >= 60 ? 'SS' : x >= 20 ? 'S' : x >= 8 ? 'A' : x >= 3 ? 'B' : x >= 1 ? 'C' : 'D'; };
+// the full grade ladder, worst to best (F = went bust); shown on the year-end screen
+const GRADE_LADDER = [['F', 0], ['D', 0], ['C', 1], ['B', 3], ['A', 8], ['S', 20], ['SS', 60], ['SS+', 150]];
+function gradeLadder(g) { return `<div class="gladder" aria-label="${esc(t('grade_word'))}">${GRADE_LADDER.map(([k, x]) => `<span class="${k === g ? 'on' : ''}"><b>${k}</b><small>${k === 'F' ? esc(t('gl_bust')) : k === 'D' ? '&lt; ' + gbpShort(START) : gbpShort(START * x) + '+'}</small></span>`).join('')}</div>`; }
+function gbpShort(v) { return v >= 1e6 ? '£' + (v / 1e6).toFixed(v % 1e6 ? 2 : 0).replace(/\.?0+$/, '') + 'M' : v >= 1000 ? '£' + Math.round(v / 1000) + 'k' : '£' + v; }
 
 // ---------- state ----------
 let G = null;
@@ -2681,7 +2709,7 @@ function checkAch(r) {
   if (r.net > 0) grant('first_profit');
   if (r.roi >= 1 && r.spend > 0) grant('roi100');
   if (r.viral) grant('viral');
-  if (G.cash >= 20000) grant('cash5k'); if (G.cash >= 50000) grant('cash25k'); if (G.cash >= 100000) grant('cash100k');
+  if (G.cash >= 20000) grant('cash5k'); if (G.cash >= 50000) grant('cash25k'); if (G.cash >= 100000) grant('cash100k'); if (G.cash >= 1000000) grant('cash1m');
   if (Object.values(r.alloc).filter((v) => v > 0).length >= 5) grant('diverse');
   if (G.minCash < 1500 && G.cash > 10000) grant('comeback');
   if (missionProgress(G).done) grant('mission');
@@ -2993,7 +3021,7 @@ function nextMonth() {
     UI.screen = 'year'; save(); go(); return;
   }
   G.month++; rollM(G);
-  if (G.month === 6 && !G.endless && !G.midShown) { G.midShown = true; const mh = midyearHints(); if (mh) { UI.midPop = mh; track('midyear_hint', { industry: G.product, hints: mh.tips.map((x) => x[0]).join(',') }); } }
+  if (G.month === 7 && !G.endless && !G.midShown) { G.midShown = true; const mh = midyearHints(); if (mh) { UI.midPop = mh; track('midyear_hint', { industry: G.product, hints: mh.tips.map((x) => x[0]).join(',') }); } }
   { const mm = ((G.month - 1) % 12) + 1; if (G.month <= 12 && mm === 4 && rsLv() === 1 && !G.rsAsk4) UI.rsPopup = 2; else if (G.month <= 12 && mm === 9 && rsLv() >= 1 && rsLv() <= 2 && !G.rsAsk9) UI.rsPopup = 3; else UI.rsPopup = 0; }
   const last = G.last ? G.last.alloc : {}, lt = Object.values(last).reduce((a, b) => a + b, 0), cap = Math.max(0, G.cash * 0.9), f = lt > cap && lt > 0 ? cap / lt : 1;
   UI.alloc = {}; for (const c in last) UI.alloc[c] = roundTo(last[c] * f, 10);
@@ -3209,17 +3237,6 @@ function researchBox() {
   const P = PRODUCTS[G.product], lv = rsLv();
   if (!lv) return `<p class="note" style="margin-top:6px">${esc(t(rsFull() ? 'rs_full_desc' : 'rs1_desc'))}</p><button class="btn sm" data-act="research" ${G.cash < rsCost1() ? 'disabled' : ''} style="margin-top:8px">${esc(t('research_btn', { c: rsCost1() }))}</button>`;
   let h = `<p class="note" style="margin:6px 0 0">${esc(t('rs_intro', { p: prodName(G.product) }))} · <b>${esc(rsFull() ? t('rs_full') : t('rs_lv', { n: lv }))}</b></p>`;
-  if (rsHas(3)) {
-    // plain-language summary on top of the charts: the best audience, two contents to alternate, the channels that fit, and how much to spend
-    const bp = bestPlanFor(G.product), cs = CONTENTS.slice().sort((a, b) => P.content[b] - P.content[a]).slice(0, 2);
-    const chs = CHANNEL_ORDER.filter((c) => c !== 'email' && (c !== 'seo' || G.product === 'app')).sort((a, b) => fitQ(G.product, b, { ...bp, content: cs[0] }) - fitQ(G.product, a, { ...bp, content: cs[0] })).slice(0, 3);
-    const spend = { serum: '20–35%', sneakers: '20–35%', coffee: '35–50%', app: '35–50%' }[G.product] || '20–35%';
-    h += `<div class="rs-reco"><span class="eyebrow">${esc(t('rs_reco_h'))}</span><ul>
-      <li>${esc(t('rs_reco_who', { g: t('gender_opts.' + bp.gender), a: t('age_opts.' + bp.age) }))}</li>
-      <li>${esc(t('rs_reco_what', { a: t('contents.' + cs[0]), b: t('contents.' + cs[1]) }))}</li>
-      <li>${esc(t('rs_reco_where', { c: chs.map((c) => t('channels.' + c)).join(' › ') }))}</li>
-      <li>${esc(t('rs_reco_how', { p: spend }))}</li></ul></div>`;
-  }
   h += ''
     + pctBars(t('rs_age'), AGES.map((x, i) => [t('age_opts.' + x), P.age[i]]), t('rs_age_sub'))
     + pctBars(t('rs_gender'), [[t('gender_opts.f'), P.g.f], [t('gender_opts.m'), P.g.m], [t('gender_opts.all'), P.g.all]], t('rs_gender_sub'));
@@ -3250,7 +3267,7 @@ function safetyPopup() {
     <p>${esc(t('safety_p'))}</p><p class="lvl-perk">${esc(t('safety_tip'))}</p>
     <div class="row"><button class="btn primary" data-act="safetyclose">${esc(t('rescue_ok'))}</button></div></div></div>`;
 }
-// mid-year review: in June, read the player's own Jan-May data and point at the biggest lever left
+// mid-year review: as June turns into July, read the player's own Jan-May data and point at the biggest lever left
 function midyearHints() {
   const H = G.history.filter((h) => h.month >= 1 && h.month <= 5 && h.plan); if (!H.length) return null;
   const P = PRODUCTS[G.product], bp = bestPlanFor(G.product), cs = CONTENTS.slice().sort((a, b) => P.content[b] - P.content[a]);
@@ -3427,6 +3444,7 @@ function moneyBox(r) {
   f.push([t('mf_trend', { c: t('contents.' + r.plan.content) }), mult(r.heat), r.heat >= 1 ? 'good' : 'bad']);
   if (r.fatigue && r.fatigue.contentF < 1) f.push([t('mf_fatigue', { c: t('contents.' + r.plan.content) }), mult(r.fatigue.contentF), 'bad']);
   f.push([t('mf_trust', { t: Math.round(r.trust) }), mult(r.trustM || 1), (r.trustM || 1) >= 1 ? 'good' : 'bad']);
+  if (r.rampF != null && r.rampF > 1) f.push([t('mf_launch'), mult(r.rampF), 'good']);
   if (r.rampF != null && r.rampF < 1) f.push([t('mf_ramp'), mult(r.rampF), 'bad']);
   if (r.alignF != null && r.alignF < 1) f.push([t('mf_align'), mult(r.alignF), 'bad']);
   if (r.spend > 0) f.push([t('mf_luck', { r: t('risk_opts.' + (r.risk || 'normal')) }), mult(r.riskFactor || 1), (r.riskFactor || 1) >= 1 ? 'good' : 'bad']);
@@ -3557,7 +3575,7 @@ function endScreen(kind) {
   const k = (l, v) => `<div class="kpi"><small>${esc(l)}</small><b>${v}</b></div>`;
   return `${nav()}<main><div class="col stack" style="gap:28px">
     <div class="gh"><span class="eyebrow">${esc(kind === 'year' ? t('year_end') : t('bust'))} · ${esc(prodName(run.product))}</span>
-      ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>` : `<div class="stage bustst"><canvas id="bustcv" aria-label="${esc(t('bust'))}"></canvas></div><h1 class="h1 busth" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${bustCause(run)}${nearMiss(run)}`}</div>
+      ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>${gradeLadder(g)}` : `<div class="stage bustst"><canvas id="bustcv" aria-label="${esc(t('bust'))}"></canvas></div><h1 class="h1 busth" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${bustCause(run)}${nearMiss(run)}`}</div>
     ${run.challenge ? vsBlock(run) : ''}
     <div class="decision" style="border-color:#fe2c55"><span class="tag">${esc(kind === 'year' ? t('hall') : t('ch_banner_tag'))}</span>
       <h3>${esc(kind === 'year' ? (run.registered ? t('fame_done') : t('fame_h')) : t('send_ch'))}</h3><p>${esc(kind === 'year' ? (run.registered ? t('fame_done_sub') : t('fame_sub')) : t('send_ch_sub'))}</p>
