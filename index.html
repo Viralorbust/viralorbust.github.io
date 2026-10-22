@@ -37,70 +37,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Russo+One&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri@v2.40.3/dist/galmuri.css">
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -593,6 +529,19 @@ canvas.lvlav{image-rendering:pixelated}
 .surprise.good { --bd: #e0a100; } .surprise.bad { --bd: var(--accent); } .surprise.mix { --bd: #7c4ddb; }
 .surprise { box-shadow: 0 -4px 0 0 var(--bd), 0 4px 0 0 var(--bd), -4px 0 0 0 var(--bd), 4px 0 0 0 var(--bd), 0 10px 0 0 color-mix(in srgb, var(--bd) 40%, transparent) !important; border-radius: 0 !important; }
 .surnote { --bd: #7c4ddb; }
+/* hall of fame / challenge: plain section, two equal buttons */
+.fameblock { display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px dashed var(--line); }
+.fameblock h3 { margin: 0; font-size: 22px; } .fameblock p { margin: 0; }
+.fame-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fame-btns .btn { width: 100%; min-height: 50px; font-size: 16px; padding: 10px 12px; }
+.fame-btns .btn:only-child { grid-column: 1 / -1; }
+@media (max-width: 420px) { .fame-btns { grid-template-columns: 1fr; } }
+/* hall of fame cards: amount on its own line, challenge button always at the bottom, same size on every card */
+.hcard { display: flex; flex-direction: column; }
+.hcard > div { flex: 1; display: flex; flex-direction: column; align-items: stretch; }
+.hcard .sc { display: block; margin-top: 4px; }
+.hcard .pillbtn { display: block; width: calc(100% - 6px); margin-left: 3px; margin-right: 3px; margin-top: auto !important; padding: 9px 10px; text-align: center; font-size: 15px; }
+.hcard .sc + .pillbtn { margin-top: 10px !important; }
 
 </style>
 </head>
@@ -2497,6 +2446,13 @@ const PX = (() => {
       const txt = fmtCash(v); const tw = ctx.measureText(txt).width;
       ctx.fillStyle = 'rgba(0,0,0,.8)'; roundRect(ctx, W - tw - 60, 18, tw + 40, 84, 12); ctx.fill();
       ctx.fillStyle = t < 1.2 ? '#ffffff' : o.net >= 0 ? '#25f4ee' : '#fe2c55'; ctx.fillText(txt, W - 40, 62);
+      // change vs. the start of the month: +£x / −£x
+      if (t >= 1.2) {
+        const dv = Math.round(v - o.startCash), up = dv >= 0, dt = (up ? '+' : '−') + fmtCash(Math.abs(dv));
+        ctx.font = '400 34px "Russo One", "Black Han Sans", sans-serif'; const dw = ctx.measureText(dt).width;
+        ctx.fillStyle = up ? 'rgba(0,92,88,.92)' : 'rgba(140,10,40,.92)'; roundRect(ctx, W - dw - 52, 110, dw + 32, 50, 10); ctx.fill();
+        ctx.fillStyle = up ? '#7dfffa' : '#ffd0da'; ctx.fillText(dt, W - 36, 136);
+      }
       ctx.textAlign = 'left';
       // mini sparkline
       const pts = o.history;
@@ -2887,7 +2843,6 @@ let THEME = store.get('vob-theme', 'light');
 let ATTEMPTS = store.get('vob-attempts', 0), BUSTS = store.get('vob-busts', 0);
 // ---------- agency upgrades (meta progression that carries over between runs) ----------
 const UPG = [
-  { id: 'seed', icon: '💰', max: 5, cost: [5, 10, 18, 30, 45] },
   { id: 'adskill', icon: '📈', max: 5, cost: [8, 15, 25, 40, 60] },
   { id: 'early', icon: '🔓', max: 3, cost: [10, 22, 40] },
   { id: 'cushion', icon: '🛡️', max: 2, cost: [12, 30] },
@@ -2895,8 +2850,10 @@ const UPG = [
   { id: 'luck', icon: '🎰', max: 3, cost: [20, 40, 70] },
 ];
 let META = store.get('vob-meta', { stars: 0, earned: 0, up: {} });
+// every run starts with exactly £5,000: the old "seed funding" upgrade is gone, refund any stars spent on it
+if (META.up && META.up.seed) { META.stars = (META.stars || 0) + [5, 10, 18, 30, 45].slice(0, META.up.seed).reduce((a, b) => a + b, 0); delete META.up.seed; store.set('vob-meta', META); }
 const upLv = (id) => (META.up && META.up[id]) || 0;
-function perksNow() { return { seed: upLv('seed') * 1000, conv: upLv('adskill') * 0.05, unlock: upLv('early'), cushion: upLv('cushion'), insight: upLv('insight'), luck: [0, 0.04, 0.08, 0.12][upLv('luck')] }; }
+function perksNow() { return { seed: 0, conv: upLv('adskill') * 0.05, unlock: upLv('early'), cushion: upLv('cushion'), insight: upLv('insight'), luck: [0, 0.04, 0.08, 0.12][upLv('luck')] }; }
 function saveMeta() { store.set('vob-meta', META); }
 function starsFor(outcome, grade) { const peak = Math.max(G.peakCash || 0, G.cash || 0); return 1 + Math.floor(Math.min(12, G.month) / 2) + Math.max(0, Math.floor(2 * Math.log2(Math.max(1, peak / START)))) + ({ C: 1, B: 2, A: 4, S: 6, SS: 9, 'SS+': 12 }[grade] || 0); }
 function awardStars(outcome, grade) { if (!G || G.starsGiven) return 0; const n = starsFor(outcome, grade); G.starsGiven = n; META.stars = (META.stars || 0) + n; META.earned = (META.earned || 0) + n; saveMeta(); track('run_reward', { industry: G.product, stars: n, outcome }); return n; }
@@ -3887,11 +3844,11 @@ function endScreen(kind) {
       ${kind === 'year' ? `<div class="row" style="gap:22px;align-items:flex-end"><span class="grade">${g}</span><h2 style="flex:1;min-width:200px">${esc(t('grades.' + g))}</h2></div>${gradeLadder(g)}` : `<div class="stage bustst"><canvas id="bustcv" aria-label="${esc(t('bust'))}"></canvas></div><h1 class="h1 busth" style="margin:0"><em class="ig-text">${esc(t('bust'))}</em></h1><p class="lede">${esc(t('wipe', { m: G.month }))}</p>${bustCause(run)}${nearMiss(run)}`}</div>
     ${G && G.starsGiven ? `<div class="reward"><span class="rw-star">${pxi('star')}</span><div class="rw-tx"><b>${esc(t('rw_h', { n: G.starsGiven }))}</b><small>${esc(t('rw_sub', { t: int(META.stars || 0) }))}</small></div><button class="btn primary sm" data-act="shop">${esc(t('rw_btn'))}</button></div>` : ''}
     ${run.challenge ? vsBlock(run) : ''}
-    <div class="decision" style="border-color:#fe2c55"><span class="tag">${esc(kind === 'year' ? t('hall') : t('ch_banner_tag'))}</span>
-      <h3>${esc(kind === 'year' ? (run.registered ? t('fame_done') : t('fame_h')) : t('send_ch'))}</h3><p>${esc(kind === 'year' ? (run.registered ? t('fame_done_sub') : t('fame_sub')) : t('send_ch_sub'))}</p>
+    <section class="fameblock"><span class="eyebrow">${esc(kind === 'year' ? t('hall') : t('ch_banner_tag'))}</span>
+      <h3>${esc(kind === 'year' ? (run.registered ? t('fame_done') : t('fame_h')) : t('send_ch'))}</h3><p class="note">${esc(kind === 'year' ? (run.registered ? t('fame_done_sub') : t('fame_sub')) : t('send_ch_sub'))}</p>
       ${kind === 'year' && !run.registered && (!UI.nick || UI.nick === 'Player') ? `<input class="input" id="endnick" maxlength="18" placeholder="${esc(t('fame_nick'))}">` : ''}
-      <div class="row"><button class="btn primary ig" data-act="${kind === 'year' ? 'sendch' : 'sharech'}">${esc(kind === 'year' ? t('fame_btn') : t('vs_share_btn'))}</button>${kind === 'year' && run.registered ? `<button class="btn" data-act="home">${esc(t('fame_view'))}</button>` : ''}</div><div id="sharebox-end" hidden></div></div>
-    ${kind === 'year' ? `<div class="decision vsinvite"><span class="tag">${esc(t('ch_banner_tag'))}</span><h3>${esc(t('vs_share_h', { x: gbp(run.final), g: run.grade }))}</h3><p>${esc(t('vs_share_sub'))}</p><div class="row"><button class="btn primary" data-act="sharech">${esc(t('vs_share_btn'))}</button></div><div id="sharebox-vs" hidden></div></div>` : ''}
+      <div class="fame-btns">${kind === 'year' ? (run.registered ? `<button class="btn" data-act="home">${esc(t('fame_view'))}</button>` : `<button class="btn primary" data-act="sendch">${esc(t('fame_btn'))}</button>`) + `<button class="btn" data-act="sharech">${esc(t('vs_share_btn'))}</button>` : `<button class="btn primary" data-act="sharech">${esc(t('vs_share_btn'))}</button>`}</div>
+      <div id="sharebox-end" hidden></div><div id="sharebox-vs" hidden></div></section>
     <div class="titlecard"><canvas class="lvlav" data-lvl="${G ? levelOf(G.totalRevenue) : 0}" width="72" height="99"></canvas><div><small>${esc(t('final_title'))}</small><b>${esc(t('levels')[G ? levelOf(G.totalRevenue) : 0])}</b></div></div>
     ${missionBox(true)}
     <div class="kpis">${k(t('final_cash'), gbp(run.final))}${k(t('growth'), (run.final >= START ? '+' : '') + pct(run.final / START - 1, 0))}${k(t('stat_followers'), int(run.followers || 0))}${k(t('best_month'), best ? esc(monName(best.month)) + ' ' + sgbp(Math.round(best.net)) : '–')}${k(t('virals'), run.virals)}${k(t('total_rev'), gbp(G.totalRevenue))}</div>
