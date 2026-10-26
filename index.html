@@ -585,6 +585,39 @@ details[open] > summary .sum-hint { display: none; }
   box-shadow: 0 -3px 0 0 var(--bd), 0 3px 0 0 var(--bd), -3px 0 0 0 var(--bd), 3px 0 0 0 var(--bd), 0 6px 0 0 color-mix(in srgb, var(--ink) 25%, transparent) !important; }
 .actionbar .btn:not(.primary) { background: var(--surface) !important;
   box-shadow: 0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink), 0 6px 0 0 color-mix(in srgb, var(--ink) 25%, transparent) !important; }
+/* instant money: the number lands at once with a short punch */
+.popnum { display: inline-block; animation: popnum .45s cubic-bezier(.2, 1.8, .4, 1); }
+@keyframes popnum { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
+.nav .snd-ic[aria-pressed="false"] { opacity: .75; }
+.midcard { --bd: #e0a100; }
+.midcard summary { cursor: pointer; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.midcard summary::-webkit-details-marker { display: none; }
+.midcard summary b::after { content: ' ▾'; color: var(--muted); font-size: .8em; }
+.midcard[open] summary b::after { content: ' ▴'; }
+/* ---------- big money: net profit + cash now ---------- */
+.netcard { gap: 0 !important; padding: 0 !important; overflow: hidden; }
+.netcard .nc-row { display: flex; flex-direction: column; gap: 2px; padding: 16px 20px 14px; }
+.netcard .nc-row small { font-family: 'Galmuri11', var(--f-sans); font-size: 14px; color: var(--muted); }
+.netcard .big { font-family: "VOB Num", "Russo One", "Black Han Sans", sans-serif !important; font-size: clamp(40px, 11vw, 58px) !important; line-height: 1.05; letter-spacing: -0.01em; font-weight: 400 !important; }
+.netcard .big.gain { color: #00b3ad; text-shadow: 3px 3px 0 color-mix(in srgb, #00b3ad 25%, transparent); }
+.netcard .big.loss { color: var(--accent); text-shadow: 3px 3px 0 color-mix(in srgb, var(--accent) 25%, transparent); }
+.netcard .nc-cash { border-top: 3px dashed color-mix(in srgb, var(--bd) 45%, transparent); background: color-mix(in srgb, var(--bd) 6%, transparent); }
+.netcard .nc-cash > b { font-family: "VOB Num", "Russo One", "Black Han Sans", sans-serif; font-weight: 400; font-size: clamp(30px, 8vw, 40px); line-height: 1.1; color: var(--ink); }
+.netcard .nc-cash .cashflow { font-size: 13px !important; color: var(--muted); }
+.moneypop { position: fixed; left: 50%; top: 42%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 18px 28px 20px; background: #14141c; color: #fff; min-width: min(86vw, 340px); text-align: center;
+  box-shadow: 0 -4px 0 0 var(--mpc), 0 4px 0 0 var(--mpc), -4px 0 0 0 var(--mpc), 4px 0 0 0 var(--mpc), 0 12px 0 0 rgba(0,0,0,.25);
+  animation: mpIn .35s cubic-bezier(.2, 1.7, .4, 1) both, mpOut .45s ease-in 1.75s forwards; }
+.moneypop.up { --mpc: #25f4ee; } .moneypop.down { --mpc: #fe2c55; }
+.moneypop small { font-family: 'Galmuri11', var(--f-sans); font-size: 15px; color: #c9c9d6; letter-spacing: .02em; }
+.moneypop .mp-net { font-family: "VOB Num", "Russo One", "Black Han Sans", sans-serif; font-weight: 400; font-size: clamp(44px, 13vw, 72px); line-height: 1; color: var(--mpc); text-shadow: -3px -2px 0 #fe2c55, 3px 2px 0 #25f4ee; }
+.moneypop.down .mp-net { text-shadow: 3px 3px 0 #000; }
+.moneypop .mp-cash { font-family: 'Galmuri11', var(--f-sans); font-size: 16px; color: #e8e8f0; margin-top: 6px; }
+.moneypop .mp-cash b { font-family: "VOB Num", "Russo One", sans-serif; font-weight: 400; font-size: 26px; color: #ffd23f; margin-left: 6px; }
+.moneypop.huge .mp-net { font-size: clamp(48px, 14vw, 84px); animation: mpWob .5s ease-in-out .35s 2; }
+@keyframes mpIn { 0% { transform: translate(-50%, -50%) scale(.3) rotate(-6deg); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0); opacity: 1; } }
+@keyframes mpOut { to { transform: translate(-50%, -120%) scale(.85); opacity: 0; } }
+@keyframes mpWob { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-4deg) scale(1.06); } 75% { transform: rotate(4deg) scale(1.06); } }
 
 /* embedded hero fonts: the title and hero numbers look the same even when the font CDN is blocked */
 @font-face{font-family:"VOB Title";font-weight:700;font-display:block;src:url(data:font/woff;base64,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) format("woff");}
@@ -1391,11 +1424,45 @@ Object.assign(I18N.en, { rs_reco_h: 'What the data says to do', rs_reco_who: 'Ta
 Object.assign(I18N.ko, { rs_reco_h: '데이터가 말하는 공략', rs_reco_who: '타깃: {g} · {a}', rs_reco_what: '콘텐츠: 한두 달마다 다른 콘텐츠로 바꿔 보세요. 같은 스타일만 반복하면 고객이 질려요.', rs_reco_where: '잘 맞는 채널: {c}. 승진해서 새 채널이 열리면 바로 추가하세요.', rs_reco_how: '한 달에 가진 돈의 {p}만 위 채널에 나눠 쓰고, 강도는 안전이나 보통으로 하세요.' });
 
 Object.assign(I18N.en, { safety_tag: 'DATA PAYS OFF', safety_h: 'Your investor puts in {x}', safety_p: 'You ran out of cash, but your campaign followed the audience data, so the investor keeps backing you. Runs that follow the data never go bust.', safety_tip: 'Tip: spend less per month and split it across the channels in the report.',
+  mh2_summary: 'January to May: {r} in sales, {x} total profit, profit in {w} of {n} months.',
+  mh2_bestmonth: 'Best month: {m} ({x}) with {g} · {a} · {c}. {wl}: {wm} ({wx}).',
+  mh2_low: 'Weakest month', mh2_loss: 'Worst month',
+  mh2_bestmonth_neg: 'No profitable month yet. Smallest loss: {m} ({x}) with {g} · {a} · {c}. Biggest loss: {wm} ({wx}).',
+  mh2_target_buy: 'Your audience matched real buyers only {p}% of the time. This product sells best to {g} · {a}. The insight report (£800) shows exactly who buys.',
+  mh2_target: 'Your audience matched real buyers only {p}% of the time. This product sells best to {g} · {a}. Switch to them from July and the same budget sells more.',
+  mh2_content: '{b} months made {bx} on average, {w} months made {wx}. That is {d} a month more for {b}.',
+  mh2_content_one: 'You only used {c} from January to May, so you cannot compare yet. This industry reacts best to {a} and {b}. Try one of them in July.',
+  mh2_rotate: '{c} ran {n} months in a row and fatigue is building, so each month it works a little less. Give {alt} a turn in July.',
+  mh2_ch: 'Customers per £100 of ads: {b} brought {bv}, {w} only {wv}. Move about half of the {w} budget to {b}.',
+  mh2_ch_few: 'You used {n} channels a month on average. One channel fills up fast and gets less effective. Add {c} as a second channel.',
+  mh2_roi_up: 'Every £1 of ads brought back £{r} in gross profit. It is working, so you can raise the budget (you spent {p}% of your cash on ads).',
+  mh2_roi_flat: 'Every £1 of ads brought back about £{r}, close to break-even. Fix the target and channels first, then spend more.',
+  mh2_roi_down: 'Every £1 of ads brought back only £{r}, less than you spent. Cut the weakest channel and match the target before spending more.',
+  mh2_risk: 'You went All-in {n} times: those months averaged {x}, the others {y}. All-in swings hard both ways.',
+  mh2_trust: 'Trust is {t}/100. Low trust lowers conversions, so pick event choices that protect customers.',
+  mh2_next: 'Try this in July: {g} · {a} · {c} · {ch}.',
   mh_tag: 'MID-YEAR REVIEW · YOUR DATA', mh_h: 'How to grow sales from here', mh_ok: 'Plan July', mh_summary: 'January to May: {r} in sales, profit in {w} of {n} months.', mh_best: 'Your best content so far: {c} ({x} a month on average).',
   mh_target_buy: 'Your audience does not match who buys ({p}% match). The full insight report (£800) shows who really buys.', mh_target: 'Your audience does not match who buys ({p}% match). Check the age and gender charts in your insight report again.',
   mh_rotate: 'You used {c} {n} months in a row. Audiences tire of one style. Switch to a different style every month or two.', mh_channels: 'You spent on {n} channels a month on average. Splitting across 3 or more lets each pound go further.',
   mh_spend: 'You spent {p}% of your cash each month. Around 20–35% leaves more profit to compound.', mh_risk: 'You picked All-in a lot. Safe or Normal makes more on average and goes bust far less.', mh_good: 'You are doing the right things. Keep alternating content and add channels as they unlock.' });
 Object.assign(I18N.ko, { safety_tag: '데이터가 지켜줬어요', safety_h: '투자자 지원 {x}', safety_p: '돈이 바닥났지만 고객 데이터대로 한 캠페인이라 투자자가 계속 믿어줘요. 데이터대로 하면 파산하지 않아요.', safety_tip: '팁: 한 달 예산을 줄이고 리포트에 나온 채널에 나눠 쓰세요.',
+  mh2_summary: '1~5월 매출 {r} · 순이익 합계 {x} · {n}달 중 {w}달 흑자',
+  mh2_bestmonth: '가장 잘 번 달: {m} {x} (조합: {g} · {a} · {c}) · {wl}: {wm} {wx}',
+  mh2_low: '가장 적게 번 달', mh2_loss: '가장 손해 본 달',
+  mh2_bestmonth_neg: '아직 흑자 달이 없어요. 그나마 덜 잃은 달: {m} {x} (조합: {g} · {a} · {c}) · 가장 크게 잃은 달: {wm} {wx}',
+  mh2_target_buy: '타깃이 실제 구매자와 {p}%만 맞았어요. 이 제품은 {g} · {a}에게 가장 잘 팔려요. 고객 인사이트 리포트(£800)에서 실제 구매자를 정확히 볼 수 있어요.',
+  mh2_target: '타깃이 실제 구매자와 {p}%만 맞았어요. 이 제품은 {g} · {a}에게 가장 잘 팔려요. 7월부터 타깃을 바꾸면 같은 광고비로 더 많이 팔려요.',
+  mh2_content: '콘텐츠별 한 달 평균: {b} {bx}, {w} {wx}. {b} 쪽이 한 달에 {d} 더 벌었어요.',
+  mh2_content_one: '1~5월에 {c}만 써서 아직 비교할 데이터가 없어요. 이 업종은 {a}·{b} 반응이 가장 좋아요. 7월엔 둘 중 하나를 써 보세요.',
+  mh2_rotate: '{c} 콘텐츠를 {n}달 연속 써서 고객 피로도가 쌓였어요. 매달 효과가 조금씩 줄고 있어요. 7월엔 {alt} 콘텐츠로 한 번 바꿔 주세요.',
+  mh2_ch: '광고비 £100당 고객 수: {b} {bv}명, {w} {wv}명. {w} 예산의 절반 정도를 {b} 채널로 옮겨 보세요.',
+  mh2_ch_few: '한 달에 평균 {n}개 채널만 썼어요. 한 채널은 금방 포화돼서 효과가 떨어져요. {c} 채널을 두 번째로 추가해 보세요.',
+  mh2_roi_up: '광고비 £1당 매출총이익 £{r}가 돌아왔어요. 효과가 확인됐으니 예산을 늘려도 좋아요 (지금은 현금의 {p}%를 광고에 썼어요).',
+  mh2_roi_flat: '광고비 £1당 약 £{r}가 돌아왔어요. 거의 본전이에요. 예산을 늘리기 전에 타깃과 채널부터 맞추세요.',
+  mh2_roi_down: '광고비 £1당 £{r}만 돌아왔어요. 쓴 돈보다 덜 벌었어요. 가장 약한 채널을 빼고 타깃부터 맞춘 뒤 예산을 늘리세요.',
+  mh2_risk: '올인을 {n}번 골랐어요. 올인한 달은 평균 {x}, 나머지 달은 평균 {y}였어요. 올인은 양쪽으로 크게 흔들려요.',
+  mh2_trust: '신뢰도가 {t}/100이에요. 신뢰가 낮으면 전환율이 떨어져요. 이벤트에서 고객을 지키는 선택을 해 보세요.',
+  mh2_next: '7월 추천 조합: {g} · {a} · {c} · {ch}',
   mh_tag: '상반기 결산 · 내 플레이 데이터', mh_h: '매출을 더 늘리려면', mh_ok: '7월 계획하기', mh_summary: '1~5월 매출 {r} · {n}달 중 {w}달 흑자', mh_best: '지금까지 내 데이터에서 가장 잘 된 콘텐츠: {c} (한 달 평균 {x})',
   mh_target_buy: '타깃이 실제 구매자와 안 맞아요 (일치도 {p}%). 전체 인사이트 리포트(£800)에서 실제 구매자를 확인해 보세요.', mh_target: '타깃이 실제 구매자와 안 맞아요 (일치도 {p}%). 인사이트 리포트의 연령·성별 차트를 다시 확인해 보세요.',
   mh_rotate: '{c} 콘텐츠를 {n}달 연속 썼어요. 같은 스타일은 고객이 질려요. 한두 달마다 다른 콘텐츠로 바꿔 보세요.', mh_channels: '한 달에 평균 {n}개 채널만 썼어요. 3개 이상으로 나누면 같은 돈으로 더 많이 팔려요.',
@@ -1414,7 +1481,7 @@ Object.assign(I18N.en, {
   upg: { seed: ['Seed funding', 'Start every run with £1,000 more per level.'], adskill: ['Ad know-how', 'Every campaign converts 5% better per level.'], early: ['Early access', 'Each level opens one more channel from day one: creator ads, then YouTube, then email.'], cushion: ['Investor cushion', 'Level 1: the rescue becomes £5,000 and works all year. Level 2: a second rescue.'], insight: ['Data deal', 'The audience insight report costs 50% less per level. Level 2 makes it free.'], luck: ['Lucky break', 'A bigger chance this run hides a mega jackpot: 4%, 8% or 12%.'] },
   perks_on: 'Active upgrades: {x}', perk_seed: 'start with {x}', perk_conv: '+{n}% conversions', perk_unlock: '{n} early channel(s)', perk_cushion: 'bigger rescue', perk_insight: 'insight −{n}%', perk_luck: '+{n}% jackpot chance',
   rw_h: '+{n} stars earned!', rw_sub: 'You now have {t} stars. Spend them on permanent upgrades.', rw_btn: 'Upgrade agency',
-  plan_ready: 'Ready', trends_sub_short: '= trending now', smart: 'Smart split', smart_sub: 'Data-led budget in one tap', alloc_empty: 'No budget yet. Tap a card above.', finetune: 'Fine-tune each channel', full_report: 'Full report: KPIs, money flow, channels, chart', full_report_hint: 'Click to open the detailed report for this month.',
+  plan_ready: 'Ready', trends_sub_short: '= trending now', smart: 'Smart split', smart_sub: 'Data-led budget in one tap', alloc_empty: 'No budget yet. Tap a card above.', finetune: 'Fine-tune each channel', full_report: 'Full report: KPIs, money flow, channels, chart', full_report_hint: 'Click to open the detailed report for this month.', cash_now: 'Cash now',
 });
 Object.assign(I18N.ko, {
   agency_h: '내 에이전시', agency_sub: '판마다 별을 받아요. 파산해도 받아요. 별로 영원히 남는 업그레이드를 사세요.',
@@ -1422,7 +1489,7 @@ Object.assign(I18N.ko, {
   upg: { seed: ['시드 투자', '레벨마다 시작 자금이 £1,000씩 늘어요.'], adskill: ['광고 노하우', '레벨마다 모든 캠페인의 전환이 5%씩 좋아져요.'], early: ['얼리 액세스', '레벨마다 채널 하나를 처음부터 열어요: 크리에이터 광고 → 유튜브 → 이메일.'], cushion: ['투자자 쿠션', '레벨 1: 구조 자금이 £5,000이 되고 1년 내내 받을 수 있어요. 레벨 2: 구조를 한 번 더 받아요.'], insight: ['데이터 제휴', '레벨마다 고객 인사이트 리포트가 50% 싸져요. 레벨 2는 무료예요.'], luck: ['행운의 한 방', '이번 판에 메가 잭팟이 숨어 있을 확률이 올라가요: 4%, 8%, 12%.'] },
   perks_on: '적용 중인 업그레이드: {x}', perk_seed: '시작 자금 {x}', perk_conv: '전환 +{n}%', perk_unlock: '채널 {n}개 먼저 열림', perk_cushion: '구조 자금 강화', perk_insight: '인사이트 −{n}%', perk_luck: '잭팟 확률 +{n}%',
   rw_h: '별 {n}개 획득!', rw_sub: '지금 별 {t}개가 있어요. 영구 업그레이드에 쓰세요.', rw_btn: '에이전시 업그레이드',
-  plan_ready: '준비 완료', trends_sub_short: '= 지금 뜨는 중', smart: '스마트 배분', smart_sub: '데이터 기반 예산을 한 번에', alloc_empty: '아직 예산이 없어요. 위 카드를 눌러 보세요.', finetune: '채널별로 직접 조정', full_report: '전체 리포트: KPI, 돈의 흐름, 채널, 차트', full_report_hint: '클릭하면 이번 달 상세 리포트를 볼 수 있어요.',
+  plan_ready: '준비 완료', trends_sub_short: '= 지금 뜨는 중', smart: '스마트 배분', smart_sub: '데이터 기반 예산을 한 번에', alloc_empty: '아직 예산이 없어요. 위 카드를 눌러 보세요.', finetune: '채널별로 직접 조정', full_report: '전체 리포트: KPI, 돈의 흐름, 채널, 차트', full_report_hint: '클릭하면 이번 달 상세 리포트를 볼 수 있어요.', cash_now: '지금 현금',
 });
 // ---------- surprises ----------
 Object.assign(I18N.en, {
@@ -1491,7 +1558,7 @@ const CHANNELS = {
 };
 
 const PRODUCTS = {
-  serum: { price: 28, margin: 0.75, cvrMult: 1.3, model: 'oneoff', repeat: 0.25, difficulty: 1,
+  serum: { lateBoost: 1.65, price: 28, margin: 0.75, cvrMult: 1.3, model: 'oneoff', repeat: 0.25, difficulty: 1,
            age: [1.15, 1.25, 1.05, 0.85], g: { f: 1.25, m: 0.8, all: 1.05 },
            content: { short: 1.1, creator: 1.35, edu: 1.15, promo: 1.0, story: 0.95, meme: 0.8 },
            ch: { instagram: 1.3, tiktok: 1.15, seo: 1.0, google: 0.9, influencer: 1.35, youtube: 1.0, email: 1.1 },
@@ -1783,6 +1850,8 @@ function fatigue(s, plan, alloc) {
   return { contentStreak, contentF, chF };
 }
 
+// channel capacity by level; a product can grow faster late in the game (beauty scales hardest)
+function capK(product, lvl) { const b = (PRODUCTS[product] && PRODUCTS[product].lateBoost) || 1; return LEVEL_K[lvl] * Math.pow(b, Math.max(0, lvl - 3) / 3); }
 function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   const P = PRODUCTS[s.product];
   const lvl = levelOf(s.totalRevenue);
@@ -1831,7 +1900,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
     const C = CHANNELS[c];
     const q = fitQ(s.product, c, plan);
     const mq = Math.sqrt(q);
-    const k = C.k * 1.5 * LEVEL_K[lvl] * (1 + s.brand / 400);
+    const k = C.k * 1.5 * capK(s.product, lvl) * (1 + s.brand / 400);
     const eff = spend > 0 ? k * (1 - Math.exp(-spend / k)) : 0;
     let reach = ((ev.reach && ev.reach[c]) || 1) * (SOCIAL_CH.includes(c) ? heat : Math.pow(heat, 0.3));
     if (ev.contentOnly && !ev.contentOnly.includes(plan.content) && reach > 1) reach = 1;
@@ -2094,7 +2163,7 @@ function simulate(s, plan, alloc, acceptOffer, collabId, choices) {
   const paidRows = rows.filter((x) => x.spend > 0);
   const top = paidRows.length ? paidRows.reduce((a, b) => (b.conv > a.conv ? b : a)).c : null;
   s.history.push({ month: s.month, cash: s.cash, startCash, net, revenue, spend: adCost, align, alignF, chN: CHANNEL_ORDER.filter((c) => (alloc[c] || 0) > 0).length, adSpend: totalSpend, doomLoss, plan: { ...plan }, event: s.event,
-    viral: !!viral, backlash, offer: offer ? { id: offer.id, win: offer.win } : null, conv: newConv, lvl: lvlAfter, lvlUp: lvlAfter > lvlBefore, top, events: chosen, season, heat, trustM, riskFactor, sovF, noAdF, newConv, returning, revenue, bossRes, jackpot: jackpot ? jackpot.type : null, crash: crash ? crash.type : null, risk, roi: adCost > 0 ? (gp - adCost) / adCost : 0 });
+    viral: !!viral, backlash, offer: offer ? { id: offer.id, win: offer.win } : null, conv: newConv, lvl: lvlAfter, lvlUp: lvlAfter > lvlBefore, top, events: chosen, season, heat, trustM, riskFactor, sovF, noAdF, newConv, returning, revenue, bossRes, jackpot: jackpot ? jackpot.type : null, crash: crash ? crash.type : null, risk, roi: adCost > 0 ? (gp - adCost) / adCost : 0, chs: rows.filter((r) => r.spend > 0 && CHANNELS[r.c]).map((r) => [r.c, Math.round(r.spend), Math.round(r.conv * 10) / 10]) });
   // ----- campaign log -----
   const W = (w, e) => log.push({ ...e, w });
   for (const e of s.planLog || []) W(1, e);
@@ -2157,7 +2226,7 @@ function recurringGp(s) {
 const DEAD_CASH = 300;
 function isBankrupt(s) { const fixed = OVERHEADS[levelOf(s.totalRevenue)] + (PRODUCTS[s.product].fixed || 0); return s.cash <= 0 || (s.cash < fixed && s.cash + recurringGp(s) - fixed < fixed * 0.5) || (s.cash < DEAD_CASH && s.cash + recurringGp(s) - fixed < DEAD_CASH); }
 
-if (typeof module !== 'undefined') module.exports = { START, missionProgress, TIERS, CHANNELS, PRODUCTS, CHANNEL_ORDER, AGES, CONTENTS, newGame, simulate, rollMonth, levelOf, isBankrupt, fitQ, rawFit };
+if (typeof module !== 'undefined') module.exports = { capK, START, missionProgress, TIERS, CHANNELS, PRODUCTS, CHANNEL_ORDER, AGES, CONTENTS, newGame, simulate, rollMonth, levelOf, isBankrupt, fitQ, rawFit };
 
 // ===== Pixel scenes, clips, diary video, share card =====
 const PX = (() => {
@@ -2491,13 +2560,13 @@ const PX = (() => {
       const W = canvas.width;
       ctx.fillStyle = 'rgba(20,24,31,.78)'; roundRect(ctx, 24, 22, 250, 46, 10); ctx.fill();
       ctx.fillStyle = '#ffffff'; ctx.font = '400 22px "Russo One", "Black Han Sans", sans-serif'; ctx.textBaseline = 'middle'; ctx.fillText(labels.tag, 40, 46);
-      const k = ease((t - 1.2) / 2.6), v = lerp(o.startCash, o.cash, k);
+      const k = 1, v = o.cash; // show the final cash and the month's net instantly
       ctx.textAlign = 'right'; ctx.font = '400 64px "Russo One", "Black Han Sans", sans-serif';
       const txt = fmtCash(v); const tw = ctx.measureText(txt).width;
       ctx.fillStyle = 'rgba(0,0,0,.8)'; roundRect(ctx, W - tw - 60, 18, tw + 40, 84, 12); ctx.fill();
-      ctx.fillStyle = t < 1.2 ? '#ffffff' : o.net >= 0 ? '#25f4ee' : '#fe2c55'; ctx.fillText(txt, W - 40, 62);
+      ctx.fillStyle = o.net >= 0 ? '#25f4ee' : '#fe2c55'; ctx.fillText(txt, W - 40, 62);
       // change vs. the start of the month: +£x / −£x
-      if (t >= 1.2) {
+      {
         const dv = Math.round((o.net != null ? o.net : o.cash - o.startCash) * k), up = (o.net != null ? o.net : dv) >= 0, dt = (labels.net ? labels.net + ' ' : '') + (up ? '+' : '−') + fmtCash(Math.abs(dv)).replace('−', '');
         ctx.font = '400 34px "Russo One", "Black Han Sans", sans-serif'; const dw = ctx.measureText(dt).width;
         ctx.fillStyle = up ? 'rgba(0,92,88,.92)' : 'rgba(140,10,40,.92)'; roundRect(ctx, W - dw - 52, 110, dw + 32, 50, 10); ctx.fill();
@@ -2507,7 +2576,7 @@ const PX = (() => {
       // mini sparkline
       const pts = o.history;
       ctx.fillStyle = 'rgba(0,0,0,.72)'; roundRect(ctx, 24, canvas.height - 128, 300, 104, 12); ctx.fill();
-      spark(ctx, pts, 44, canvas.height - 112, 260, 72, pts.length - 2 + ease((t - 1.2) / 2.6), { lw: 4, base: true, endCol: o.net >= 0 ? '#25f4ee' : '#fe2c55' });
+      spark(ctx, pts, 44, canvas.height - 112, 260, 72, pts.length - 1, { lw: 4, base: true, endCol: o.net >= 0 ? '#25f4ee' : '#fe2c55' });
       if (o.viral && t > 1.0) {
         const s = 1 + Math.sin(t * 8) * 0.04; ctx.save(); ctx.translate(W / 2 - 90, 205); ctx.scale(s, s); ctx.rotate(-0.06);
         ctx.font = '400 76px "Russo One", "Black Han Sans", sans-serif'; ctx.textAlign = 'center';
@@ -2797,6 +2866,10 @@ const SFX = (() => {
     win() { [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.16, 'square', 0.04, i * 0.1)); },
     lose() { [392, 370, 349, 311].forEach((f, i) => tone(f, 0.28, 'triangle', 0.06, i * 0.22)); },
     viral() { for (let i = 0; i < 8; i++) tone(600 + i * 120, 0.09, 'square', 0.035, i * 0.06); },
+    // money up: a quick whoosh that shoots upward plus a bright 'wow' arpeggio
+    cheer() { tone(220, 0.45, 'sawtooth', 0.03, 0, 1500); tone(330, 0.45, 'square', 0.02, 0.02, 1700); [523, 659, 784, 1047, 1319, 1568].forEach((f, i) => tone(f, i === 5 ? 0.45 : 0.1, 'square', 0.045, 0.3 + i * 0.055)); tone(784, 0.5, 'triangle', 0.06, 0.62); tone(1047, 0.5, 'triangle', 0.05, 0.62); },
+    // investor money lands: happy bouncy jingle
+    happy() { [784, 988, 1175, 988, 1175, 1568].forEach((f, i) => tone(f, i === 5 ? 0.4 : 0.09, 'square', 0.045, i * 0.085)); [988, 1319].forEach((f, i) => tone(f, 0.12, 'square', 0.035, 0.55 + i * 0.08)); },
     levelup() { [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, i === 6 ? 0.4 : 0.11, 'square', 0.04, 0.25 + i * 0.09)); },
   };
 })();
@@ -2905,7 +2978,7 @@ if (META.up && META.up.seed) { META.stars = (META.stars || 0) + [5, 10, 18, 30, 
 const upLv = (id) => (META.up && META.up[id]) || 0;
 function perksNow() { return { seed: 0, conv: upLv('adskill') * 0.05, unlock: upLv('early'), cushion: upLv('cushion'), insight: upLv('insight'), luck: [0, 0.04, 0.08, 0.12][upLv('luck')] }; }
 function saveMeta() { store.set('vob-meta', META); }
-function starsFor(outcome, grade) { const peak = Math.max(G.peakCash || 0, G.cash || 0); return 1 + Math.floor(Math.min(12, G.month) / 2) + Math.max(0, Math.floor(2 * Math.log2(Math.max(1, peak / START)))) + ({ C: 1, B: 2, A: 4, S: 6, SS: 9, 'SS+': 12 }[grade] || 0); }
+function starsFor(outcome, grade) { const peak = Math.max(G.peakCash || 0, G.cash || 0); return 1 + Math.floor(Math.min(12, G.month) / 3) + Math.max(0, Math.floor(Math.log2(Math.max(1, peak / START)))) + ({ C: 1, B: 1, A: 2, S: 3, SS: 4, 'SS+': 6 }[grade] || 0); }
 function awardStars(outcome, grade) { if (!G || G.starsGiven) return 0; const n = starsFor(outcome, grade); G.starsGiven = n; META.stars = (META.stars || 0) + n; META.earned = (META.earned || 0) + n; saveMeta(); track('run_reward', { industry: G.product, stars: n, outcome }); return n; }
 function buyUpgrade(id) { const u = UPG.find((x) => x.id === id), lv = upLv(id); if (!u || lv >= u.max) return false; const c = u.cost[lv]; if ((META.stars || 0) < c) return false; META.stars -= c; META.up = { ...(META.up || {}), [id]: lv + 1 }; saveMeta(); track('upgrade_buy', { upgrade: id, upgrade_level: lv + 1 }); return true; }
 
@@ -3096,7 +3169,7 @@ function diaryLabels(run) {
 // ---------- engine helpers ----------
 const lvlNow = () => levelOf(G.totalRevenue);
 const unlocked = (c) => CHANNELS[c].unlock <= lvlNow() + 1 + ((G && G.perk && G.perk.unlock) || 0);
-const kEff = (c) => CHANNELS[c].k * 1.5 * LEVEL_K[lvlNow()] * (1 + G.brand / 400);
+const kEff = (c) => CHANNELS[c].k * 1.5 * capK(G.product, lvlNow()) * (1 + G.brand / 400);
 function effPct(c, spend) { if (!spend) return null; const k = kEff(c); return (k * (1 - Math.exp(-spend / k))) / spend; }
 const allocTotal = () => CHANNEL_ORDER.reduce((a, c) => a + (unlocked(c) ? UI.alloc[c] || 0 : 0), 0);
 const collabCost = () => { if (!UI.collab || !G.collabOffer) return 0; const c = G.collabOffer.list.find((x) => x.id === UI.collab); return c ? c.price : 0; };
@@ -3210,7 +3283,7 @@ function launch(skip) {
   { const spend = Object.values(alloc).reduce((x, y) => x + y, 0), top = CHANNEL_ORDER.filter((c) => alloc[c] > 0).sort((x, y) => alloc[y] - alloc[x])[0] || 'none';
     track('month_launch', { industry: G.product, month: G.month, spend: Math.round(spend), top_channel: top, intensity: UI.plan.risk, target_age: UI.plan.age, target_gender: UI.plan.gender, content: UI.plan.content, collab: UI.collab ? 'yes' : 'no', offer: offerTaken, net: Math.round(r.net), outcome: r.jackpot ? 'jackpot' : r.viral ? 'viral' : r.crash ? 'crash' : r.net >= 0 ? 'profit' : 'loss', endless: G.endless ? 'yes' : 'no' }); }
   if (G.endless) submitScore('endless', G.peakCash, G.month);
-  if (r.viral || r.jackpot) SFX.viral(); else if (r.net >= 0 && !r.crash) SFX.win(); else SFX.lose();
+  if (r.viral || r.jackpot) SFX.viral(); else if (r.net > 0 && !r.crash) SFX.cheer(); else if (r.net >= 0) SFX.win(); else SFX.lose();
   const lvUp = r.lvlAfter > r.lvlBefore;
   UI.lvlPop = lvUp ? { from: r.lvlBefore, to: r.lvlAfter } : null;
   if (lvUp) { setTimeout(() => SFX.levelup && SFX.levelup(), 900); track('level_up', { industry: G.product, month: G.month, level: t('levels')[r.lvlAfter] }); }
@@ -3232,7 +3305,7 @@ function nextMonth() {
   // one rescue per run: early on, an investor tops up the account instead of ending the game
   if (isBankrupt(G) && canRescue()) {
     G.rescues = (G.rescues != null ? G.rescues : G.rescued ? 1 : 0) + 1; G.rescued = true; G.cash += rescueAmt(); G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash };
-    UI.rescuePop = true; track('rescue', { industry: G.product, month: G.month });
+    UI.rescuePop = true; setTimeout(() => SFX.happy(), 120); track('rescue', { industry: G.product, month: G.month });
   }
   if (isBankrupt(G)) {
     track('game_bust', { industry: G.product, month: G.month, peak: Math.round(G.peakCash || 0), challenge: G.challenge ? 'yes' : 'no' });
@@ -3249,7 +3322,7 @@ function nextMonth() {
     UI.screen = 'year'; save(); go(); return;
   }
   G.month++; rollM(G); rollSurprise();
-  if (G.month === 7 && !G.endless && !G.midShown) { G.midShown = true; const mh = midyearHints(); if (mh) { UI.midPop = mh; track('midyear_hint', { industry: G.product, hints: mh.tips.map((x) => x[0]).join(',') }); } }
+  if (G.month === 7 && !G.endless && !G.midShown) { G.midShown = true; const mh = midyearHints(); if (mh) { UI.midPop = mh; G.midHints = mh; track('midyear_hint', { industry: G.product, hints: mh.tips.map((x) => x[0]).join(',') }); } }
   { const mm = ((G.month - 1) % 12) + 1; if (G.month <= 12 && mm === 4 && rsLv() === 1 && !G.rsAsk4) UI.rsPopup = 2; else if (G.month <= 12 && mm === 9 && rsLv() >= 1 && rsLv() <= 2 && !G.rsAsk9) UI.rsPopup = 3; else UI.rsPopup = 0; }
   const last = G.last ? G.last.alloc : {}, lt = Object.values(last).reduce((a, b) => a + b, 0), cap = Math.max(0, G.cash * 0.9), f = lt > cap && lt > 0 ? cap / lt : 1;
   UI.alloc = {}; for (const c in last) UI.alloc[c] = roundTo(last[c] * f, 10);
@@ -3259,12 +3332,15 @@ function goEndless() { G.endless = true; G.month++; rollM(G); rollSurprise(); UI
 function go() { render(); scrollTo(0, 0); }
 
 // ---------- shared bits ----------
+function sndIcon(on) {
+  return `<svg width="20" height="18" viewBox="0 0 10 9" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 3h2v3H0zM2 2h1v5H2zM3 1h1v7H3zM4 0h1v9H4z"/>${on ? '<path fill="currentColor" d="M6 3h1v3H6zM8 1h1v1H8zM9 2h1v5H9zM8 7h1v1H8z"/>' : '<path fill="#fe2c55" d="M6 2h1v1H6zM7 3h1v1H7zM8 4h1v1H8zM9 5h1v1H9zM9 2h1v1H9zM8 3h1v1H8zM7 4h1v1H7zM6 5h1v1H6z"/>'}</svg>`;
+}
 function nav() {
   return `<div class="nav"><div class="pill" role="group" aria-label="Language and theme">
     ${G && UI.screen !== 'home' ? `<button data-act="home">${esc(t('home'))}</button><span class="sep"></span>` : ''}
     <button data-act="lang" data-v="en" aria-pressed="${LANG === 'en'}">English</button>
     <button data-act="lang" data-v="ko" aria-pressed="${LANG === 'ko'}">한국어</button>
-    <span class="sep"></span><button data-act="theme" aria-label="${esc(t('theme'))}" title="${esc(t('theme'))}" style="display:flex;align-items:center"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button></div></div>`;
+    <span class="sep"></span><button data-act="sound" class="snd-ic" aria-pressed="${SFX.on}" aria-label="${esc(SFX.on ? t('sound_on') : t('sound_off'))}" title="${esc(SFX.on ? t('sound_on') : t('sound_off'))}" style="display:flex;align-items:center">${sndIcon(SFX.on)}</button><button data-act="theme" aria-label="${esc(t('theme'))}" title="${esc(t('theme'))}" style="display:flex;align-items:center"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button></div></div>`;
 }
 function actionbar(left, right) { return `<div class="actionbar"><div class="col">${left || ''}${right || ''}</div></div>`; }
 function seg(kind, cols, entries, cur, extra) {
@@ -3371,7 +3447,6 @@ function homeScreen() {
         <p class="note"><b style="color:var(--ink)">${esc(brandName(UI.product))}</b> · ${esc(t('products.' + UI.product + '.hint'))} <span class="mono">${esc(t('price'))} ${gbp(PRODUCTS[UI.product].price)} · ${esc(t('margin'))} ${Math.round(PRODUCTS[UI.product].margin * 100)}%${PRODUCTS[UI.product].fixed ? ' · ' + esc(t('fixed_cost')) + ' ' + gbp(PRODUCTS[UI.product].fixed) + '/' + (LANG === 'ko' ? '월' : 'mo') : ''}</span></p></div>
       <div><label class="label" for="nick" style="display:block">${esc(t('setup_name'))}</label><input class="input" id="nick" maxlength="18" placeholder="${esc(t('nick_ph'))}" value="${esc(UI.nick)}"></div>
       <div><button class="btn primary ig" data-act="start">${esc(t('start_cta'))}</button>${perkLine()}<p class="note">${esc(t('setup_hint'))}</p></div>
-      <div class="row"><button class="btn sm" data-act="sound">${esc(SFX.on ? t('sound_on') : t('sound_off'))}</button></div>
     </section>
     <section class="block">${recordsBox()}</section>
     <section class="block stack"><h2>${esc(t('how_h'))}</h2>${t('how_p').map((p) => `<p class="note" style="font-size:16px;margin:0">${esc(p)}</p>`).join('')}</section>
@@ -3530,20 +3605,44 @@ function safetyPopup() {
 function midyearHints() {
   const H = G.history.filter((h) => h.month >= 1 && h.month <= 5 && h.plan); if (!H.length) return null;
   const P = PRODUCTS[G.product], bp = bestPlanFor(G.product), cs = CONTENTS.slice().sort((a, b) => P.content[b] - P.content[a]);
-  const out = [], avg = (f) => H.reduce((a, h) => a + f(h), 0) / H.length;
-  const byC = {}; for (const h of H) { const c = h.plan.content; (byC[c] = byC[c] || { n: 0, net: 0, spend: 0 }); byC[c].n++; byC[c].net += h.net; byC[c].spend += h.adSpend || h.spend || 0; }
-  const bestC = Object.entries(byC).sort((a, b) => b[1].net / b[1].n - a[1].net / a[1].n)[0];
-  const align = avg((h) => h.align || 0), share = avg((h) => (h.adSpend || 0) / Math.max(1, h.startCash || 1)), chN = avg((h) => h.chN || 0);
-  const topC = Object.entries(byC).sort((a, b) => b[1].n - a[1].n)[0];
-  if (align < ALIGN_OK) out.push(['target', t(rsLv() ? 'mh_target' : 'mh_target_buy', { g: t('gender_opts.' + bp.gender), a: t('age_opts.' + bp.age), p: Math.round(align * 100) })]);
+  const avg = (f, L = H) => (L.length ? L.reduce((a, h) => a + f(h), 0) / L.length : 0);
+  const cN = (c) => t('contents.' + c), chN = (c) => t('channels.' + c), gN = (g) => t('gender_opts.' + g), aN = (a) => t('age_opts.' + a);
+  const rev = H.reduce((a, h) => a + (h.revenue || 0), 0), net = H.reduce((a, h) => a + (h.net || 0), 0), wins = H.filter((h) => h.net > 0).length;
+  const bestM = H.reduce((a, h) => (h.net > a.net ? h : a)), worstM = H.reduce((a, h) => (h.net < a.net ? h : a));
+  const tips = [];
+  // target
+  const align = avg((h) => h.align || 0);
+  if (align < ALIGN_OK) tips.push(['target', t(rsLv() ? 'mh2_target' : 'mh2_target_buy', { p: Math.round(align * 100), g: gN(bp.gender), a: aN(bp.age) })]);
+  // content: which style actually made money
+  const byC = {}; for (const h of H) { const c = h.plan.content; (byC[c] = byC[c] || { n: 0, net: 0 }); byC[c].n++; byC[c].net += h.net; }
+  const cRank = Object.entries(byC).map(([c, v]) => [c, v.net / v.n, v.n]).sort((a, b) => b[1] - a[1]);
+  if (cRank.length >= 2) { const [b, w] = [cRank[0], cRank[cRank.length - 1]]; tips.push(['content', t('mh2_content', { b: cN(b[0]), bx: sgbp(Math.round(b[1])), w: cN(w[0]), wx: sgbp(Math.round(w[1])), d: gbp(Math.round(b[1] - w[1])) })]); }
+  else tips.push(['content1', t('mh2_content_one', { c: cN(cRank[0][0]), a: cN(cs[0] === cRank[0][0] ? cs[1] : cs[0]), b: cN(cs[0] === cRank[0][0] ? cs[2] : cs[1]) })]);
+  // content fatigue (only when the same style ran 3+ months in a row)
   let run = 1, maxRun = 1, runC = H[0].plan.content; for (let i = 1; i < H.length; i++) { run = H[i].plan.content === H[i - 1].plan.content ? run + 1 : 1; if (run > maxRun) { maxRun = run; runC = H[i].plan.content; } }
-  if (maxRun >= 3) out.push(['rotate', t('mh_rotate', { c: t('contents.' + runC), n: maxRun, a: t('contents.' + cs[0]), b: t('contents.' + cs[1]) })]);
-  if (chN < 2.5) out.push(['channels', t('mh_channels', { n: chN.toFixed(1) })]);
-  if (share > 0.5) out.push(['spend', t('mh_spend', { p: Math.round(share * 100) })]);
-  if (H.filter((h) => h.risk === 'bold').length >= 3) out.push(['risk', t('mh_risk')]);
-  if (!out.length) out.push(['good', t('mh_good')]);
-  const rev = H.reduce((a, h) => a + (h.revenue || 0), 0), wins = H.filter((h) => h.net > 0).length;
-  return { summary: t('mh_summary', { r: gbp(Math.round(rev)), w: wins, n: H.length }), best: bestC && Object.keys(byC).length > 1 && bestC[1].net > 0 ? t('mh_best', { c: t('contents.' + bestC[0]), x: sgbp(Math.round(bestC[1].net / bestC[1].n)) }) : '', tips: out.slice(0, 3) };
+  if (maxRun >= 3 && cRank.length >= 2) { const alt = cRank.find((x) => x[0] !== runC); tips.push(['rotate', t('mh2_rotate', { c: cN(runC), n: maxRun, alt: cN(alt ? alt[0] : cs[0] === runC ? cs[1] : cs[0]) })]); }
+  // channels: customers per £100 by channel
+  const agg = {}; for (const h of H) for (const [c, sp, cv] of h.chs || []) { (agg[c] = agg[c] || { sp: 0, cv: 0 }); agg[c].sp += sp; agg[c].cv += cv; }
+  const eff = Object.entries(agg).filter(([, v]) => v.sp >= 100).map(([c, v]) => [c, (v.cv / v.sp) * 100, v.sp]).sort((a, b) => b[1] - a[1]);
+  const usedN = avg((h) => h.chN || 0);
+  if (eff.length >= 2 && eff[0][1] > eff[eff.length - 1][1] * 1.4) { const b = eff[0], w = eff[eff.length - 1]; tips.push(['channels', t('mh2_ch', { b: chN(b[0]), bv: b[1].toFixed(1), w: chN(w[0]), wv: w[1].toFixed(1) })]); }
+  else if (usedN < 2.5) { const unused = CHANNEL_ORDER.filter((c) => unlocked(c) && !agg[c] && c !== 'seo'); tips.push(['channels_few', t('mh2_ch_few', { n: usedN.toFixed(1), c: unused.length ? chN(unused[0]) : chN('tiktok') })]); }
+  // return on ad spend
+  const sp = H.reduce((a, h) => a + (h.spend || 0), 0), gp = H.reduce((a, h) => a + (h.spend || 0) * (1 + (h.roi || 0)), 0);
+  if (sp > 0) { const r = gp / sp; tips.push([r >= 1.15 ? 'roi_up' : r >= 0.95 ? 'roi_flat' : 'roi_down', t(r >= 1.15 ? 'mh2_roi_up' : r >= 0.95 ? 'mh2_roi_flat' : 'mh2_roi_down', { r: r.toFixed(2), p: Math.round(avg((h) => (h.adSpend || 0) / Math.max(1, h.startCash || 1)) * 100) })]); }
+  // risk
+  const bold = H.filter((h) => h.risk === 'bold'), rest = H.filter((h) => h.risk !== 'bold');
+  if (bold.length >= 2) tips.push(['risk', t('mh2_risk', { n: bold.length, x: sgbp(Math.round(avg((h) => h.net, bold))), y: rest.length ? sgbp(Math.round(avg((h) => h.net, rest))) : '–' })]);
+  // trust
+  if ((G.trust || 0) < 50) tips.push(['trust', t('mh2_trust', { t: Math.round(G.trust || 0) })]);
+  // concrete plan for July
+  const ch2 = eff.length ? eff.slice(0, 2).map((x) => chN(x[0])).join(' + ') : chN('instagram') + ' + ' + chN('tiktok');
+  const nextC = cRank.length >= 2 && cRank[0][0] !== runC ? cRank[0][0] : cs.find((c) => c !== runC) || cs[0];
+  const PRI = ['target', 'channels', 'roi_down', 'content', 'content1', 'rotate', 'channels_few', 'risk', 'roi_flat', 'trust', 'roi_up'];
+  tips.sort((x, y) => PRI.indexOf(x[0]) - PRI.indexOf(y[0]));
+  const out = tips.slice(0, 2); if (false) out.push(['next', t('mh2_next', { g: gN(align < ALIGN_OK ? bp.gender : bestM.plan.gender), a: aN(align < ALIGN_OK ? bp.age : bestM.plan.age), c: cN(nextC), ch: ch2 })]);
+  return { summary: t('mh2_summary', { r: gbp(Math.round(rev)), x: sgbp(Math.round(net)), w: wins, n: H.length }),
+    best: t(bestM.net > 0 ? 'mh2_bestmonth' : 'mh2_bestmonth_neg', { m: monName(bestM.month), x: sgbp(Math.round(bestM.net)), g: gN(bestM.plan.gender), a: aN(bestM.plan.age), c: cN(bestM.plan.content), wl: t(worstM.net > 0 ? 'mh2_low' : 'mh2_loss'), wm: monName(worstM.month), wx: sgbp(Math.round(worstM.net)) }), tips: out };
 }
 // ---------- surprises: unexpected situations that interrupt a month (seeded per run, so challenge links stay fair) ----------
 const pctCost = (p, min) => Math.max(min, Math.round((Math.max(0, G.cash) * p) / 10) * 10);
@@ -3583,13 +3682,22 @@ function chooseSurprise(k) {
   const s = G.surprise; if (!s || s.done) return;
   const o = SURPRISES[s.id].opts.find((x) => x.k === k); if (!o) return;
   const c = o.cost ? o.cost() : 0; if (c > G.cash) return;
-  G.cash -= c; const rv = o.fx(s.r), res = rv === 'good' || rv === 'bad' ? rv : ''; if (s.id === 'angel' && k === 'a') G.angelTaken = true;
+  G.cash -= c; if (s.id === 'angel' && k === 'a') setTimeout(() => SFX.happy(), 60); const rv = o.fx(s.r), res = rv === 'good' || rv === 'bad' ? rv : ''; if (s.id === 'angel' && k === 'a') G.angelTaken = true;
   G.history[G.history.length - 1] = { ...G.history[G.history.length - 1], cash: G.cash };
   s.done = true; s.choice = k;
   const msg = t('sur.' + s.id + '.r' + k + (res ? '_' + res : ''));
   track('surprise', { industry: G.product, month: G.month, surprise: s.id, option: k + (res ? '_' + res : ''), value: Math.round(c) });
   (SURPRISES[s.id].tone === 'good' || res === 'good') ? (SFX.win && SFX.win()) : (SFX.lose && SFX.lose());
   UI.surToast = msg;
+}
+// the mid-year hint stays on the plan screen from July on, so it can't be missed by closing the popup
+function midCard() {
+  if (!G || G.endless || G.month < 7 || G.month > 12) return '';
+  if (!G.midHints) { const mh = midyearHints(); if (!mh) return ''; G.midHints = mh; }
+  const m = G.midHints;
+  return `<details class="news midcard" ${G.month === 7 ? 'open' : ''}><summary><span class="eyebrow">${esc(t('mh_tag'))}</span><b>${esc(t('mh_h'))}</b></summary>
+    <p style="margin:6px 0 0">${esc(m.summary)}</p>${m.best ? `<p style="margin:4px 0 0"><b>${esc(m.best)}</b></p>` : ''}
+    <ul class="guide-list" style="margin:8px 0 0">${m.tips.map((x) => `<li>${esc(x[1])}</li>`).join('')}</ul></details>`;
 }
 function midyearPopup() {
   const m = UI.midPop; if (!m) return '';
@@ -3809,7 +3917,8 @@ function resultScreen() {
     <div class="gh"><span class="eyebrow">${esc(t('report'))} · ${esc(monName(r.month, true))} · CMP-${String(r.month).padStart(2, '0')}</span></div>
     <div class="stage"><canvas id="clip"></canvas><div class="cap"><span>${esc(t('preview_cap', { g: t('gender_opts.' + r.plan.gender), a: t('age_opts.' + r.plan.age), c: t('contents.' + r.plan.content) }))}</span><button class="linkbtn" data-act="replayclip">${esc(t('clip_replay'))}</button></div></div>
     ${r.jackpot ? `<div class="burst jack">${esc(t('jack_banner'))}</div>` : ''}${r.crash ? `<div class="burst crash">${esc(t('crash_banner'))}</div>` : ''}
-    <div class="netcard ${r.net >= 0 ? 'up' : 'down'}"><small>${esc(r.net >= 0 ? t('net_profit') : t('net_loss'))}</small><span class="big ${r.net >= 0 ? 'gain' : 'loss'}" data-countup="${Math.round(r.net)}" data-sign="1">${sgbp(0)}</span><span class="cashflow mono">${gbp(r.startCash)} → <b data-countup="${Math.round(r.cash)}" data-from="${Math.round(r.startCash)}">${gbp(r.startCash)}</b></span></div>
+    <div class="netcard ${r.net >= 0 ? 'up' : 'down'}"><div class="nc-row"><small>${esc(r.net >= 0 ? t('net_profit') : t('net_loss'))}</small><span class="big ${r.net >= 0 ? 'gain' : 'loss'}" data-countup="${Math.round(r.net)}" data-sign="1">${sgbp(Math.round(r.net))}</span></div>
+      <div class="nc-row nc-cash"><small>${esc(t('cash_now'))}</small><b data-countup="${Math.round(r.cash)}" data-from="${Math.round(r.startCash)}">${gbp(Math.round(r.cash))}</b><span class="cashflow">${gbp(r.startCash)} → ${gbp(Math.round(r.cash))}</span></div></div>
     ${statBars({ net: r.net, fol: r.followGain, trust: r.trustDelta })}
     <div><h2>${esc(t('log_title'))}</h2>${logList(r.log, false, 4)}</div>
     <details class="box fullrep" id="fullrep" ${UI.repOpen ? 'open' : ''}><summary>${pxi('report', 'inl')} ${esc(t('full_report'))}<small class="sum-hint">${esc(t('full_report_hint'))}</small></summary><div class="stack" style="gap:26px;padding-top:14px">
@@ -3969,15 +4078,25 @@ function fxRain(n, chars, cls) {
 }
 function fxShake() { if (reduceMotion()) return; const a = document.getElementById('app'); if (!a) return; a.classList.remove('shake'); void a.offsetWidth; a.classList.add('shake'); setTimeout(() => a.classList.remove('shake'), 500); }
 function countUp(el) {
-  const to = +el.dataset.countup, from = +(el.dataset.from || 0), sign = el.dataset.sign === '1', dur = reduceMotion() ? 0 : 900, t0 = performance.now();
+  const to = +el.dataset.countup, from = +(el.dataset.from || 0), sign = el.dataset.sign === '1', dur = 0, t0 = performance.now();
   const fmt = (v) => (sign ? sgbp(Math.round(v)) : gbp(Math.round(v)));
-  if (!dur) { el.textContent = fmt(to); return; }
+  if (!dur) { el.textContent = fmt(to); if (!reduceMotion()) { el.classList.remove('popnum'); void el.offsetWidth; el.classList.add('popnum'); } return; }
   const step = (now) => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(from + (to - from) * e); if (k < 1) requestAnimationFrame(step); };
   requestAnimationFrame(step);
+}
+// big money pop over the screen: this month's net and the cash you now have, all at once
+function moneyPop(r) {
+  if (reduceMotion()) return;
+  const up = r.net >= 0, el = document.createElement('div');
+  el.className = 'moneypop ' + (up ? 'up' : 'down') + (r.jackpot || r.viral ? ' huge' : '');
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = `<small>${esc(up ? t('net_profit') : t('net_loss'))}</small><b class="mp-net">${esc(sgbp(Math.round(r.net)))}</b><span class="mp-cash">${esc(t('cash_now'))} <b>${esc(gbp(Math.round(r.cash)))}</b></span>`;
+  document.body.appendChild(el); setTimeout(() => el.remove(), 2300);
 }
 function resultFx() {
   if (!G || !G.last || UI.fxDone === G.last.month + ':' + G.history.length) return; UI.fxDone = G.last.month + ':' + G.history.length;
   const r = G.last;
+  moneyPop(r);
   if (r.jackpot || r.viral) fxRain(40, ['coin', 'note', 'sparkle', 'star'], 'big');
   else if (r.net > 0) fxRain(Math.min(28, 8 + Math.round(Math.log10(1 + r.net) * 4)), ['coin', 'note']);
   if (r.net < 0 || r.crash) fxShake();
@@ -3987,6 +4106,7 @@ function resultFx() {
 // ---------- render ----------
 let HERO = null, PREVIEW = null, CLIP = null;
 function render() {
+  if (UI.screen !== 'result') document.querySelectorAll('.moneypop').forEach((e) => e.remove());
   PX.stopAll(); HERO = PREVIEW = CLIP = null; PLAYER = null;
   document.documentElement.lang = LANG;
   let html;
@@ -4038,7 +4158,7 @@ document.addEventListener('click', (e) => {
     track('button_click', p); }
   if (a === 'lang') { track('language_switch', { to: v }); LANG = v; store.set('vob-lang', v); render(); return; }
   if (a === 'theme') { THEME = THEME === 'light' ? 'dark' : 'light'; store.set('vob-theme', THEME); applyTheme(); render(); return; }
-  if (a === 'sound') { SFX.set(!SFX.on); store.set('vob-sound', SFX.on); b.textContent = SFX.on ? t('sound_on') : t('sound_off'); SFX.click(); return; }
+  if (a === 'sound') { SFX.set(!SFX.on); store.set('vob-sound', SFX.on); document.querySelectorAll('[data-act=sound]').forEach((x) => { const lab = SFX.on ? t('sound_on') : t('sound_off'); if (x.classList.contains('snd-ic')) { x.innerHTML = sndIcon(SFX.on); x.setAttribute('aria-pressed', SFX.on); x.setAttribute('aria-label', lab); x.title = lab; } else x.textContent = lab; }); SFX.click(); return; }
   if (a === 'lbtab') { UI.lbTab = v; renderHall(); return; }
   if (a === 'hallall') { UI.hallAll = !UI.hallAll; renderHall(); return; }
   if (a === 'feedmore') { UI.feedN += 10; renderFeed(); return; }
@@ -4114,7 +4234,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document
 
 // ---------- boot ----------
 function boot(data) {
-  SFX.set(!!store.get('vob-sound', false));
+  SFX.set(!!store.get('vob-sound', true));
   if (data && data.G) { G = data.G; UI = { ...UI, ...data.UI }; }
   else {
     const s = store.get('vob2-save', null); if (s && s.G && s.UI) { G = s.G; UI = { ...UI, ...s.UI }; }
