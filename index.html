@@ -618,6 +618,10 @@ details[open] > summary .sum-hint { display: none; }
 @keyframes mpIn { 0% { transform: translate(-50%, -50%) scale(.3) rotate(-6deg); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0); opacity: 1; } }
 @keyframes mpOut { to { transform: translate(-50%, -120%) scale(.85); opacity: 0; } }
 @keyframes mpWob { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-4deg) scale(1.06); } 75% { transform: rotate(4deg) scale(1.06); } }
+.netcard .nc-row .cashflow { font-size: 13px !important; color: var(--muted); }
+.netcard .nc-cash > b.gain { color: #00a39d; } .netcard .nc-cash > b.loss { color: var(--accent); }
+.moneypop .mp-net { color: #ffffff !important; }
+.moneypop.up .mp-cash b { color: #25f4ee; } .moneypop.down .mp-cash b { color: #ff6b81; }
 
 /* embedded hero fonts: the title and hero numbers look the same even when the font CDN is blocked */
 @font-face{font-family:"VOB Title";font-weight:700;font-display:block;src:url(data:font/woff;base64,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) format("woff");}
@@ -3917,8 +3921,8 @@ function resultScreen() {
     <div class="gh"><span class="eyebrow">${esc(t('report'))} · ${esc(monName(r.month, true))} · CMP-${String(r.month).padStart(2, '0')}</span></div>
     <div class="stage"><canvas id="clip"></canvas><div class="cap"><span>${esc(t('preview_cap', { g: t('gender_opts.' + r.plan.gender), a: t('age_opts.' + r.plan.age), c: t('contents.' + r.plan.content) }))}</span><button class="linkbtn" data-act="replayclip">${esc(t('clip_replay'))}</button></div></div>
     ${r.jackpot ? `<div class="burst jack">${esc(t('jack_banner'))}</div>` : ''}${r.crash ? `<div class="burst crash">${esc(t('crash_banner'))}</div>` : ''}
-    <div class="netcard ${r.net >= 0 ? 'up' : 'down'}"><div class="nc-row"><small>${esc(r.net >= 0 ? t('net_profit') : t('net_loss'))}</small><span class="big ${r.net >= 0 ? 'gain' : 'loss'}" data-countup="${Math.round(r.net)}" data-sign="1">${sgbp(Math.round(r.net))}</span></div>
-      <div class="nc-row nc-cash"><small>${esc(t('cash_now'))}</small><b data-countup="${Math.round(r.cash)}" data-from="${Math.round(r.startCash)}">${gbp(Math.round(r.cash))}</b><span class="cashflow">${gbp(r.startCash)} → ${gbp(Math.round(r.cash))}</span></div></div>
+    <div class="netcard ${r.net >= 0 ? 'up' : 'down'}"><div class="nc-row"><small>${esc(t('cash_now'))}</small><span class="big ${r.net >= 0 ? 'gain' : 'loss'}" data-countup="${Math.round(r.cash)}">${gbp(Math.round(r.cash))}</span><span class="cashflow">${gbp(r.startCash)} → ${gbp(Math.round(r.cash))}</span></div>
+      <div class="nc-row nc-cash"><small>${esc(r.net >= 0 ? t('net_profit') : t('net_loss'))}</small><b class="${r.net >= 0 ? 'gain' : 'loss'}" data-countup="${Math.round(r.net)}" data-sign="1">${sgbp(Math.round(r.net))}</b></div></div>
     ${statBars({ net: r.net, fol: r.followGain, trust: r.trustDelta })}
     <div><h2>${esc(t('log_title'))}</h2>${logList(r.log, false, 4)}</div>
     <details class="box fullrep" id="fullrep" ${UI.repOpen ? 'open' : ''}><summary>${pxi('report', 'inl')} ${esc(t('full_report'))}<small class="sum-hint">${esc(t('full_report_hint'))}</small></summary><div class="stack" style="gap:26px;padding-top:14px">
@@ -4090,7 +4094,7 @@ function moneyPop(r) {
   const up = r.net >= 0, el = document.createElement('div');
   el.className = 'moneypop ' + (up ? 'up' : 'down') + (r.jackpot || r.viral ? ' huge' : '');
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = `<small>${esc(up ? t('net_profit') : t('net_loss'))}</small><b class="mp-net">${esc(sgbp(Math.round(r.net)))}</b><span class="mp-cash">${esc(t('cash_now'))} <b>${esc(gbp(Math.round(r.cash)))}</b></span>`;
+  el.innerHTML = `<small>${esc(t('cash_now'))}</small><b class="mp-net">${esc(gbp(Math.round(r.cash)))}</b><span class="mp-cash">${esc(up ? t('net_profit') : t('net_loss'))} <b>${esc(sgbp(Math.round(r.net)))}</b></span>`;
   document.body.appendChild(el); setTimeout(() => el.remove(), 2300);
 }
 function resultFx() {
