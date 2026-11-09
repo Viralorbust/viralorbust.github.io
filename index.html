@@ -3478,8 +3478,7 @@ function renderStats() {
 function renderLive() {
   const el = document.getElementById('live'); if (!el) return;
   if (NET.state === 'off' && !NET.room) { el.innerHTML = ''; return; }
-  const p = NET.posts[0];
-  const tick = p ? (p.outcome === 'bust' ? t('tick_bust', { ago: agoText(p.createdAt), p: prodName(p.product) }) : t('tick_year', { ago: agoText(p.createdAt), p: prodName(p.product), x: gbp(p.final) })) : '';
+  const tick = '';
   const main = NET.supa ? t('live_recent', { n: int(NET.recentPlays || 0) }) : NET.room ? (NET.peers > 1 ? t('live_n', { n: int(NET.peers) }) : t('live_one')) : t('live_off', { n: int(NET.posts.length) });
   const enough = NET.supa ? (NET.recentPlays || 0) >= LIVE_MIN : NET.room ? true : NET.posts.length >= LIVE_MIN;
   if (!enough && !tick) { el.innerHTML = ''; return; }
